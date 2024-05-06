@@ -1,6 +1,21 @@
 {
   "name": "abragodb",
   "version": "0.1.0",
+  "description": "ABRAGO DB",
+  "author": "Philippe Fanaro",
+  "contributors": [
+    {
+      "name": "Philippe Fanaro",
+      "email": "philippefanaro@gmail.com"
+    }
+  ],
+  "keywords": [
+    "go",
+    "baduk",
+    "weiqi",
+    "igo",
+    "database"
+  ],
   "private": true,
   "type": "module",
   "scripts": {

@@ -35,7 +35,19 @@
         "./src/*"
       ],
       "@@/*": [
-        "./"
+        "./*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@components": [
+        "./src/components/exports"
+      ],
+      "@db/*": [
+        "./src/server/db/*"
+      ],
+      "@db": [
+        "./src/server/db/exports"
       ],
       "@server/*": [
         "./src/server/*"
@@ -43,11 +55,17 @@
       "@server": [
         "./src/server/exports"
       ],
-      "@db/*": [
-        "./src/server/db/*"
+      "@styles/*": [
+        "./src/styles/*"
       ],
-      "@db": [
-        "./src/server/db/exports"
+      "@styles": [
+        "./src/styles/exports"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
+      "@types": [
+        "./src/types/exports"
       ],
     }
   },
