@@ -1,6 +1,9 @@
+import { cookies } from "next/headers"
 import { Inter } from "next/font/google"
 
-import { type WithReactChildren } from "@types"
+import { Theme, type WithReactChildren } from "@types"
+
+import { ThemeProvider } from "@providers"
 
 import { TopNav } from "@components"
 
@@ -20,17 +23,25 @@ export const metadata = {
 export default function RootLayout({
   children,
 }: WithReactChildren) {
+  const cookieStore = cookies()
+  const theme = cookieStore.get("theme")
+    ? cookieStore.get("theme")!.value
+    : Theme.light
+
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.variable,
-        )}
-      >
-        <TopNav />
-        <main className="p-4">{children}</main>
-      </body>
+    <html lang="pt-BR">
+      <ThemeProvider initialTheme={theme}>
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            inter.variable,
+            theme,
+          )}
+        >
+          <TopNav />
+          <main className="p-6">{children}</main>
+        </body>
+      </ThemeProvider>
     </html>
   )
 }

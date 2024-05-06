@@ -37,6 +37,12 @@
       "@@/*": [
         "./*"
       ],
+      "@actions/*": [
+        "./src/server/actions/*"
+      ],
+      "@actions": [
+        "./src/server/actions/exports"
+      ],
       "@components/*": [
         "./src/components/*"
       ],
@@ -49,11 +55,23 @@
       "@db": [
         "./src/server/db/exports"
       ],
+      "@providers/*": [
+        "./src/providers/*"
+      ],
+      "@providers": [
+        "./src/providers/exports"
+      ],
       "@server/*": [
         "./src/server/*"
       ],
       "@server": [
         "./src/server/exports"
+      ],
+      "@shad/*": [
+        "./src/components/common/shad/*"
+      ],
+      "@shad": [
+        "./src/components/common/shad/exports"
       ],
       "@styles/*": [
         "./src/styles/*"
