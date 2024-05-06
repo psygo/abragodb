@@ -5,18 +5,20 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "lint": "next lint",
     "start": "next start"
   },
   "dependencies": {
     "@t3-oss/env-nextjs": "^0.10.1",
+    "edgedb": "^1.5.5",
     "next": "^14.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "zod": "^3.23.3"
   },
   "devDependencies": {
+    "@edgedb/generate": "^0.5.3",
     "@types/eslint": "^8.56.2",
     "@types/node": "^20.11.20",
     "@types/react": "^18.2.57",
@@ -30,9 +32,5 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.2"
-  },
-  "ct3aMetadata": {
-    "initVersion": "7.32.0"
-  },
-  "packageManager": "pnpm@9.0.6"
+  }
 }

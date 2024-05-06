@@ -1,0 +1,13 @@
+{
+    "files.exclude": {
+        "**/node_modules/": true,
+        ".next": true,
+        ".vercel": true,
+        "next-env.d.ts": true,
+        "**/migrations/": true,
+        "**/edgeql-js/": true
+    },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    }
+}
