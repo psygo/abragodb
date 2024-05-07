@@ -1,8 +1,15 @@
+import { Suspense } from "react"
+
+import { SignedIn } from "@clerk/nextjs"
+
 import e from "@@/dbschema/edgeql-js"
 
 import { edgeDbClient } from "@db"
 
 import { type Username } from "@types"
+
+import { ProfileForm, Progress } from "@components"
+import { Separator } from "@shad"
 
 type PlayerPageProps = {
   params: { username: Username }
@@ -19,12 +26,25 @@ export default async function PlayerPage({
   }))
   const player = await selectPlayer.run(edgeDbClient)
 
-  if (!player) return <></>
+  if (!player)
+    return (
+      <article className="prose dark:prose-invert">
+        <h2>Este jogador nao foi encontrado.</h2>
+      </article>
+    )
 
   return (
     <article className="prose dark:prose-invert">
-      <h2>{player.username}</h2>
-      <h3>{player.email}</h3>
+      <Suspense fallback={<Progress />}>
+        <h2>{player.username}</h2>
+        <h3>{player.email}</h3>
+
+        <Separator className="mt-8" />
+
+        <SignedIn>
+          <ProfileForm />
+        </SignedIn>
+      </Suspense>
     </article>
   )
 }

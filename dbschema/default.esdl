@@ -27,8 +27,13 @@ module default {
   }
   
   type Profile {
+    is_public: bool {
+      default := false;
+    }
+
     first_name: str;
     last_name: str;
+    public_email: str;
     date_of_birth: str;
 
     description: str;
