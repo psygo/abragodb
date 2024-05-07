@@ -25,7 +25,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/localizations": "^2.3.0",
     "@clerk/nextjs": "^5.0.6",
+    "@clerk/themes": "^2.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",

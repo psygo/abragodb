@@ -8,6 +8,7 @@
 1. [ ] Table Pagination
 2. [ ] Player Base Statistics
 3. [ ] Players' Map (Brazil)
+4. [ ] Internationalization
 
 ## Deployment
 

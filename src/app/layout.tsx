@@ -2,8 +2,14 @@ import { cookies } from "next/headers"
 import { Inter } from "next/font/google"
 
 import { ClerkProvider } from "@clerk/nextjs"
+import { shadesOfPurple } from "@clerk/themes"
+import { ptBR } from "@clerk/localizations"
 
-import { Theme, type WithReactChildren } from "@types"
+import {
+  Theme,
+  stringToTheme,
+  type WithReactChildren,
+} from "@types"
 
 import { ThemeProvider } from "@providers"
 
@@ -27,12 +33,20 @@ export default function RootLayout({
 }: WithReactChildren) {
   const cookieStore = cookies()
   const theme = cookieStore.get("theme")
-    ? cookieStore.get("theme")!.value
+    ? stringToTheme(cookieStore.get("theme")!.value)
     : Theme.light
 
   return (
     <ThemeProvider initialTheme={theme}>
-      <ClerkProvider>
+      <ClerkProvider
+        appearance={{
+          baseTheme:
+            theme === Theme.dark
+              ? shadesOfPurple
+              : undefined,
+        }}
+        localization={ptBR}
+      >
         <html lang="pt-BR">
           <body
             className={cn(

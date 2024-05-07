@@ -2,6 +2,11 @@
 
 import Link from "next/link"
 
+import {
+  UserButton,
+  useUser as useClerkUser,
+} from "@clerk/nextjs"
+
 import { Moon, Sun } from "lucide-react"
 
 import { Button } from "@shad"
@@ -36,6 +41,7 @@ function RightNav() {
     <section className="flex items-center gap-1">
       <AboutPage />
       <ThemeButton />
+      <SignedIn />
     </section>
   )
 }
@@ -66,4 +72,17 @@ function ThemeButton() {
       <span className="sr-only">Toggle theme</span>
     </Button>
   )
+}
+
+function SignedIn() {
+  const { isSignedIn } = useClerkUser()
+
+  if (!isSignedIn)
+    return (
+      <Button className="ml-3" size="sm" variant="outline">
+        Entrar
+      </Button>
+    )
+
+  return <UserButton />
 }
