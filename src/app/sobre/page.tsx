@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <article className="prose">
+    <article className="prose dark:prose-invert">
       <section>
         <h2 className="mt-6">Sobre o Projeto</h2>
         <p>
