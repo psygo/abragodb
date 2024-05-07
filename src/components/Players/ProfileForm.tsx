@@ -15,9 +15,12 @@ import {
   FormMessage,
   Input,
 } from "@shad"
+import { updatePlayerProfile } from "../../server/actions/Players/update_players"
+import { useParams, useRouter } from "next/navigation"
 
 const profileFormValidationSchema = z.object({
   first_name: z.string(),
+  last_name: z.string(),
 })
 
 type ProfileFormValidation = z.infer<
@@ -29,34 +32,63 @@ export function ProfileForm() {
     resolver: zodResolver(profileFormValidationSchema),
   })
 
-  function onSubmit(values: ProfileFormValidation) {
-    console.log("submit")
+  const router = useRouter()
+
+  const params = useParams()
+  const username = params.username as string
+
+  async function onSubmit(values: ProfileFormValidation) {
+    await updatePlayerProfile(
+      username,
+      values.first_name,
+      values.last_name,
+    )
+    router.refresh()
   }
 
   return (
     <>
       <h2 className="mt-6">Edite o Seu Perfil</h2>
-      <form></form>
 
       <Form {...profileForm}>
         <form
           onSubmit={profileForm.handleSubmit(onSubmit)}
-          className="space-y-8"
+          className="grid grid-cols-2 gap-x-2 gap-y-3"
         >
           <FormField
             control={profileForm.control}
             name="first_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nome</FormLabel>
+                <FormLabel className="ml-3">Nome</FormLabel>
                 <FormControl>
-                  <Input placeholder="Nome" {...field} />
+                  <Input placeholder="João" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Salvar</Button>
+          <FormField
+            control={profileForm.control}
+            name="last_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="ml-3">
+                  Sobrenome
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="Silva" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            className="w-max col-span-2"
+            type="submit"
+          >
+            Salvar
+          </Button>
         </form>
       </Form>
     </>

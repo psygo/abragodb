@@ -10,6 +10,7 @@ import { type Username } from "@types"
 
 import { ProfileForm, Progress } from "@components"
 import { Separator } from "@shad"
+import { profile } from "console"
 
 type PlayerPageProps = {
   params: { username: Username }
@@ -22,6 +23,10 @@ export default async function PlayerPage({
   const selectPlayer = e.select(e.Player, (player) => ({
     username: true,
     email: true,
+    profile: {
+      first_name: true,
+      last_name: true,
+    },
     filter_single: e.op(player.username, "=", username),
   }))
   const player = await selectPlayer.run(edgeDbClient)
@@ -38,6 +43,9 @@ export default async function PlayerPage({
       <Suspense fallback={<Progress />}>
         <h2>{player.username}</h2>
         <h3>{player.email}</h3>
+
+        <p>{player.profile?.first_name}</p>
+        <p>{player.profile?.last_name}</p>
 
         <Separator className="mt-8" />
 

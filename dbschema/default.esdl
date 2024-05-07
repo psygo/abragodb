@@ -21,36 +21,45 @@ module default {
       default := (select datetime_current());
     }
 
-    profile: Profile {
-      constraint exclusive;
-    }
+    # required profile: Profile {
+    #   constraint exclusive;
+    # }
+    # Relationships
+    profile := .<player[is Profile];
   }
   
   type Profile {
-    is_public: bool {
-      default := false;
-    }
+    required player: Player {
+      constraint exclusive;
+    };
 
     first_name: str;
     last_name: str;
-    public_email: str;
-    date_of_birth: str;
 
-    description: str;
+    # is_public: bool {
+    #   default := false;
+    # }
 
-    languages: array<str>;
+    # first_name: str;
+    # last_name: str;
+    # public_email: str;
+    # date_of_birth: str;
 
-    nationalities: array<str>;
-    br_states_of_origin: array<BrState>;
-    cities_of_origin: array<str>;
+    # description: str;
 
-    countries_of_residence: array<str>;
-    br_states_of_residence: array<BrState>;
-    cities_of_residence: array<str>;
+    # languages: array<str>;
 
-    socials_links: json;
+    # nationalities: array<str>;
+    # br_states_of_origin: array<BrState>;
+    # cities_of_origin: array<str>;
 
-    is_teacher: bool;
+    # countries_of_residence: array<str>;
+    # br_states_of_residence: array<BrState>;
+    # cities_of_residence: array<str>;
+
+    # socials_links: json;
+
+    # is_teacher: bool;
   }
 
   scalar type BrState 
