@@ -12,7 +12,7 @@ import {
 } from "@shad"
 
 export const selectPlayers = e.select(e.Player, () => ({
-  id: true,
+  nanoid: true,
   username: true,
   email: true,
 }))
@@ -31,15 +31,19 @@ export function PlayersTable({
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">
+            Nanoid
+          </TableHead>
+          <TableHead className="w-[100px]">
             Usuário
           </TableHead>
           <TableHead>Email</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {players.map((p) => {
+        {players.map((p, i) => {
           return (
-            <TableRow key={p.id}>
+            <TableRow key={i}>
+              <TableCell>{p.nanoid}</TableCell>
               <TableCell className="font-medium">
                 <Link href={`/jogadores/${p.username}`}>
                   {p.username}

@@ -3,6 +3,9 @@
 import Link from "next/link"
 
 import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
   UserButton,
   useUser as useClerkUser,
 } from "@clerk/nextjs"
@@ -41,7 +44,7 @@ function RightNav() {
     <section className="flex items-center gap-1">
       <AboutPage />
       <ThemeButton />
-      <SignedIn />
+      <ClerkSignIn />
     </section>
   )
 }
@@ -74,15 +77,19 @@ function ThemeButton() {
   )
 }
 
-function SignedIn() {
-  const { isSignedIn } = useClerkUser()
-
-  if (!isSignedIn)
-    return (
-      <Button className="ml-3" size="sm" variant="outline">
-        Entrar
-      </Button>
-    )
-
-  return <UserButton />
+function ClerkSignIn() {
+  return (
+    <div className="ml-3 flex items-center">
+      <SignedOut>
+        <SignInButton>
+          <Button size="sm" variant="outline">
+            Entrar
+          </Button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+    </div>
+  )
 }
