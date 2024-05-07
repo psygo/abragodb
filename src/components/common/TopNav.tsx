@@ -10,7 +10,7 @@ import { useTheme } from "@providers"
 
 export function TopNav() {
   return (
-    <nav className="flex justify-between items-center px-2 py-3 bg-gray-100 dark:bg-gray-700">
+    <nav className="flex justify-between items-center px-2 py-3 bg-gray-200 dark:bg-gray-900">
       <LeftNav />
       <RightNav />
     </nav>

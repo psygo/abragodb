@@ -1,26 +1,14 @@
-import e from "@@/dbschema/edgeql-js"
-
 import { edgeDbClient } from "@db"
 
-export default async function HomePage() {
-  const selectPlayers = e.select(e.Player, () => ({
-    id: true,
-    username: true,
-    email: true,
-  }))
+import { PlayersTable, selectPlayers } from "@components"
 
+export default async function HomePage() {
   const players = await selectPlayers.run(edgeDbClient)
 
   return (
-    <>
-      {players.map((p, i) => {
-        return (
-          <div key={i}>
-            <p>{p.username}</p>
-            <p>{p.email}</p>
-          </div>
-        )
-      })}
-    </>
+    <section className="flex flex-col gap-2">
+      <h2 className="text-2xl font-bold">Jogadores</h2>
+      <PlayersTable players={players} />
+    </section>
   )
 }
