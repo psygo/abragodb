@@ -25,6 +25,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.10.1",
     "class-variance-authority": "^0.7.0",

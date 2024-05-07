@@ -5,7 +5,7 @@ import { Theme, type WithReactChildren } from "@types"
 
 import { ThemeProvider } from "@providers"
 
-import { TopNav } from "@components"
+import { Footer, TopNav } from "@components"
 
 import { cn } from "@styles"
 import "@styles/globals.css"
@@ -39,7 +39,10 @@ export default function RootLayout({
           )}
         >
           <TopNav />
-          <main className="p-6">{children}</main>
+          <main className="p-6 min-h-screen">
+            {children}
+          </main>
+          <Footer />
         </body>
       </ThemeProvider>
     </html>
