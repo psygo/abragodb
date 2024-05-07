@@ -4,7 +4,7 @@
         ".next": true,
         ".vercel": true,
         "next-env.d.ts": true,
-        "**/migrations/": true,
+        "**/migrations/": false,
         "**/edgeql-js/": true,
     },
 }

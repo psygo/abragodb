@@ -11,6 +11,8 @@ import { NextResponse } from "next/server"
 
 import e from "@@/dbschema/edgeql-js"
 
+import "@utils/array"
+
 import { edgeDbClient } from "@db"
 
 import { standardNanoId } from "@types"
@@ -58,7 +60,10 @@ export async function POST(req: Request) {
 
       switch (type) {
         case "user.created":
-          await createUser(data)
+          await createPlayer(data)
+          break
+        case "user.updated":
+          await updatePlayer(data)
           break
         default:
           console.log(`${type} is not a managed event.`)
@@ -71,13 +76,14 @@ export async function POST(req: Request) {
   }
 }
 
-async function createUser(userData: UserJSON) {
+async function createPlayer(userData: UserJSON) {
   try {
     const nanoId = standardNanoId()
 
     const insertPlayer = e.insert(e.Player, {
+      clerkid: userData.id,
       username: userData.username!,
-      email: userData.email_addresses[0]!.email_address,
+      email: userData.email_addresses.first().email_address,
       nanoid: nanoId,
     })
     const res = await insertPlayer.run(edgeDbClient)
@@ -89,6 +95,23 @@ async function createUser(userData: UserJSON) {
         isAdmin: false,
       },
     })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+async function updatePlayer(userData: UserJSON) {
+  try {
+    const clerkId = userData.id
+    const updatePlayer = e.update(e.Player, () => ({
+      filter_single: { clerkid: clerkId },
+      set: {
+        email:
+          userData.email_addresses.first().email_address,
+        username: userData.username!,
+      },
+    }))
+    await updatePlayer.run(edgeDbClient)
   } catch (e) {
     console.error(e)
   }

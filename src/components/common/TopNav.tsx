@@ -7,7 +7,6 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-  useUser as useClerkUser,
 } from "@clerk/nextjs"
 
 import { Moon, Sun } from "lucide-react"

@@ -45,7 +45,10 @@ export function PlayersTable({
             <TableRow key={i}>
               <TableCell>{p.nanoid}</TableCell>
               <TableCell className="font-medium">
-                <Link href={`/jogadores/${p.username}`}>
+                <Link
+                  className="text-orange-400"
+                  href={`/jogadores/${p.username}`}
+                >
                   {p.username}
                 </Link>
               </TableCell>

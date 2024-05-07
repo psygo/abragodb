@@ -1,4 +1,4 @@
-CREATE MIGRATION m13xjknnesf7lxgrxdmdxlqwbojab7fhudnf2j77nwozqbhjt4hkkq
+CREATE MIGRATION m1ymqtcnjflnhm5xgmdjzhdtu6ue4pon56ycczguex3cfsxrunnq7q
     ONTO initial
 {
   CREATE SCALAR TYPE default::BrState EXTENDING enum<AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO>;
@@ -19,6 +19,9 @@ CREATE MIGRATION m13xjknnesf7lxgrxdmdxlqwbojab7fhudnf2j77nwozqbhjt4hkkq
   };
   CREATE TYPE default::Player {
       CREATE LINK profile: default::Profile {
+          CREATE CONSTRAINT std::exclusive;
+      };
+      CREATE REQUIRED PROPERTY clerkid: std::str {
           CREATE CONSTRAINT std::exclusive;
       };
       CREATE PROPERTY created_at: std::datetime {

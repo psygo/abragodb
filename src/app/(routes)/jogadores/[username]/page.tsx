@@ -13,7 +13,6 @@ export default async function PlayerPage({
 }: PlayerPageProps) {
   const username = params.username
   const selectPlayer = e.select(e.Player, (player) => ({
-    id: true,
     username: true,
     email: true,
     filter_single: e.op(player.username, "=", username),

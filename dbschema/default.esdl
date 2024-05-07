@@ -1,21 +1,19 @@
 module default {
-  scalar type BrState 
-    extending enum<
-      AC,
-      AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
-    >;
-  
-
   type Player {
+    required clerkid: str {
+      constraint exclusive;
+    }
+    required nanoid: str {
+      constraint exclusive;
+    }
+
     required username: str {
       constraint exclusive;
     }
     required email: str {
       constraint exclusive;
     }
-    required nanoid: str {
-      constraint exclusive;
-    }
+
     created_at: datetime {
       default := (select datetime_current());
     }
@@ -49,4 +47,35 @@ module default {
 
     is_teacher: bool;
   }
+
+  scalar type BrState 
+    extending enum<
+      AC,
+      AL,
+      AP,
+      AM,
+      BA,
+      CE,
+      DF,
+      ES,
+      GO,
+      MA,
+      MT,
+      MS,
+      MG,
+      PA,
+      PB,
+      PR,
+      PE,
+      PI,
+      RJ,
+      RN,
+      RS,
+      RO,
+      RR,
+      SC,
+      SP,
+      SE,
+      TO
+    >;
 }
