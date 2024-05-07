@@ -1,6 +1,8 @@
 import { cookies } from "next/headers"
 import { Inter } from "next/font/google"
 
+import { ClerkProvider } from "@clerk/nextjs"
+
 import { Theme, type WithReactChildren } from "@types"
 
 import { ThemeProvider } from "@providers"
@@ -29,22 +31,24 @@ export default function RootLayout({
     : Theme.light
 
   return (
-    <html lang="pt-BR">
-      <ThemeProvider initialTheme={theme}>
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased light:bg-[#EBE4CD]",
-            inter.variable,
-            theme,
-          )}
-        >
-          <TopNav />
-          <main className="p-6 min-h-screen">
-            {children}
-          </main>
-          <Footer />
-        </body>
-      </ThemeProvider>
-    </html>
+    <ThemeProvider initialTheme={theme}>
+      <ClerkProvider>
+        <html lang="pt-BR">
+          <body
+            className={cn(
+              "min-h-screen bg-background font-sans antialiased light:bg-[#EBE4CD]",
+              inter.variable,
+              theme,
+            )}
+          >
+            <TopNav />
+            <main className="p-6 min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </body>
+        </html>
+      </ClerkProvider>
+    </ThemeProvider>
   )
 }
