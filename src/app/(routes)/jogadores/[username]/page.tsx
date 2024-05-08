@@ -8,9 +8,10 @@ import { edgeDbClient } from "@db"
 
 import { type Username } from "@types"
 
-import { ProfileForm, Progress } from "@components"
+import { ProfileForm, Nullable } from "@components"
 
 import { Separator } from "@shad"
+import { LocalDate } from "edgedb"
 
 type PlayerPageProps = {
   params: { username: Username }
@@ -37,24 +38,26 @@ export default async function PlayerPage({
       </article>
     )
 
+  console.log("profile", player.profile)
+
+  const initialValues = player.profile ?? {}
+
   return (
     <article className="prose dark:prose-invert">
-      <Suspense fallback={<Progress />}>
-        <h2>{player.username}</h2>
-        <h3>{player.email}</h3>
+      <h2>{player.username}</h2>
+      <h3>{player.email}</h3>
 
-        <p>{player.profile?.first_name}</p>
-        <p>{player.profile?.last_name}</p>
-        <p>{player.profile?.description}</p>
-        <p>{player.profile?.public_email}</p>
-        <p>{player.profile?.date_of_birth?.toString()}</p>
+      <p>{player.profile?.first_name}</p>
+      <p>{player.profile?.last_name}</p>
+      <p>{player.profile?.description}</p>
+      <p>{player.profile?.public_email}</p>
+      <p>{player.profile?.date_of_birth?.toString()}</p>
 
-        <Separator className="mt-8" />
+      <Separator className="mt-8" />
 
-        <SignedIn>
-          <ProfileForm initialValues={player.profile} />
-        </SignedIn>
-      </Suspense>
+      <SignedIn>
+        <ProfileForm initialValues={initialValues} />
+      </SignedIn>
     </article>
   )
 }

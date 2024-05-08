@@ -48,7 +48,7 @@ And then use `reset schema to initial;`.
 You will also probably need to update Next.js' inferred types with:
 
 ```sh
-npx @edgedb/generate edgeql-js
+pnpx @edgedb/generate edgeql-js
 ```
 
 It's also possible to watch for diffs on EdgeDB with:

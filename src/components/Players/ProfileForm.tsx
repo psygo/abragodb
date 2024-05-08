@@ -1,11 +1,15 @@
 "use client"
 
+import { LocalDate } from "edgedb"
+
 import { format } from "date-fns"
-import { de, ptBR } from "date-fns/locale"
+import { ptBR } from "date-fns/locale"
 
 import { z } from "zod"
 
 import { useParams, useRouter } from "next/navigation"
+
+import { CalendarIcon } from "lucide-react"
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -27,48 +31,65 @@ import {
   PopoverTrigger,
   Textarea,
 } from "@shad"
-import { LocalDate } from "edgedb"
-import { cn } from "../../styles/cn"
-import { CalendarIcon } from "lucide-react"
+
+import { cn } from "@styles"
+
+import { MultipleSelector, type Option } from "@shad"
+
+const LANGUAGE_OPTIONS: Option[] = [
+  { label: "portuguese", value: "Português" },
+  { label: "english", value: "Inglês" },
+  { label: "spanish", value: "Espanhol" },
+  { label: "french", value: "Francês" },
+]
+
+const optionSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+  disable: z.boolean().optional(),
+})
 
 export const profileFormValidationSchema = z.object({
-  first_name: z
-    .string()
-    .optional()
-    .nullish()
-    .transform((v) => v ?? ""),
-  last_name: z
-    .string()
-    .optional()
-    .nullish()
-    .transform((v) => v ?? ""),
-  public_email: z
-    .string()
-    .email()
-    .optional()
-    .nullish()
-    .transform((v) => v ?? ""),
-  date_of_birth: z
-    .date()
-    .or(z.string())
-    .optional()
-    .nullish()
-    .transform((v) => {
-      const d = typeof v === "string" ? new Date(v) : v
+  // languages: z
+  //   .array(z.string())
+  //   .optional()
+  //   .nullish()
+  //   .transform((v) => v ?? []),
+  first_name: z.string().optional(),
+  last_name: z.string().optional(),
+  // .transform((v) => v ?? ""),
+  // last_name: z
+  //   .string()
+  //   .optional()
+  //   .nullish()
+  //   .transform((v) => v ?? ""),
+  // public_email: z
+  //   .string()
+  //   // .email("must be an email")
+  //   .optional()
+  //   .nullish()
+  //   .transform((v) => v ?? ""),
+  // date_of_birth: z
+  //   .date()
+  //   .optional()
+  //   .nullish()
+  //   .transform((v) => v ?? new Date()),
+  // .transform((v) => {
+  //   const d = typeof v === "string" ? new Date(v) : v
 
-      return d
-        ? new LocalDate(
-            d.getUTCFullYear(),
-            d.getUTCMonth() + 1,
-            d.getUTCDate(),
-          )
-        : new LocalDate(1999, 1, 1)
-    }),
-  description: z
-    .string()
-    .optional()
-    .nullish()
-    .transform((v) => v ?? ""),
+  //   return d
+  //     ? new LocalDate(
+  //         d.getUTCFullYear(),
+  //         d.getUTCMonth() + 1,
+  //         d.getUTCDate(),
+  //       )
+  //     : new LocalDate(1999, 1, 1)
+  // }),
+  // description: z
+  //   .string()
+  //   .optional()
+  //   .nullish()
+  //   .transform((v) => v ?? ""),
 })
 
 export type Nullable<T> = { [K in keyof T]: T[K] | null }
@@ -78,9 +99,9 @@ export type ProfileFormValidation = z.infer<
 >
 
 type ProfileFormProps = {
-  initialValues:
-    | (Nullable<ProfileFormValidation> & { id: never })
-    | null
+  initialValues: ProfileFormValidation
+  // | (Nullable<ProfileFormValidation> & { id: never })
+  // | null
 }
 
 export function ProfileForm({
@@ -88,18 +109,20 @@ export function ProfileForm({
 }: ProfileFormProps) {
   const defaultValues =
     profileFormValidationSchema.parse(initialValues)
-  const defaultDateOfBirth = new LocalDate(
-    defaultValues.date_of_birth.year,
-    defaultValues.date_of_birth.month,
-    defaultValues.date_of_birth.day + 1,
-  )
+  // const defaultDateOfBirth = new LocalDate(
+  //   defaultValues.date_of_birth.year,
+  //   defaultValues.date_of_birth.month,
+  //   defaultValues.date_of_birth.day + 1,
+  // )
 
   const profileForm = useForm<ProfileFormValidation>({
     resolver: zodResolver(profileFormValidationSchema),
-    defaultValues: {
-      ...defaultValues,
-      date_of_birth: defaultDateOfBirth,
-    },
+    defaultValues: defaultValues,
+    // ? {
+    //     ...defaultValues,
+    //     date_of_birth: defaultDateOfBirth,
+    //   }
+    // : {},
   })
 
   const router = useRouter()
@@ -155,7 +178,7 @@ export function ProfileForm({
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={profileForm.control}
               name="public_email"
               render={({ field }) => (
@@ -172,8 +195,8 @@ export function ProfileForm({
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
+            /> */}
+            {/* <FormField
               control={profileForm.control}
               name="date_of_birth"
               render={({ field }) => (
@@ -226,8 +249,8 @@ export function ProfileForm({
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
+            /> */}
+            {/* <FormField
               name="description"
               control={profileForm.control}
               render={({ field }) => (
@@ -244,13 +267,51 @@ export function ProfileForm({
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
           </fieldset>
 
           <fieldset className="grid grid-cols-2 gap-x-2 gap-y-3">
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
               2. Línguas, Nacionalidades e Regiões
             </legend>
+
+            {/* <FormField
+              control={profileForm.control}
+              name="languages"
+              render={({ field }) => {
+                function stringToLanguageOption(): Option[] {
+                  const values = field.value
+                  if (!values) return []
+
+                  return values.map(
+                    (v) =>
+                      LANGUAGE_OPTIONS.find(
+                        (l) => v === l.value,
+                      )!,
+                  )
+                }
+
+                return (
+                  <FormItem>
+                    <FormLabel>Frameworks</FormLabel>
+                    <FormControl>
+                      <MultipleSelector
+                        value={stringToLanguageOption()}
+                        onChange={field.onChange}
+                        defaultOptions={LANGUAGE_OPTIONS}
+                        placeholder="Select frameworks you like..."
+                        emptyIndicator={
+                          <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                            no results found.
+                          </p>
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            /> */}
           </fieldset>
 
           <Button className="w-max" type="submit">
