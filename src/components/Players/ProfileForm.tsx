@@ -1,11 +1,7 @@
 "use client"
 
-import { LocalDate } from "edgedb"
-
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
-
-import { z } from "zod"
 
 import { useParams, useRouter } from "next/navigation"
 
@@ -17,6 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { updatePlayerProfile } from "@actions"
 
 import {
+  COUNTRY_OPTIONS,
+  LANGUAGE_OPTIONS,
+  profileFormValidationSchema,
+  type ProfileFormValidation,
+} from "@validation"
+
+import {
   Button,
   Calendar,
   Form,
@@ -26,6 +29,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  MultipleSelector,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -34,51 +38,16 @@ import {
 
 import { cn } from "@styles"
 
-import { MultipleSelector, type Option } from "@shad"
-
-import {
-  profileFormValidationSchema,
-  type ProfileFormValidation,
-} from "@validation"
-
-// const LANGUAGE_OPTIONS: Option[] = [
-//   { label: "portuguese", value: "Português" },
-//   { label: "english", value: "Inglês" },
-//   { label: "spanish", value: "Espanhol" },
-//   { label: "french", value: "Francês" },
-// ]
-
-// const optionSchema = z.object({
-//   label: z.string(),
-//   value: z.string(),
-//   disable: z.boolean().optional(),
-// })
-
 type ProfileFormProps = {
   initialValues?: ProfileFormValidation
-  // | (Nullable<ProfileFormValidation> & { id: never })
-  // | null
 }
 
 export function ProfileForm({
   initialValues,
 }: ProfileFormProps) {
-  // const defaultValues =
-  //   profileFormValidationSchema.parse(initialValues)
-  // const defaultDateOfBirth = new LocalDate(
-  //   defaultValues.date_of_birth.year,
-  //   defaultValues.date_of_birth.month,
-  //   defaultValues.date_of_birth.day + 1,
-  // )
-
   const profileForm = useForm<ProfileFormValidation>({
     resolver: zodResolver(profileFormValidationSchema),
     defaultValues: initialValues,
-    // ? {
-    //     ...defaultValues,
-    //     date_of_birth: defaultDateOfBirth,
-    //   }
-    // : {},
   })
 
   const router = useRouter()
@@ -232,39 +201,29 @@ export function ProfileForm({
             />
           </fieldset>
 
-          <fieldset className="grid grid-cols-2 gap-x-2 gap-y-3">
+          <fieldset className="grid grid-cols-6 gap-x-2 gap-y-3">
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
               2. Línguas, Nacionalidades e Regiões
             </legend>
 
-            {/* <FormField
-              control={profileForm.control}
+            <FormField
               name="languages"
+              control={profileForm.control}
               render={({ field }) => {
-                function stringToLanguageOption(): Option[] {
-                  const values = field.value
-                  if (!values) return []
-
-                  return values.map(
-                    (v) =>
-                      LANGUAGE_OPTIONS.find(
-                        (l) => v === l.value,
-                      )!,
-                  )
-                }
-
                 return (
-                  <FormItem>
-                    <FormLabel>Frameworks</FormLabel>
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Línguas
+                    </FormLabel>
                     <FormControl>
                       <MultipleSelector
-                        value={stringToLanguageOption()}
+                        value={field.value}
                         onChange={field.onChange}
                         defaultOptions={LANGUAGE_OPTIONS}
-                        placeholder="Select frameworks you like..."
+                        placeholder="Selecione suas línguas"
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                            no results found.
+                            Nenhum resultado encontrado
                           </p>
                         }
                       />
@@ -273,12 +232,41 @@ export function ProfileForm({
                   </FormItem>
                 )
               }}
-            /> */}
+            />
+            <FormField
+              name="nationalities"
+              control={profileForm.control}
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Nacionalidades
+                    </FormLabel>
+                    <FormControl>
+                      <MultipleSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        defaultOptions={COUNTRY_OPTIONS}
+                        placeholder="Selecione suas nacionalidades"
+                        emptyIndicator={
+                          <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                            Nenhum resultado encontrado
+                          </p>
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
           </fieldset>
 
-          <Button className="w-max" type="submit">
-            Salvar
-          </Button>
+          <div className="w-full flex justify-end">
+            <Button className="w-max" type="submit">
+              Salvar
+            </Button>
+          </div>
         </form>
       </Form>
     </>

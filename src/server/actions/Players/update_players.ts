@@ -4,10 +4,11 @@ import e from "@@/dbschema/edgeql-js"
 
 import { edgeDbClient } from "@db"
 
+import { dateToLocalDate } from "@utils"
+
 import { type Username } from "@types"
 
 import { type ProfileFormValidation } from "@validation"
-import { dateToLocalDate } from "../../../utils/datetime"
 
 export async function updatePlayerProfile(
   username: Username,
@@ -17,23 +18,25 @@ export async function updatePlayerProfile(
     const playerQuery = e.select(e.Player, () => ({
       filter_single: { username },
     }))
+
+    const newData = {
+      ...values,
+      date_of_birth: dateToLocalDate(values.date_of_birth),
+      languages: values.languages.map((v) => v.value),
+      nationalities: values.nationalities.map(
+        (v) => v.value,
+      ),
+    }
+
     const upsertQuery = e
       .insert(e.Profile, {
-        ...values,
-        date_of_birth: dateToLocalDate(
-          values.date_of_birth,
-        ),
+        ...newData,
         player: playerQuery,
       })
       .unlessConflict((profile) => ({
         on: profile.player,
         else: e.update(profile, () => ({
-          set: {
-            ...values,
-            date_of_birth: dateToLocalDate(
-              values.date_of_birth,
-            ),
-          },
+          set: newData,
         })),
       }))
 

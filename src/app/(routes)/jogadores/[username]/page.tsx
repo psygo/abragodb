@@ -1,22 +1,22 @@
-import { LocalDate } from "edgedb"
-
 import { SignedIn } from "@clerk/nextjs"
 
 import e from "@@/dbschema/edgeql-js"
 
 import { edgeDbClient } from "@db"
 
+import { localDateToDate } from "@utils"
+
 import { type Username } from "@types"
 
 import {
   profileFormValidationSchema,
+  stringsToOptions,
   type ProfileFormValidation,
 } from "@validation"
 
 import { Separator } from "@shad"
 
 import { ProfileForm } from "@components"
-import { localDateToDate } from "../../../../utils/datetime"
 
 type PlayerPageProps = {
   params: { username: Username }
@@ -46,15 +46,19 @@ export default async function PlayerPage({
   const initialDateOfBirth = player.profile?.date_of_birth
     ? localDateToDate(player.profile.date_of_birth)
     : new Date()
+  const initialLanguages = player.profile?.languages
+    ? stringsToOptions(player.profile.languages)
+    : []
+  const initialNationalities = player.profile?.nationalities
+    ? stringsToOptions(player.profile.nationalities)
+    : []
   const initialValues: ProfileFormValidation =
-    profileFormValidationSchema.parse(
-      {
-        ...player.profile,
-        date_of_birth: initialDateOfBirth,
-      } ?? {
-        date_of_birth: initialDateOfBirth,
-      },
-    )
+    profileFormValidationSchema.parse({
+      ...player.profile,
+      date_of_birth: initialDateOfBirth,
+      languages: initialLanguages,
+      nationalities: initialNationalities,
+    })
 
   return (
     <article className="prose dark:prose-invert">
