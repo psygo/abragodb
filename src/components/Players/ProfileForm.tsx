@@ -36,70 +36,26 @@ import { cn } from "@styles"
 
 import { MultipleSelector, type Option } from "@shad"
 
-const LANGUAGE_OPTIONS: Option[] = [
-  { label: "portuguese", value: "Português" },
-  { label: "english", value: "Inglês" },
-  { label: "spanish", value: "Espanhol" },
-  { label: "french", value: "Francês" },
-]
+import {
+  profileFormValidationSchema,
+  type ProfileFormValidation,
+} from "@validation"
 
-const optionSchema = z.object({
-  label: z.string(),
-  value: z.string(),
-  disable: z.boolean().optional(),
-})
+// const LANGUAGE_OPTIONS: Option[] = [
+//   { label: "portuguese", value: "Português" },
+//   { label: "english", value: "Inglês" },
+//   { label: "spanish", value: "Espanhol" },
+//   { label: "french", value: "Francês" },
+// ]
 
-export const profileFormValidationSchema = z.object({
-  // languages: z
-  //   .array(z.string())
-  //   .optional()
-  //   .nullish()
-  //   .transform((v) => v ?? []),
-  first_name: z.string().optional(),
-  last_name: z.string().optional(),
-  // .transform((v) => v ?? ""),
-  // last_name: z
-  //   .string()
-  //   .optional()
-  //   .nullish()
-  //   .transform((v) => v ?? ""),
-  // public_email: z
-  //   .string()
-  //   // .email("must be an email")
-  //   .optional()
-  //   .nullish()
-  //   .transform((v) => v ?? ""),
-  // date_of_birth: z
-  //   .date()
-  //   .optional()
-  //   .nullish()
-  //   .transform((v) => v ?? new Date()),
-  // .transform((v) => {
-  //   const d = typeof v === "string" ? new Date(v) : v
-
-  //   return d
-  //     ? new LocalDate(
-  //         d.getUTCFullYear(),
-  //         d.getUTCMonth() + 1,
-  //         d.getUTCDate(),
-  //       )
-  //     : new LocalDate(1999, 1, 1)
-  // }),
-  // description: z
-  //   .string()
-  //   .optional()
-  //   .nullish()
-  //   .transform((v) => v ?? ""),
-})
-
-export type Nullable<T> = { [K in keyof T]: T[K] | null }
-
-export type ProfileFormValidation = z.infer<
-  typeof profileFormValidationSchema
->
+// const optionSchema = z.object({
+//   label: z.string(),
+//   value: z.string(),
+//   disable: z.boolean().optional(),
+// })
 
 type ProfileFormProps = {
-  initialValues: ProfileFormValidation
+  initialValues?: ProfileFormValidation
   // | (Nullable<ProfileFormValidation> & { id: never })
   // | null
 }
@@ -107,8 +63,8 @@ type ProfileFormProps = {
 export function ProfileForm({
   initialValues,
 }: ProfileFormProps) {
-  const defaultValues =
-    profileFormValidationSchema.parse(initialValues)
+  // const defaultValues =
+  //   profileFormValidationSchema.parse(initialValues)
   // const defaultDateOfBirth = new LocalDate(
   //   defaultValues.date_of_birth.year,
   //   defaultValues.date_of_birth.month,
@@ -117,7 +73,7 @@ export function ProfileForm({
 
   const profileForm = useForm<ProfileFormValidation>({
     resolver: zodResolver(profileFormValidationSchema),
-    defaultValues: defaultValues,
+    // defaultValues: defaultValues,
     // ? {
     //     ...defaultValues,
     //     date_of_birth: defaultDateOfBirth,

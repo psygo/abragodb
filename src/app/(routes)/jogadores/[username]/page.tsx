@@ -1,4 +1,4 @@
-import { Suspense } from "react"
+import { LocalDate } from "edgedb"
 
 import { SignedIn } from "@clerk/nextjs"
 
@@ -8,10 +8,11 @@ import { edgeDbClient } from "@db"
 
 import { type Username } from "@types"
 
-import { ProfileForm, Nullable } from "@components"
+import { type ProfileFormValidation } from "@validation"
 
 import { Separator } from "@shad"
-import { LocalDate } from "edgedb"
+
+import { ProfileForm } from "@components"
 
 type PlayerPageProps = {
   params: { username: Username }
@@ -40,7 +41,9 @@ export default async function PlayerPage({
 
   console.log("profile", player.profile)
 
-  const initialValues = player.profile ?? {}
+  // const initialValues: ProfileFormValidation =
+  //   player.profile ?? {}
+  // if (player.profile?.date_of_birth) initialValues.
 
   return (
     <article className="prose dark:prose-invert">
@@ -56,7 +59,9 @@ export default async function PlayerPage({
       <Separator className="mt-8" />
 
       <SignedIn>
-        <ProfileForm initialValues={initialValues} />
+        <ProfileForm 
+        // initialValues={initialValues} 
+        />
       </SignedIn>
     </article>
   )

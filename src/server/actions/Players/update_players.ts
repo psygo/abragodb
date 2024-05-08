@@ -6,7 +6,7 @@ import { edgeDbClient } from "@db"
 
 import { type Username } from "@types"
 
-import { type ProfileFormValidation } from "@components"
+import { type ProfileFormValidation } from "@validation"
 
 export async function updatePlayerProfile(
   username: Username,
