@@ -8,8 +8,9 @@ import { type Username } from "@types"
 
 export async function updatePlayerProfile(
   username: Username,
-  first_name: string,
-  last_name: string,
+  first_name?: string | null,
+  last_name?: string | null,
+  description?: string | null,
 ) {
   try {
     const playerQuery = e.select(e.Player, () => ({
@@ -19,6 +20,7 @@ export async function updatePlayerProfile(
       .insert(e.Profile, {
         first_name,
         last_name,
+        description,
         player: playerQuery,
       })
       .unlessConflict((profile) => ({
@@ -27,6 +29,7 @@ export async function updatePlayerProfile(
           set: {
             first_name,
             last_name,
+            description,
           },
         })),
       }))

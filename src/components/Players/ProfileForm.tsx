@@ -2,8 +2,12 @@
 
 import { z } from "zod"
 
+import { useParams, useRouter } from "next/navigation"
+
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+
+import { updatePlayerProfile } from "@actions"
 
 import {
   Button,
@@ -14,22 +18,46 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Textarea,
 } from "@shad"
-import { updatePlayerProfile } from "../../server/actions/Players/update_players"
-import { useParams, useRouter } from "next/navigation"
 
 const profileFormValidationSchema = z.object({
-  first_name: z.string(),
-  last_name: z.string(),
+  first_name: z
+    .string()
+    .optional()
+    .nullish()
+    .transform((v) => v ?? ""),
+  last_name: z
+    .string()
+    .optional()
+    .nullish()
+    .transform((v) => v ?? ""),
+  description: z
+    .string()
+    .optional()
+    .nullish()
+    .transform((v) => v ?? ""),
 })
+
+type Nullable<T> = { [K in keyof T]: T[K] | null }
 
 type ProfileFormValidation = z.infer<
   typeof profileFormValidationSchema
 >
 
-export function ProfileForm() {
+type ProfileFormProps = {
+  initialValues:
+    | (Nullable<ProfileFormValidation> & { id: never })
+    | null
+}
+
+export function ProfileForm({
+  initialValues,
+}: ProfileFormProps) {
   const profileForm = useForm<ProfileFormValidation>({
     resolver: zodResolver(profileFormValidationSchema),
+    defaultValues:
+      profileFormValidationSchema.parse(initialValues),
   })
 
   const router = useRouter()
@@ -42,6 +70,7 @@ export function ProfileForm() {
       username,
       values.first_name,
       values.last_name,
+      values.description,
     )
     router.refresh()
   }
@@ -83,8 +112,26 @@ export function ProfileForm() {
               </FormItem>
             )}
           />
+          <FormField
+            name="description"
+            control={profileForm.control}
+            render={({ field }) => (
+              <FormItem className="col-span-2">
+                <FormLabel className="ml-3">
+                  Descrição
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Uma breve descrição sua..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button
-            className="w-max col-span-2"
+            className="mt-4 w-max col-span-2"
             type="submit"
           >
             Salvar

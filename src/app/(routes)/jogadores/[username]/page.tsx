@@ -21,11 +21,10 @@ export default async function PlayerPage({
 }: PlayerPageProps) {
   const username = params.username
   const selectPlayer = e.select(e.Player, (player) => ({
-    username: true,
-    email: true,
+    ...e.Player["*"],
     profile: {
-      first_name: true,
-      last_name: true,
+      ...e.Player.profile["*"],
+      id: false,
     },
     filter_single: e.op(player.username, "=", username),
   }))
@@ -50,7 +49,7 @@ export default async function PlayerPage({
         <Separator className="mt-8" />
 
         <SignedIn>
-          <ProfileForm />
+          <ProfileForm initialValues={player.profile} />
         </SignedIn>
       </Suspense>
     </article>

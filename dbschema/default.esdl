@@ -33,33 +33,30 @@ module default {
       constraint exclusive;
     };
 
+    is_public: bool {
+      default := false;
+    }
+
     first_name: str;
     last_name: str;
+    public_email: str;
+    date_of_birth: str;
 
-    # is_public: bool {
-    #   default := false;
-    # }
+    description: str;
 
-    # first_name: str;
-    # last_name: str;
-    # public_email: str;
-    # date_of_birth: str;
+    languages: array<str>;
 
-    # description: str;
+    nationalities: array<str>;
+    br_states_of_origin: array<BrState>;
+    cities_of_origin: array<str>;
 
-    # languages: array<str>;
+    countries_of_residence: array<str>;
+    br_states_of_residence: array<BrState>;
+    cities_of_residence: array<str>;
 
-    # nationalities: array<str>;
-    # br_states_of_origin: array<BrState>;
-    # cities_of_origin: array<str>;
+    socials_links: json;
 
-    # countries_of_residence: array<str>;
-    # br_states_of_residence: array<BrState>;
-    # cities_of_residence: array<str>;
-
-    # socials_links: json;
-
-    # is_teacher: bool;
+    is_teacher: bool;
   }
 
   scalar type BrState 
