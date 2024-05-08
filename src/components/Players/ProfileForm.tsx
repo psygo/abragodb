@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { updatePlayerProfile } from "@actions"
 
 import {
+  BR_STATE_OPTIONS,
   COUNTRY_OPTIONS,
   LANGUAGE_OPTIONS,
   profileFormValidationSchema,
@@ -220,7 +221,7 @@ export function ProfileForm({
                         value={field.value}
                         onChange={field.onChange}
                         defaultOptions={LANGUAGE_OPTIONS}
-                        placeholder="Selecione suas línguas"
+                        placeholder="Selecione sua(s) língua(s)"
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                             Nenhum resultado encontrado
@@ -247,7 +248,34 @@ export function ProfileForm({
                         value={field.value}
                         onChange={field.onChange}
                         defaultOptions={COUNTRY_OPTIONS}
-                        placeholder="Selecione suas nacionalidades"
+                        placeholder="Selecione sua(s) nacionalidade(s)"
+                        emptyIndicator={
+                          <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                            Nenhum resultado encontrado
+                          </p>
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              name="br_states_of_origin"
+              control={profileForm.control}
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Estados Brasileiros de Origem
+                    </FormLabel>
+                    <FormControl>
+                      <MultipleSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        defaultOptions={BR_STATE_OPTIONS}
+                        placeholder="Selecione seu(s) estado(s)"
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                             Nenhum resultado encontrado

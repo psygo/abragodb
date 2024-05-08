@@ -9,6 +9,7 @@ import { localDateToDate } from "@utils"
 import { type Username } from "@types"
 
 import {
+  brStatesToOptions,
   profileFormValidationSchema,
   stringsToOptions,
   type ProfileFormValidation,
@@ -52,12 +53,17 @@ export default async function PlayerPage({
   const initialNationalities = player.profile?.nationalities
     ? stringsToOptions(player.profile.nationalities)
     : []
+  const initialBrStatesOfOrigin = player.profile
+    ?.br_states_of_origin
+    ? brStatesToOptions(player.profile.br_states_of_origin)
+    : []
   const initialValues: ProfileFormValidation =
     profileFormValidationSchema.parse({
       ...player.profile,
       date_of_birth: initialDateOfBirth,
       languages: initialLanguages,
       nationalities: initialNationalities,
+      br_states_of_origin: initialBrStatesOfOrigin,
     })
 
   return (

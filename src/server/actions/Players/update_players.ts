@@ -8,7 +8,10 @@ import { dateToLocalDate } from "@utils"
 
 import { type Username } from "@types"
 
-import { type ProfileFormValidation } from "@validation"
+import {
+  type BR_STATE,
+  type ProfileFormValidation,
+} from "@validation"
 
 export async function updatePlayerProfile(
   username: Username,
@@ -25,6 +28,9 @@ export async function updatePlayerProfile(
       languages: values.languages.map((v) => v.value),
       nationalities: values.nationalities.map(
         (v) => v.value,
+      ),
+      br_states_of_origin: values.br_states_of_origin.map(
+        (v) => v.value as BR_STATE,
       ),
     }
 
