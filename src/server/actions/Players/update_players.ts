@@ -6,11 +6,11 @@ import { edgeDbClient } from "@db"
 
 import { type Username } from "@types"
 
+import { type ProfileFormValidation } from "../../../components/exports"
+
 export async function updatePlayerProfile(
   username: Username,
-  first_name?: string | null,
-  last_name?: string | null,
-  description?: string | null,
+  values: ProfileFormValidation,
 ) {
   try {
     const playerQuery = e.select(e.Player, () => ({
@@ -18,18 +18,14 @@ export async function updatePlayerProfile(
     }))
     const upsertQuery = e
       .insert(e.Profile, {
-        first_name,
-        last_name,
-        description,
+        ...values,
         player: playerQuery,
       })
       .unlessConflict((profile) => ({
         on: profile.player,
         else: e.update(profile, () => ({
           set: {
-            first_name,
-            last_name,
-            description,
+            ...values,
           },
         })),
       }))
