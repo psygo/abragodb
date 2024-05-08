@@ -6,20 +6,19 @@ export const profileFormValidationSchema = z.object({
   //   .optional()
   //   .nullish()
   //   .transform((v) => v ?? []),
-  first_name: z.string().optional(),
-  last_name: z.string().optional(),
+  first_name: z.string().optional().nullish(),
+  last_name: z.string().optional().nullish(),
   // .transform((v) => v ?? ""),
   // last_name: z
   //   .string()
   //   .optional()
   //   .nullish()
   //   .transform((v) => v ?? ""),
-  // public_email: z
-  //   .string()
-  //   // .email("must be an email")
-  //   .optional()
-  //   .nullish()
-  //   .transform((v) => v ?? ""),
+  public_email: z
+    .string()
+    .email("Este email é inválido.")
+    .optional()
+    .nullish(),
   // date_of_birth: z
   //   .date()
   //   .optional()
@@ -36,11 +35,7 @@ export const profileFormValidationSchema = z.object({
   //       )
   //     : new LocalDate(1999, 1, 1)
   // }),
-  // description: z
-  //   .string()
-  //   .optional()
-  //   .nullish()
-  //   .transform((v) => v ?? ""),
+  description: z.string().optional().nullish(),
 })
 
 export type ProfileFormValidation = z.infer<

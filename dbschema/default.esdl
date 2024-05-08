@@ -21,10 +21,6 @@ module default {
       default := (select datetime_current());
     }
 
-    # required profile: Profile {
-    #   constraint exclusive;
-    # }
-    # Relationships
     profile := .<player[is Profile];
   }
   

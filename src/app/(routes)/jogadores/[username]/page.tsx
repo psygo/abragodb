@@ -8,7 +8,10 @@ import { edgeDbClient } from "@db"
 
 import { type Username } from "@types"
 
-import { type ProfileFormValidation } from "@validation"
+import {
+  profileFormValidationSchema,
+  type ProfileFormValidation,
+} from "@validation"
 
 import { Separator } from "@shad"
 
@@ -39,11 +42,8 @@ export default async function PlayerPage({
       </article>
     )
 
-  console.log("profile", player.profile)
-
-  // const initialValues: ProfileFormValidation =
-  //   player.profile ?? {}
-  // if (player.profile?.date_of_birth) initialValues.
+  const initialValues: ProfileFormValidation =
+    profileFormValidationSchema.parse(player.profile ?? {})
 
   return (
     <article className="prose dark:prose-invert">
@@ -59,9 +59,7 @@ export default async function PlayerPage({
       <Separator className="mt-8" />
 
       <SignedIn>
-        <ProfileForm 
-        // initialValues={initialValues} 
-        />
+        <ProfileForm initialValues={initialValues} />
       </SignedIn>
     </article>
   )

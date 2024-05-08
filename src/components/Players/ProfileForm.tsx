@@ -73,7 +73,7 @@ export function ProfileForm({
 
   const profileForm = useForm<ProfileFormValidation>({
     resolver: zodResolver(profileFormValidationSchema),
-    // defaultValues: defaultValues,
+    defaultValues: initialValues,
     // ? {
     //     ...defaultValues,
     //     date_of_birth: defaultDateOfBirth,
@@ -113,6 +113,8 @@ export function ProfileForm({
                     Nome
                   </FormLabel>
                   <FormControl>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
                     <Input placeholder="João" {...field} />
                   </FormControl>
                   <FormMessage />
@@ -128,13 +130,15 @@ export function ProfileForm({
                     Sobrenome
                   </FormLabel>
                   <FormControl>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
                     <Input placeholder="Silva" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {/* <FormField
+            <FormField
               control={profileForm.control}
               name="public_email"
               render={({ field }) => (
@@ -143,6 +147,8 @@ export function ProfileForm({
                     Email de Contato
                   </FormLabel>
                   <FormControl>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
                     <Input
                       placeholder="joao.silva@mail.com.br"
                       {...field}
@@ -151,7 +157,7 @@ export function ProfileForm({
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
             {/* <FormField
               control={profileForm.control}
               name="date_of_birth"
@@ -206,7 +212,7 @@ export function ProfileForm({
                 </FormItem>
               )}
             /> */}
-            {/* <FormField
+            <FormField
               name="description"
               control={profileForm.control}
               render={({ field }) => (
@@ -215,6 +221,8 @@ export function ProfileForm({
                     Descrição
                   </FormLabel>
                   <FormControl>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
                     <Textarea
                       placeholder="Uma breve descrição sua..."
                       {...field}
@@ -223,7 +231,7 @@ export function ProfileForm({
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
           </fieldset>
 
           <fieldset className="grid grid-cols-2 gap-x-2 gap-y-3">

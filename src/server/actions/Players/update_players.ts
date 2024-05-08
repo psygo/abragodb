@@ -13,8 +13,6 @@ export async function updatePlayerProfile(
   values: ProfileFormValidation,
 ) {
   try {
-    // console.log("values", values.date_of_birth.toString())
-
     const playerQuery = e.select(e.Player, () => ({
       filter_single: { username },
     }))
