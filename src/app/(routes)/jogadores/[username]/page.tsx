@@ -16,6 +16,7 @@ import {
 import { Separator } from "@shad"
 
 import { ProfileForm } from "@components"
+import { localDateToDate } from "../../../../utils/datetime"
 
 type PlayerPageProps = {
   params: { username: Username }
@@ -42,8 +43,18 @@ export default async function PlayerPage({
       </article>
     )
 
+  const initialDateOfBirth = player.profile?.date_of_birth
+    ? localDateToDate(player.profile.date_of_birth)
+    : new Date()
   const initialValues: ProfileFormValidation =
-    profileFormValidationSchema.parse(player.profile ?? {})
+    profileFormValidationSchema.parse(
+      {
+        ...player.profile,
+        date_of_birth: initialDateOfBirth,
+      } ?? {
+        date_of_birth: initialDateOfBirth,
+      },
+    )
 
   return (
     <article className="prose dark:prose-invert">

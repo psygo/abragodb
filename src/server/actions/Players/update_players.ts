@@ -7,6 +7,7 @@ import { edgeDbClient } from "@db"
 import { type Username } from "@types"
 
 import { type ProfileFormValidation } from "@validation"
+import { dateToLocalDate } from "../../../utils/datetime"
 
 export async function updatePlayerProfile(
   username: Username,
@@ -19,6 +20,9 @@ export async function updatePlayerProfile(
     const upsertQuery = e
       .insert(e.Profile, {
         ...values,
+        date_of_birth: dateToLocalDate(
+          values.date_of_birth,
+        ),
         player: playerQuery,
       })
       .unlessConflict((profile) => ({
@@ -26,6 +30,9 @@ export async function updatePlayerProfile(
         else: e.update(profile, () => ({
           set: {
             ...values,
+            date_of_birth: dateToLocalDate(
+              values.date_of_birth,
+            ),
           },
         })),
       }))

@@ -158,7 +158,7 @@ export function ProfileForm({
                 </FormItem>
               )}
             />
-            {/* <FormField
+            <FormField
               control={profileForm.control}
               name="date_of_birth"
               render={({ field }) => (
@@ -196,9 +196,7 @@ export function ProfileForm({
                     >
                       <Calendar
                         mode="single"
-                        selected={
-                          new Date(field.value.toString())
-                        }
+                        selected={field.value}
                         onSelect={field.onChange}
                         disabled={(date) =>
                           date > new Date() ||
@@ -211,7 +209,7 @@ export function ProfileForm({
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
+            />
             <FormField
               name="description"
               control={profileForm.control}
