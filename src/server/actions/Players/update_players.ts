@@ -25,7 +25,9 @@ export async function updatePlayerProfile(
     const newData = {
       ...values,
       date_of_birth: dateToLocalDate(values.date_of_birth),
+
       languages: values.languages.map((v) => v.value),
+
       nationalities: values.nationalities.map(
         (v) => v.value,
       ),
@@ -35,6 +37,9 @@ export async function updatePlayerProfile(
       cities_of_origin: values.cities_of_origin.map(
         (v) => v.value,
       ),
+
+      countries_of_residence:
+        values.countries_of_residence.map((v) => v.value),
     }
 
     const upsertQuery = e

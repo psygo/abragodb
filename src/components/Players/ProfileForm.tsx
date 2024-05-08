@@ -315,6 +315,34 @@ export function ProfileForm({
                 )
               }}
             />
+            <FormField
+              name="countries_of_residence"
+              control={profileForm.control}
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Paíse(s) de Residência
+                    </FormLabel>
+                    <FormControl>
+                      <MultipleSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        defaultOptions={COUNTRY_OPTIONS}
+                        placeholder="Selecione seu(s) países de residência"
+                        hidePlaceholderWhenSelected
+                        emptyIndicator={
+                          <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                            Nenhum resultado encontrado
+                          </p>
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
           </fieldset>
 
           <div className="w-full flex justify-end">

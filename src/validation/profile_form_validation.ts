@@ -31,6 +31,8 @@ export const profileFormValidationSchema = z.object({
   nationalities: z.array(optionSchema),
   br_states_of_origin: z.array(optionSchema),
   cities_of_origin: z.array(optionSchema),
+
+  countries_of_residence: z.array(optionSchema),
 })
 
 export type ProfileFormValidation = z.infer<

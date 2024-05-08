@@ -50,11 +50,21 @@ module default {
     br_states_of_residence: array<BrState>;
     cities_of_residence: array<str>;
 
-    socials_links: json;
+    socials_links: array<SocialLink>;
     
-    go_users: json;
+    go_users: array<GoUser>;
 
     is_teacher: bool;
+  }
+  
+  type SocialLink {
+    name: str;
+    required url: str;
+  }
+  
+  type GoUser {
+    required username: str;
+    strength: str;
   }
 
   scalar type BrState 

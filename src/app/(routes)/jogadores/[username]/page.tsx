@@ -47,9 +47,11 @@ export default async function PlayerPage({
   const initialDateOfBirth = player.profile?.date_of_birth
     ? localDateToDate(player.profile.date_of_birth)
     : new Date()
+
   const initialLanguages = player.profile?.languages
     ? stringsToOptions(player.profile.languages)
     : []
+
   const initialNationalities = player.profile?.nationalities
     ? stringsToOptions(player.profile.nationalities)
     : []
@@ -61,14 +63,27 @@ export default async function PlayerPage({
     ?.cities_of_origin
     ? stringsToOptions(player.profile.cities_of_origin)
     : []
+
+  const initialCountriesOfResidence = player.profile
+    ?.countries_of_residence
+    ? stringsToOptions(
+        player.profile.countries_of_residence,
+      )
+    : []
+
   const initialValues: ProfileFormValidation =
     profileFormValidationSchema.parse({
       ...player.profile,
+
       date_of_birth: initialDateOfBirth,
+
       languages: initialLanguages,
+
       nationalities: initialNationalities,
       br_states_of_origin: initialBrStatesOfOrigin,
       cities_of_origin: initialCitiesOfOrigin,
+
+      countries_of_residence: initialCountriesOfResidence,
     })
 
   return (
