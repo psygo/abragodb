@@ -37,8 +37,6 @@ export default async function PlayerPage({
       </article>
     )
 
-  console.log("profile", player.profile)
-
   return (
     <article className="prose dark:prose-invert">
       <Suspense fallback={<Progress />}>

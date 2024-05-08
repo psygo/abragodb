@@ -1,7 +1,7 @@
 "use client"
 
 import { format } from "date-fns"
-import { ptBR } from "date-fns/locale"
+import { de, ptBR } from "date-fns/locale"
 
 import { z } from "zod"
 
@@ -60,7 +60,7 @@ export const profileFormValidationSchema = z.object({
         ? new LocalDate(
             d.getUTCFullYear(),
             d.getUTCMonth() + 1,
-            d.getUTCDate() + 1,
+            d.getUTCDate(),
           )
         : new LocalDate(1999, 1, 1)
     }),
@@ -86,10 +86,20 @@ type ProfileFormProps = {
 export function ProfileForm({
   initialValues,
 }: ProfileFormProps) {
+  const defaultValues =
+    profileFormValidationSchema.parse(initialValues)
+  const defaultDateOfBirth = new LocalDate(
+    defaultValues.date_of_birth.year,
+    defaultValues.date_of_birth.month,
+    defaultValues.date_of_birth.day + 1,
+  )
+
   const profileForm = useForm<ProfileFormValidation>({
     resolver: zodResolver(profileFormValidationSchema),
-    defaultValues:
-      profileFormValidationSchema.parse(initialValues),
+    defaultValues: {
+      ...defaultValues,
+      date_of_birth: defaultDateOfBirth,
+    },
   })
 
   const router = useRouter()
@@ -99,7 +109,6 @@ export function ProfileForm({
 
   async function onSubmit(values: ProfileFormValidation) {
     await updatePlayerProfile(username, values)
-    console.log("values", values)
     router.refresh()
   }
 
@@ -240,7 +249,7 @@ export function ProfileForm({
 
           <fieldset className="grid grid-cols-2 gap-x-2 gap-y-3">
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
-              1. Dados Pessoais
+              2. Línguas, Nacionalidades e Regiões
             </legend>
           </fieldset>
 
