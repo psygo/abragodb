@@ -57,6 +57,10 @@ export default async function PlayerPage({
     ?.br_states_of_origin
     ? brStatesToOptions(player.profile.br_states_of_origin)
     : []
+  const initialCitiesOfOrigin = player.profile
+    ?.cities_of_origin
+    ? stringsToOptions(player.profile.cities_of_origin)
+    : []
   const initialValues: ProfileFormValidation =
     profileFormValidationSchema.parse({
       ...player.profile,
@@ -64,6 +68,7 @@ export default async function PlayerPage({
       languages: initialLanguages,
       nationalities: initialNationalities,
       br_states_of_origin: initialBrStatesOfOrigin,
+      cities_of_origin: initialCitiesOfOrigin,
     })
 
   return (

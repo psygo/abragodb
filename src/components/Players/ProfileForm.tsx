@@ -204,7 +204,7 @@ export function ProfileForm({
 
           <fieldset className="grid grid-cols-6 gap-x-2 gap-y-3">
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
-              2. Línguas, Nacionalidades e Regiões
+              2. Línguas, Nacionalidades e Localizações
             </legend>
 
             <FormField
@@ -214,7 +214,7 @@ export function ProfileForm({
                 return (
                   <FormItem className="col-span-3">
                     <FormLabel className="ml-3">
-                      Línguas
+                      Idioma(s)
                     </FormLabel>
                     <FormControl>
                       <MultipleSelector
@@ -222,6 +222,7 @@ export function ProfileForm({
                         onChange={field.onChange}
                         defaultOptions={LANGUAGE_OPTIONS}
                         placeholder="Selecione sua(s) língua(s)"
+                        hidePlaceholderWhenSelected
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                             Nenhum resultado encontrado
@@ -241,7 +242,7 @@ export function ProfileForm({
                 return (
                   <FormItem className="col-span-3">
                     <FormLabel className="ml-3">
-                      Nacionalidades
+                      Nacionalidade(s)
                     </FormLabel>
                     <FormControl>
                       <MultipleSelector
@@ -249,6 +250,7 @@ export function ProfileForm({
                         onChange={field.onChange}
                         defaultOptions={COUNTRY_OPTIONS}
                         placeholder="Selecione sua(s) nacionalidade(s)"
+                        hidePlaceholderWhenSelected
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                             Nenhum resultado encontrado
@@ -268,7 +270,7 @@ export function ProfileForm({
                 return (
                   <FormItem className="col-span-3">
                     <FormLabel className="ml-3">
-                      Estados Brasileiros de Origem
+                      Estado(s) Brasileiro(s) de Origem
                     </FormLabel>
                     <FormControl>
                       <MultipleSelector
@@ -276,11 +278,36 @@ export function ProfileForm({
                         onChange={field.onChange}
                         defaultOptions={BR_STATE_OPTIONS}
                         placeholder="Selecione seu(s) estado(s)"
+                        hidePlaceholderWhenSelected
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                             Nenhum resultado encontrado
                           </p>
                         }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              name="cities_of_origin"
+              control={profileForm.control}
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Cidade(s) de Origem
+                    </FormLabel>
+                    <FormControl>
+                      <MultipleSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        defaultOptions={[]}
+                        creatable
+                        placeholder="Selecione seu(s) estado(s)"
+                        hidePlaceholderWhenSelected
                       />
                     </FormControl>
                     <FormMessage />

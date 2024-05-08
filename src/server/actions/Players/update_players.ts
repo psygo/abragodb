@@ -32,6 +32,9 @@ export async function updatePlayerProfile(
       br_states_of_origin: values.br_states_of_origin.map(
         (v) => v.value as BR_STATE,
       ),
+      cities_of_origin: values.cities_of_origin.map(
+        (v) => v.value,
+      ),
     }
 
     const upsertQuery = e

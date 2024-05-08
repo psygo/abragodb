@@ -25,9 +25,12 @@ export const profileFormValidationSchema = z.object({
     .nullish(),
   date_of_birth: z.date(),
   description: z.string().optional().nullish(),
+
   languages: z.array(optionSchema),
+
   nationalities: z.array(optionSchema),
   br_states_of_origin: z.array(optionSchema),
+  cities_of_origin: z.array(optionSchema),
 })
 
 export type ProfileFormValidation = z.infer<

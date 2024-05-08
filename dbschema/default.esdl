@@ -51,6 +51,8 @@ module default {
     cities_of_residence: array<str>;
 
     socials_links: json;
+    
+    go_users: json;
 
     is_teacher: bool;
   }
