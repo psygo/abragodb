@@ -95,7 +95,7 @@ export function ProfileForm({
   }
 
   return (
-    <>
+    <section>
       <h2 className="mt-6">Edite Seu Perfil</h2>
 
       <Form {...profileForm}>
@@ -813,6 +813,6 @@ export function ProfileForm({
           </div>
         </form>
       </Form>
-    </>
+    </section>
   )
 }
