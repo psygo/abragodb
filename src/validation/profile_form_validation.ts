@@ -15,6 +15,18 @@ export function stringsToOptions(
   return strings.map((s) => ({ label: s, value: s }))
 }
 
+export const goUsersSchema = z
+  .record(
+    z.string(),
+    z.object({
+      server: z.string().optional(),
+      username: z.string().optional(),
+      strength: z.string().optional(),
+    }),
+  )
+  .optional()
+export type GoUsers = z.infer<typeof goUsersSchema>
+
 export const profileFormValidationSchema = z.object({
   first_name: z.string().optional().nullish(),
   last_name: z.string().optional().nullish(),
@@ -38,16 +50,7 @@ export const profileFormValidationSchema = z.object({
     .record(z.string(), z.string().url().optional())
     .optional(),
 
-  go_users: z
-    .record(
-      z.string(),
-      z.object({
-        server: z.string().optional(),
-        username: z.string().optional(),
-        strength: z.string().optional(),
-      }),
-    )
-    .optional(),
+  go_users: goUsersSchema,
 })
 
 export type ProfileFormValidation = z.infer<

@@ -21,7 +21,7 @@ export async function updatePlayerProfile(
     const playerQuery = e.select(e.Player, () => ({
       filter_single: { username },
     }))
-    
+
     console.log("go_users", values.go_users)
 
     const newData = {

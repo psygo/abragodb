@@ -4,11 +4,12 @@ import e from "@@/dbschema/edgeql-js"
 
 import { edgeDbClient } from "@db"
 
-import { localDateToDate } from "@utils"
+import { localDateToDate, toPrettyJson } from "@utils"
 
 import { type Username } from "@types"
 
 import {
+  GoUsers,
   brStatesToOptions,
   profileFormValidationSchema,
   stringsToOptions,
@@ -108,6 +109,9 @@ export default async function PlayerPage({
       <p>{player.profile?.description}</p>
       <p>{player.profile?.public_email}</p>
       <p>{player.profile?.date_of_birth?.toString()}</p>
+      <pre>
+        {toPrettyJson(player.profile?.go_users as GoUsers)}
+      </pre>
 
       <Separator className="mt-8" />
 

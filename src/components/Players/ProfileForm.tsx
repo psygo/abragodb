@@ -3,9 +3,11 @@
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 
+import { useState } from "react"
+
 import { useParams, useRouter } from "next/navigation"
 
-import { CalendarIcon, Plus } from "lucide-react"
+import { CalendarIcon, Plus, Trash2 } from "lucide-react"
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,6 +17,7 @@ import { updatePlayerProfile } from "@actions"
 import {
   BR_STATE_OPTIONS,
   COUNTRY_OPTIONS,
+  type GoUsers,
   LANGUAGE_OPTIONS,
   profileFormValidationSchema,
   type ProfileFormValidation,
@@ -38,7 +41,6 @@ import {
 } from "@shad"
 
 import { cn } from "@styles"
-import { useState } from "react"
 
 type ProfileFormProps = {
   initialValues?: ProfileFormValidation
@@ -65,6 +67,9 @@ export function ProfileForm({
   const [totalUsers, setTotalUsers] = useState(
     Object.values(initialValues?.go_users ?? {}).length,
   )
+  const [goUsers, setGoUsers] = useState<GoUsers>(
+    initialValues?.go_users ?? {},
+  )
 
   return (
     <>
@@ -88,9 +93,11 @@ export function ProfileForm({
                     Nome
                   </FormLabel>
                   <FormControl>
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/* @ts-ignore */}
-                    <Input placeholder="João" {...field} />
+                    <Input
+                      placeholder="João"
+                      {...field}
+                      value={field.value ?? ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,9 +112,11 @@ export function ProfileForm({
                     Sobrenome
                   </FormLabel>
                   <FormControl>
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/* @ts-ignore */}
-                    <Input placeholder="Silva" {...field} />
+                    <Input
+                      placeholder="Silva"
+                      {...field}
+                      value={field.value ?? ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -122,11 +131,10 @@ export function ProfileForm({
                     Email de Contato
                   </FormLabel>
                   <FormControl>
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/* @ts-ignore */}
                     <Input
                       placeholder="joao.silva@mail.com.br"
                       {...field}
+                      value={field.value ?? ""}
                     />
                   </FormControl>
                   <FormMessage />
@@ -194,11 +202,10 @@ export function ProfileForm({
                     Descrição
                   </FormLabel>
                   <FormControl>
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/* @ts-ignore */}
                     <Textarea
                       placeholder="Uma breve descrição sua..."
                       {...field}
+                      value={field.value ?? ""}
                     />
                   </FormControl>
                   <FormMessage />
@@ -350,15 +357,18 @@ export function ProfileForm({
             />
           </fieldset>
 
-          <fieldset className="grid grid-cols-12 gap-x-2 gap-y-3 items-end">
+          <fieldset>
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
               3. Usuários em Servidores de Go
             </legend>
 
             {Array.from(Array(totalUsers + 1), (e, i) => {
-              const key = `user${i}`
+              const key = `user-${i}`
               return (
-                <>
+                <div
+                  key={i}
+                  className="grid grid-cols-12 gap-x-2 gap-y-3 items-end"
+                >
                   <FormItem className="col-span-3">
                     <FormLabel className="ml-3">
                       Servidor - {i}
@@ -366,11 +376,7 @@ export function ProfileForm({
                     <FormControl>
                       <Input
                         placeholder="OGS"
-                        value={
-                          profileForm.getValues(
-                            "go_users",
-                          )?.[key]?.server ?? ""
-                        }
+                        value={goUsers?.[key]?.server ?? ""}
                         onChange={(e) => {
                           const currentUsers =
                             profileForm.getValues(
@@ -380,13 +386,14 @@ export function ProfileForm({
                             ...currentUsers,
                           }
                           newGoUsers[key] = {
-                            ...currentUsers?.user1,
+                            ...currentUsers?.[key],
                             server: e.target.value,
                           }
                           profileForm.setValue(
                             "go_users",
                             newGoUsers,
                           )
+                          setGoUsers({ ...newGoUsers })
                         }}
                       />
                     </FormControl>
@@ -397,7 +404,30 @@ export function ProfileForm({
                       Nome
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="usuário" />
+                      <Input
+                        placeholder="usuário"
+                        value={
+                          goUsers?.[key]?.username ?? ""
+                        }
+                        onChange={(e) => {
+                          const currentUsers =
+                            profileForm.getValues(
+                              "go_users",
+                            )
+                          const newGoUsers = {
+                            ...currentUsers,
+                          }
+                          newGoUsers[key] = {
+                            ...currentUsers?.[key],
+                            username: e.target.value,
+                          }
+                          profileForm.setValue(
+                            "go_users",
+                            newGoUsers,
+                          )
+                          setGoUsers({ ...newGoUsers })
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -406,12 +436,36 @@ export function ProfileForm({
                       Força
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="10k" />
+                      <Input
+                        placeholder="10k"
+                        value={
+                          goUsers?.[key]?.strength ?? ""
+                        }
+                        onChange={(e) => {
+                          const currentUsers =
+                            profileForm.getValues(
+                              "go_users",
+                            )
+                          const newGoUsers = {
+                            ...currentUsers,
+                          }
+                          newGoUsers[key] = {
+                            ...currentUsers?.[key],
+                            strength: e.target.value,
+                          }
+                          profileForm.setValue(
+                            "go_users",
+                            newGoUsers,
+                          )
+                          setGoUsers({ ...newGoUsers })
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                  {i === totalUsers && (
+                  {i === totalUsers ? (
                     <Button
+                      type="button"
                       className="col-span-1"
                       onClick={() =>
                         setTotalUsers(totalUsers + 1)
@@ -419,8 +473,24 @@ export function ProfileForm({
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      className="col-span-1"
+                      onClick={() => {
+                        const newGoUsers = { ...goUsers }
+                        delete newGoUsers[key]
+                        profileForm.setValue(
+                          "go_users",
+                          newGoUsers,
+                        )
+                        setGoUsers({ ...newGoUsers })
+                      }}
+                    >
+                      <Trash2 />
+                    </Button>
                   )}
-                </>
+                </div>
               )
             })}
           </fieldset>
