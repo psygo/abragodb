@@ -5,7 +5,7 @@ import { ptBR } from "date-fns/locale"
 
 import { useParams, useRouter } from "next/navigation"
 
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, Plus } from "lucide-react"
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -62,10 +62,9 @@ export function ProfileForm({
     router.refresh()
   }
 
-  const [linkFields, setLinkFields] = useState([
-    { name: "Facebook", url: "" },
-    { name: "YouTube", url: "" },
-  ])
+  const [totalUsers, setTotalUsers] = useState(
+    Object.values(initialValues?.go_users ?? {}).length,
+  )
 
   return (
     <>
@@ -351,9 +350,84 @@ export function ProfileForm({
             />
           </fieldset>
 
+          <fieldset className="grid grid-cols-12 gap-x-2 gap-y-3 items-end">
+            <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
+              3. Usuários em Servidores de Go
+            </legend>
+
+            {Array.from(Array(totalUsers + 1), (e, i) => {
+              const key = `user${i}`
+              return (
+                <>
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Servidor - {i}
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="OGS"
+                        value={
+                          profileForm.getValues(
+                            "go_users",
+                          )?.[key]?.server ?? ""
+                        }
+                        onChange={(e) => {
+                          const currentUsers =
+                            profileForm.getValues(
+                              "go_users",
+                            )
+                          const newGoUsers = {
+                            ...currentUsers,
+                          }
+                          newGoUsers[key] = {
+                            ...currentUsers?.user1,
+                            server: e.target.value,
+                          }
+                          profileForm.setValue(
+                            "go_users",
+                            newGoUsers,
+                          )
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                  <FormItem className="col-span-5">
+                    <FormLabel className="ml-3">
+                      Nome
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="usuário" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Força
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="10k" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                  {i === totalUsers && (
+                    <Button
+                      className="col-span-1"
+                      onClick={() =>
+                        setTotalUsers(totalUsers + 1)
+                      }
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  )}
+                </>
+              )
+            })}
+          </fieldset>
+
           <fieldset className="grid grid-cols-6 gap-x-2 gap-y-3">
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
-              3. Redes Sociais e Outros Links
+              4. Redes Sociais e Outros Links
             </legend>
 
             <FormField

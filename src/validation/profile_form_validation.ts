@@ -37,6 +37,17 @@ export const profileFormValidationSchema = z.object({
   socials_links: z
     .record(z.string(), z.string().url().optional())
     .optional(),
+
+  go_users: z
+    .record(
+      z.string(),
+      z.object({
+        server: z.string().optional(),
+        username: z.string().optional(),
+        strength: z.string().optional(),
+      }),
+    )
+    .optional(),
 })
 
 export type ProfileFormValidation = z.infer<

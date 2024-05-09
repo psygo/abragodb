@@ -50,7 +50,7 @@ module default {
     br_states_of_residence: array<BrState>;
     cities_of_residence: array<str>;
 
-    socials_links: array<str>;
+    socials_links: json;
     
     go_users: json;
 

@@ -1,4 +1,4 @@
-CREATE MIGRATION m12tom7w667iir6kt3en3lkjobjfdmk4tn3wcw6llnk5l6gtgcs2tq
+CREATE MIGRATION m1msnpeomp5exfnhoou4a6z7y3slnoeadrp3h74qa4vmuxsnyz7j3a
     ONTO initial
 {
   CREATE SCALAR TYPE default::BrState EXTENDING enum<AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO>;
@@ -11,6 +11,7 @@ CREATE MIGRATION m12tom7w667iir6kt3en3lkjobjfdmk4tn3wcw6llnk5l6gtgcs2tq
       CREATE PROPERTY date_of_birth: cal::local_date;
       CREATE PROPERTY description: std::str;
       CREATE PROPERTY first_name: std::str;
+      CREATE PROPERTY go_users: std::json;
       CREATE PROPERTY is_public: std::bool {
           SET default := false;
       };
@@ -20,6 +21,10 @@ CREATE MIGRATION m12tom7w667iir6kt3en3lkjobjfdmk4tn3wcw6llnk5l6gtgcs2tq
       CREATE PROPERTY nationalities: array<std::str>;
       CREATE PROPERTY public_email: std::str;
       CREATE PROPERTY socials_links: std::json;
+  };
+  CREATE TYPE default::GoUser {
+      CREATE PROPERTY strength: std::str;
+      CREATE REQUIRED PROPERTY username: std::str;
   };
   CREATE TYPE default::Player {
       CREATE REQUIRED PROPERTY clerkid: std::str {
@@ -52,5 +57,9 @@ CREATE MIGRATION m12tom7w667iir6kt3en3lkjobjfdmk4tn3wcw6llnk5l6gtgcs2tq
   };
   ALTER TYPE default::Player {
       CREATE LINK profile := (.<player[IS default::Profile]);
+  };
+  CREATE TYPE default::SocialLink {
+      CREATE PROPERTY name: std::str;
+      CREATE REQUIRED PROPERTY url: std::str;
   };
 };

@@ -73,7 +73,11 @@ export default async function PlayerPage({
 
   const initialSocialsLinks = player.profile?.socials_links
     ? player.profile.socials_links
-    : { facebook: "" }
+    : {}
+
+  const initialGoUsers = player.profile?.go_users
+    ? player.profile.go_users
+    : {}
 
   const initialValues: ProfileFormValidation =
     profileFormValidationSchema.parse({
@@ -90,6 +94,8 @@ export default async function PlayerPage({
       countries_of_residence: initialCountriesOfResidence,
 
       socials_links: initialSocialsLinks,
+
+      go_users: initialGoUsers,
     })
 
   return (

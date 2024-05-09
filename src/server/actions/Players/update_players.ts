@@ -21,6 +21,8 @@ export async function updatePlayerProfile(
     const playerQuery = e.select(e.Player, () => ({
       filter_single: { username },
     }))
+    
+    console.log("go_users", values.go_users)
 
     const newData = {
       ...values,
@@ -42,6 +44,8 @@ export async function updatePlayerProfile(
         values.countries_of_residence.map((v) => v.value),
 
       socials_links: values.socials_links,
+
+      go_users: values.go_users,
     }
 
     const upsertQuery = e
