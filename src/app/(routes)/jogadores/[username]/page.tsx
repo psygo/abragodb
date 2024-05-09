@@ -45,6 +45,7 @@ export default async function PlayerPage({
       </article>
     )
 
+  const initialSex = player.profile?.sex ?? ""
   const initialDateOfBirth = player.profile?.date_of_birth
     ? localDateToDate(player.profile.date_of_birth)
     : new Date()
@@ -94,6 +95,7 @@ export default async function PlayerPage({
     profileFormValidationSchema.parse({
       ...player.profile,
 
+      sex: initialSex,
       date_of_birth: initialDateOfBirth,
 
       languages: initialLanguages,

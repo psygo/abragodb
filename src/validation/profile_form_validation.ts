@@ -36,6 +36,7 @@ export const profileFormValidationSchema = z.object({
     .email("Este email é inválido.")
     .optional()
     .nullish(),
+  sex: z.string().optional(),
   date_of_birth: z.date(),
   description: z.string().optional().nullish(),
 

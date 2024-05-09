@@ -36,6 +36,7 @@ module default {
     first_name: str;
     last_name: str;
     public_email: str;
+    sex: str;
     date_of_birth: cal::local_date;
 
     description: str;

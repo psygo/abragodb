@@ -202,6 +202,39 @@ export function ProfileForm({
               )}
             />
             <FormField
+              control={profileForm.control}
+              name="sex"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="ml-3">
+                    Sexo
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value ?? ""}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione seu sexo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {[
+                        "Masculino",
+                        "Feminino",
+                        "Outro",
+                      ].map((s, i) => (
+                        <SelectItem key={i} value={s}>
+                          {s}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
               name="description"
               control={profileForm.control}
               render={({ field }) => (
