@@ -21,6 +21,7 @@ import {
   LANGUAGE_OPTIONS,
   profileFormValidationSchema,
   type ProfileFormValidation,
+  goServers,
 } from "@validation"
 
 import {
@@ -37,6 +38,13 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
   Textarea,
 } from "@shad"
 
@@ -370,15 +378,14 @@ export function ProfileForm({
                   key={i}
                   className="grid grid-cols-12 gap-x-2 gap-y-3 items-end"
                 >
-                  <FormItem className="col-span-3">
+                  <FormItem className="col-span-4 w-full">
                     <FormLabel className="ml-3">
                       Servidor
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="OGS"
-                        value={goUsers?.[key]?.server ?? ""}
-                        onChange={(e) => {
+                      <Select
+                        value={goUsers?.[key]?.server}
+                        onValueChange={(v) => {
                           const currentUsers =
                             profileForm.getValues(
                               "go_users",
@@ -388,7 +395,7 @@ export function ProfileForm({
                           }
                           newGoUsers[key] = {
                             ...currentUsers?.[key],
-                            server: e.target.value,
+                            server: v,
                           }
                           profileForm.setValue(
                             "go_users",
@@ -396,11 +403,22 @@ export function ProfileForm({
                           )
                           setGoUsers(newGoUsers)
                         }}
-                      />
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Selecione um servidor" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {goServers.map((gs, i) => (
+                            <SelectItem key={i} value={gs}>
+                              {gs}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                  <FormItem className="col-span-5">
+                  <FormItem className="col-span-4">
                     <FormLabel className="ml-3">
                       Nome
                     </FormLabel>
