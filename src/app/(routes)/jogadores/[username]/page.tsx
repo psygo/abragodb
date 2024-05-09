@@ -9,11 +9,11 @@ import { localDateToDate, toPrettyJson } from "@utils"
 import { type Username } from "@types"
 
 import {
-  GoUsers,
   brStatesToOptions,
+  type GoUsers,
+  type ProfileFormValidation,
   profileFormValidationSchema,
   stringsToOptions,
-  type ProfileFormValidation,
 } from "@validation"
 
 import { Separator } from "@shad"

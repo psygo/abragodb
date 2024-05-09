@@ -25,6 +25,7 @@ export const goUsersSchema = z
     }),
   )
   .optional()
+
 export type GoUsers = z.infer<typeof goUsersSchema>
 
 export const profileFormValidationSchema = z.object({
@@ -57,6 +58,9 @@ export type ProfileFormValidation = z.infer<
   typeof profileFormValidationSchema
 >
 
+//----------------------------------------------------------
+// Languages
+
 export const LANGUAGE_OPTIONS: Option[] = stringsToOptions([
   "Português",
   "Inglês",
@@ -69,10 +73,16 @@ export const LANGUAGE_OPTIONS: Option[] = stringsToOptions([
   "Japonês",
 ])
 
+//----------------------------------------------------------
+// Countries
+
 export const COUNTRY_OPTIONS: Option[] = stringsToOptions([
   "🇧🇷 Brasil",
   "🇦🇷 Argentina",
 ])
+
+//----------------------------------------------------------
+// Brazilian States
 
 export function brStatesToOptions(
   states: BR_STATE[],
@@ -140,3 +150,5 @@ export type BR_STATE =
   | "SP"
   | "SE"
   | "TO"
+
+//----------------------------------------------------------

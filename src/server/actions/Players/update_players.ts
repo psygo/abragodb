@@ -22,8 +22,6 @@ export async function updatePlayerProfile(
       filter_single: { username },
     }))
 
-    console.log("go_users", values.go_users)
-
     const newData = {
       ...values,
       date_of_birth: dateToLocalDate(values.date_of_birth),
