@@ -71,6 +71,16 @@ export default async function PlayerPage({
         player.profile.countries_of_residence,
       )
     : []
+  const initialBrStatesOfResidence = player.profile
+    ?.br_states_of_residence
+    ? brStatesToOptions(
+        player.profile.br_states_of_residence,
+      )
+    : []
+  const initialCitiesOfResidence = player.profile
+    ?.cities_of_residence
+    ? stringsToOptions(player.profile.cities_of_residence)
+    : []
 
   const initialSocialsLinks = player.profile?.socials_links
     ? player.profile.socials_links
@@ -93,6 +103,8 @@ export default async function PlayerPage({
       cities_of_origin: initialCitiesOfOrigin,
 
       countries_of_residence: initialCountriesOfResidence,
+      br_states_of_residence: initialBrStatesOfResidence,
+      cities_of_residence: initialCitiesOfResidence,
 
       socials_links: initialSocialsLinks,
 

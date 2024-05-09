@@ -232,7 +232,7 @@ export function ProfileForm({
               control={profileForm.control}
               render={({ field }) => {
                 return (
-                  <FormItem className="col-span-3">
+                  <FormItem className="col-span-6">
                     <FormLabel className="ml-3">
                       Idioma(s)
                     </FormLabel>
@@ -255,12 +255,13 @@ export function ProfileForm({
                 )
               }}
             />
+
             <FormField
               name="nationalities"
               control={profileForm.control}
               render={({ field }) => {
                 return (
-                  <FormItem className="col-span-3">
+                  <FormItem className="col-span-6">
                     <FormLabel className="ml-3">
                       Nacionalidade(s)
                     </FormLabel>
@@ -326,7 +327,7 @@ export function ProfileForm({
                         onChange={field.onChange}
                         defaultOptions={[]}
                         creatable
-                        placeholder="Selecione seu(s) estado(s)"
+                        placeholder="Selecione sua(s) cidade(s)"
                         hidePlaceholderWhenSelected
                       />
                     </FormControl>
@@ -335,12 +336,13 @@ export function ProfileForm({
                 )
               }}
             />
+
             <FormField
               name="countries_of_residence"
               control={profileForm.control}
               render={({ field }) => {
                 return (
-                  <FormItem className="col-span-3">
+                  <FormItem className="col-span-6">
                     <FormLabel className="ml-3">
                       Paíse(s) de Residência
                     </FormLabel>
@@ -356,6 +358,58 @@ export function ProfileForm({
                             Nenhum resultado encontrado
                           </p>
                         }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              name="br_states_of_residence"
+              control={profileForm.control}
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Estado(s) Brasileiro(s) de Residência
+                    </FormLabel>
+                    <FormControl>
+                      <MultipleSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        defaultOptions={BR_STATE_OPTIONS}
+                        placeholder="Selecione seu(s) estado(s)"
+                        hidePlaceholderWhenSelected
+                        emptyIndicator={
+                          <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                            Nenhum resultado encontrado
+                          </p>
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              name="cities_of_origin"
+              control={profileForm.control}
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Cidade(s) de Residência
+                    </FormLabel>
+                    <FormControl>
+                      <MultipleSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        defaultOptions={[]}
+                        creatable
+                        placeholder="Selecione sua(s) cidade(s)"
+                        hidePlaceholderWhenSelected
                       />
                     </FormControl>
                     <FormMessage />
