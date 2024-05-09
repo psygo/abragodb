@@ -29,6 +29,8 @@ export const goUsersSchema = z
 export type GoUsers = z.infer<typeof goUsersSchema>
 
 export const profileFormValidationSchema = z.object({
+  is_public: z.boolean().optional().default(false),
+
   first_name: z.string().optional().nullish(),
   last_name: z.string().optional().nullish(),
   public_email: z

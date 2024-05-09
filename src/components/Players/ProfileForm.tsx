@@ -58,6 +58,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Switch,
   Textarea,
 } from "@shad"
 
@@ -102,6 +103,26 @@ export function ProfileForm({
           onSubmit={profileForm.handleSubmit(onSubmit)}
           className="flex flex-col gap-6"
         >
+          <fieldset className="flex justify-end">
+            <FormField
+              control={profileForm.control}
+              name="is_public"
+              render={({ field }) => (
+                <FormItem className="flex items-center gap-2 p-2">
+                  <FormLabel className="text-base">
+                    Público?
+                  </FormLabel>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </fieldset>
+
           <fieldset className="grid grid-cols-2 gap-x-2 gap-y-3">
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
               1. Dados Pessoais
