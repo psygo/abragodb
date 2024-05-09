@@ -363,43 +363,43 @@ export function ProfileForm({
               3. Usuários em Servidores de Go
             </legend>
 
-        {Array.from(Array(totalUsers() + 1), (e, i) => {
-          const key = `user-${i}`
-          return (
-            <div
-              key={i}
-              className="grid grid-cols-12 gap-x-2 gap-y-3 items-end"
-            >
-              <FormItem className="col-span-3">
-                <FormLabel className="ml-3">
-                  Servidor
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="OGS"
-                    value={goUsers?.[key]?.server ?? ""}
-                    onChange={(e) => {
-                      const currentUsers =
-                        profileForm.getValues(
-                          "go_users",
-                        )
-                      const newGoUsers = {
-                        ...currentUsers,
-                      }
-                      newGoUsers[key] = {
-                        ...currentUsers?.[key],
-                        server: e.target.value,
-                      }
-                      profileForm.setValue(
-                        "go_users",
-                        newGoUsers,
-                      )
-                      setGoUsers(newGoUsers)
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            {Array.from(Array(totalUsers() + 1), (e, i) => {
+              const key = `user-${i}`
+              return (
+                <div
+                  key={i}
+                  className="grid grid-cols-12 gap-x-2 gap-y-3 items-end"
+                >
+                  <FormItem className="col-span-3">
+                    <FormLabel className="ml-3">
+                      Servidor
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="OGS"
+                        value={goUsers?.[key]?.server ?? ""}
+                        onChange={(e) => {
+                          const currentUsers =
+                            profileForm.getValues(
+                              "go_users",
+                            )
+                          const newGoUsers = {
+                            ...currentUsers,
+                          }
+                          newGoUsers[key] = {
+                            ...currentUsers?.[key],
+                            server: e.target.value,
+                          }
+                          profileForm.setValue(
+                            "go_users",
+                            newGoUsers,
+                          )
+                          setGoUsers(newGoUsers)
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                   <FormItem className="col-span-5">
                     <FormLabel className="ml-3">
                       Nome
@@ -474,7 +474,7 @@ export function ProfileForm({
                         setGoUsers(newGoUsers)
                       }}
                     >
-                      <Plus className="h-4 w-4" />
+                      <Plus />
                     </Button>
                   ) : (
                     <Button
