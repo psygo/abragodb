@@ -39,7 +39,7 @@ export default async function PlayerPage({
       </article>
     )
 
-  function getInitialValues() {
+  function getProfileFormInitialValues() {
     const initialSex = player?.profile?.sex ?? ""
     const initialDateOfBirth = player?.profile
       ?.date_of_birth
@@ -123,7 +123,9 @@ export default async function PlayerPage({
       <Separator className="mt-8" />
 
       <SignedIn>
-        <ProfileForm initialValues={getInitialValues()} />
+        <ProfileForm
+          initialValues={getProfileFormInitialValues()}
+        />
       </SignedIn>
     </article>
   )

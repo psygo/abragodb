@@ -84,6 +84,7 @@ async function createPlayer(userData: UserJSON) {
       clerkid: userData.id,
       username: userData.username!,
       email: userData.email_addresses.first().email_address,
+      image_url: userData.image_url,
       nanoid: nanoId,
     })
     const res = await insertPlayer.run(edgeDbClient)
@@ -109,6 +110,7 @@ async function updatePlayer(userData: UserJSON) {
         email:
           userData.email_addresses.first().email_address,
         username: userData.username!,
+        image_url: userData.image_url,
       },
     }))
     await updatePlayer.run(edgeDbClient)

@@ -13,6 +13,7 @@ module default {
     required email: str {
       constraint exclusive;
     }
+    image_url: str;
 
     created_at: datetime {
       default := (select datetime_current());

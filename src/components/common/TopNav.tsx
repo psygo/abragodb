@@ -7,9 +7,10 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser as useClerkUser,
 } from "@clerk/nextjs"
 
-import { Moon, Sun } from "lucide-react"
+import { Moon, Pencil, Sun } from "lucide-react"
 
 import { Button } from "@shad"
 
@@ -43,6 +44,7 @@ function RightNav() {
     <section className="flex items-center gap-1">
       <AboutPage />
       <ThemeButton />
+      <EditProfileButton />
       <ClerkSignIn />
     </section>
   )
@@ -90,5 +92,20 @@ function ClerkSignIn() {
         <UserButton />
       </SignedIn>
     </div>
+  )
+}
+
+function EditProfileButton() {
+  const { user } = useClerkUser()
+
+  return (
+    <SignedIn>
+      <Link
+        className="ml-2 mr-2 flex items-center"
+        href={`/jogadores/${user?.username}`}
+      >
+        <Pencil className="h-4 w-4" />
+      </Link>
+    </SignedIn>
   )
 }
