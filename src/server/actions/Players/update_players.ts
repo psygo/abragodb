@@ -43,7 +43,7 @@ export async function updatePlayerProfile(
 
       socials_links: values.socials_links,
 
-      go_users: values.go_users,
+      go_users: {},
     }
 
     const upsertQuery = e

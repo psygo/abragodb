@@ -22,6 +22,7 @@ import {
   profileFormValidationSchema,
   type ProfileFormValidation,
   goServers,
+  goStrength,
 } from "@validation"
 
 import {
@@ -40,9 +41,7 @@ import {
   PopoverTrigger,
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
   Textarea,
@@ -405,7 +404,7 @@ export function ProfileForm({
                         }}
                       >
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Selecione um servidor" />
+                          <SelectValue placeholder="Escolha um servidor" />
                         </SelectTrigger>
                         <SelectContent>
                           {goServers.map((gs, i) => (
@@ -418,13 +417,13 @@ export function ProfileForm({
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                  <FormItem className="col-span-4">
+                  <FormItem className="col-span-3">
                     <FormLabel className="ml-3">
-                      Nome
+                      Usuário
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="usuário"
+                        placeholder="joao"
                         value={
                           goUsers?.[key]?.username ?? ""
                         }
@@ -450,17 +449,14 @@ export function ProfileForm({
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                  <FormItem className="col-span-3">
+                  <FormItem className="col-span-4 w-full">
                     <FormLabel className="ml-3">
                       Força
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="10k"
-                        value={
-                          goUsers?.[key]?.strength ?? ""
-                        }
-                        onChange={(e) => {
+                      <Select
+                        value={goUsers?.[key]?.strength}
+                        onValueChange={(v) => {
                           const currentUsers =
                             profileForm.getValues(
                               "go_users",
@@ -470,7 +466,7 @@ export function ProfileForm({
                           }
                           newGoUsers[key] = {
                             ...currentUsers?.[key],
-                            strength: e.target.value,
+                            strength: v,
                           }
                           profileForm.setValue(
                             "go_users",
@@ -478,7 +474,21 @@ export function ProfileForm({
                           )
                           setGoUsers(newGoUsers)
                         }}
-                      />
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Selecione sua força" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {goStrength.map((gs, i) => (
+                            <SelectItem
+                              key={i}
+                              value={gs.kyu_dan}
+                            >
+                              {gs.kyu_dan}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
