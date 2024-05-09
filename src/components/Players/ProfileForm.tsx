@@ -7,7 +7,21 @@ import { useState } from "react"
 
 import { useParams, useRouter } from "next/navigation"
 
-import { CalendarIcon, Plus, Trash2 } from "lucide-react"
+import {
+  CalendarIcon,
+  Link,
+  Plus,
+  Trash2,
+} from "lucide-react"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faDiscord,
+  faFacebook,
+  faInstagram,
+  faTwitch,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons"
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -614,17 +628,47 @@ export function ProfileForm({
           </fieldset>
 
           <fieldset className="grid grid-cols-6 gap-x-2 gap-y-3">
-            <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
+            <legend className="ml-3 mb-4 text-lg font-bold col-span-2">
               4. Redes Sociais e Outros Links
             </legend>
 
+            <FormField
+              control={profileForm.control}
+              name="socials_links.Discord"
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-6">
+                    <FormLabel className="ml-3 mb-2 flex gap-1 items-center">
+                      <FontAwesomeIcon
+                        className="h-4 w-4"
+                        color="gray"
+                        icon={faDiscord}
+                      />
+                      Discord
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="joao.silva9999"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
             <FormField
               control={profileForm.control}
               name="socials_links.facebook"
               render={({ field }) => {
                 return (
                   <FormItem className="col-span-6">
-                    <FormLabel className="ml-3">
+                    <FormLabel className="ml-3 mb-2 flex gap-1 items-center">
+                      <FontAwesomeIcon
+                        className="h-[14px] w-[14px]"
+                        color="gray"
+                        icon={faFacebook}
+                      />
                       Facebook
                     </FormLabel>
                     <FormControl>
@@ -645,7 +689,12 @@ export function ProfileForm({
               render={({ field }) => {
                 return (
                   <FormItem className="col-span-6">
-                    <FormLabel className="ml-3">
+                    <FormLabel className="ml-3 mb-2 flex gap-1 items-center">
+                      <FontAwesomeIcon
+                        className="h-4 w-4"
+                        color="gray"
+                        icon={faInstagram}
+                      />
                       Instagram
                     </FormLabel>
                     <FormControl>
@@ -666,7 +715,12 @@ export function ProfileForm({
               render={({ field }) => {
                 return (
                   <FormItem className="col-span-6">
-                    <FormLabel className="ml-3">
+                    <FormLabel className="ml-3 mb-2 flex gap-1 items-center">
+                      <FontAwesomeIcon
+                        className="h-[15px] w-[15px]"
+                        color="gray"
+                        icon={faTwitch}
+                      />
                       Twitch
                     </FormLabel>
                     <FormControl>
@@ -687,7 +741,12 @@ export function ProfileForm({
               render={({ field }) => {
                 return (
                   <FormItem className="col-span-6">
-                    <FormLabel className="ml-3">
+                    <FormLabel className="ml-3 mb-2 flex gap-1 items-center">
+                      <FontAwesomeIcon
+                        className="h-4 w-4"
+                        color="gray"
+                        icon={faYoutube}
+                      />
                       YouTube
                     </FormLabel>
                     <FormControl>
@@ -708,7 +767,8 @@ export function ProfileForm({
               render={({ field }) => {
                 return (
                   <FormItem className="col-span-6">
-                    <FormLabel className="ml-3">
+                    <FormLabel className="ml-3 mb-2 flex gap-1 items-center">
+                      <Link className="h-[15px] w-[15px]" />
                       Pessoal
                     </FormLabel>
                     <FormControl>
