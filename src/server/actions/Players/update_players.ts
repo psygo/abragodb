@@ -40,6 +40,8 @@ export async function updatePlayerProfile(
 
       countries_of_residence:
         values.countries_of_residence.map((v) => v.value),
+
+      socials_links: values.socials_links,
     }
 
     const upsertQuery = e

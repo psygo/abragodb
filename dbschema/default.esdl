@@ -50,9 +50,9 @@ module default {
     br_states_of_residence: array<BrState>;
     cities_of_residence: array<str>;
 
-    socials_links: array<SocialLink>;
+    socials_links: array<str>;
     
-    go_users: array<GoUser>;
+    go_users: json;
 
     is_teacher: bool;
   }

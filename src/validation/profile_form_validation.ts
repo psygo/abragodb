@@ -33,6 +33,10 @@ export const profileFormValidationSchema = z.object({
   cities_of_origin: z.array(optionSchema),
 
   countries_of_residence: z.array(optionSchema),
+
+  socials_links: z
+    .record(z.string(), z.string().url().optional())
+    .optional(),
 })
 
 export type ProfileFormValidation = z.infer<

@@ -38,6 +38,7 @@ import {
 } from "@shad"
 
 import { cn } from "@styles"
+import { useState } from "react"
 
 type ProfileFormProps = {
   initialValues?: ProfileFormValidation
@@ -60,6 +61,11 @@ export function ProfileForm({
     await updatePlayerProfile(username, values)
     router.refresh()
   }
+
+  const [linkFields, setLinkFields] = useState([
+    { name: "Facebook", url: "" },
+    { name: "YouTube", url: "" },
+  ])
 
   return (
     <>
@@ -336,6 +342,118 @@ export function ProfileForm({
                             Nenhum resultado encontrado
                           </p>
                         }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+          </fieldset>
+
+          <fieldset className="grid grid-cols-6 gap-x-2 gap-y-3">
+            <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
+              3. Redes Sociais e Outros Links
+            </legend>
+
+            <FormField
+              control={profileForm.control}
+              name="socials_links.facebook"
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-6">
+                    <FormLabel className="ml-3">
+                      Facebook
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="url"
+                        placeholder="https://facebook.com/joao.silva"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              control={profileForm.control}
+              name="socials_links.instagram"
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-6">
+                    <FormLabel className="ml-3">
+                      Instagram
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="url"
+                        placeholder="https://instagram.com/joao.silva"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              control={profileForm.control}
+              name="socials_links.twitch"
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-6">
+                    <FormLabel className="ml-3">
+                      Twitch
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="url"
+                        placeholder="https://twitch.tv/joao.silva"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              control={profileForm.control}
+              name="socials_links.youtube"
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-6">
+                    <FormLabel className="ml-3">
+                      YouTube
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="url"
+                        placeholder="https://youtube.com/@joao.silva"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+            <FormField
+              control={profileForm.control}
+              name="socials_links.personal"
+              render={({ field }) => {
+                return (
+                  <FormItem className="col-span-6">
+                    <FormLabel className="ml-3">
+                      Pessoal
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="url"
+                        placeholder="https://meublog.com.br"
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
