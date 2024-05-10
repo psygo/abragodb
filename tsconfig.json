@@ -61,6 +61,12 @@
       "@providers": [
         "./src/providers/exports"
       ],
+      "@queries/*": [
+        "./src/server/queries/*"
+      ],
+      "@queries": [
+        "./src/server/queries/exports"
+      ],
       "@server/*": [
         "./src/server/*"
       ],

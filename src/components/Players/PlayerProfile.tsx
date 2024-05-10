@@ -1,5 +1,3 @@
-import e, { type $infer } from "@@/dbschema/edgeql-js"
-
 import { Link } from "lucide-react"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -18,7 +16,7 @@ import {
 
 import { localDateToDate } from "@utils"
 
-import { type Username } from "@types"
+import { type GetPlayer } from "@queries"
 
 import {
   brStatesToOptions,
@@ -36,21 +34,6 @@ import {
 } from "@shad"
 
 import { PlayerAvatar } from "./PlayerAvatar"
-
-export function getPlayerQuery(username: Username) {
-  return e.select(e.Player, (player) => ({
-    ...e.Player["*"],
-    profile: {
-      ...e.Player.profile["*"],
-      id: false,
-    },
-    filter_single: e.op(player.username, "=", username),
-  }))
-}
-
-type GetPlayerReturnType = ReturnType<typeof getPlayerQuery>
-
-export type GetPlayer = $infer<GetPlayerReturnType>
 
 type PlayerProfileProps = {
   player: GetPlayer
