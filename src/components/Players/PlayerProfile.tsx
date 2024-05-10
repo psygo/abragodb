@@ -10,7 +10,11 @@ import {
   faTwitch,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons"
-import { faMars } from "@fortawesome/free-solid-svg-icons"
+import {
+  faGenderless,
+  faMars,
+  faVenus,
+} from "@fortawesome/free-solid-svg-icons"
 
 import { localDateToDate } from "@utils"
 
@@ -122,11 +126,7 @@ export function PlayerProfile({
               </div>
 
               <div className="flex gap-2 items-center">
-                <FontAwesomeIcon
-                  className="h-[15px] w-[15px] mb-[1px]"
-                  color="gray"
-                  icon={faMars}
-                />
+                <PlayerSex sex={profile.sex} />
                 <p className="text-[1rem] text-gray-500">
                   {getAge()}
                 </p>
@@ -198,6 +198,39 @@ export function PlayerProfile({
       </Card>
     </section>
   )
+}
+
+type PlayerSexProps = {
+  sex: string | null | undefined
+}
+
+function PlayerSex({ sex }: PlayerSexProps) {
+  if (!sex || sex === "") return
+
+  if (sex === "Masculino")
+    return (
+      <FontAwesomeIcon
+        className="h-[15px] w-[15px] mb-[1px]"
+        color="gray"
+        icon={faMars}
+      />
+    )
+  else if (sex === "Feminino")
+    return (
+      <FontAwesomeIcon
+        className="h-[15px] w-[15px] mb-[1px]"
+        color="gray"
+        icon={faVenus}
+      />
+    )
+  else if (sex === "Outro")
+    return (
+      <FontAwesomeIcon
+        className="h-[15px] w-[15px] mb-[1px]"
+        color="gray"
+        icon={faGenderless}
+      />
+    )
 }
 
 type BadgeListProps = {
