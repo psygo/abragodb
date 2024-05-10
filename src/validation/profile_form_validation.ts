@@ -15,6 +15,14 @@ export function stringsToOptions(
   return strings.map((s) => ({ label: s, value: s }))
 }
 
+export const socialsLinksSchema = z
+  .record(z.string(), z.string().optional())
+  .optional()
+
+export type SocialsLinks = z.infer<
+  typeof socialsLinksSchema
+>
+
 export const goUsersSchema = z
   .record(
     z.string(),
@@ -52,9 +60,7 @@ export const profileFormValidationSchema = z.object({
   br_states_of_residence: z.array(optionSchema),
   cities_of_residence: z.array(optionSchema),
 
-  socials_links: z
-    .record(z.string(), z.string().url().optional())
-    .optional(),
+  socials_links: socialsLinksSchema,
 
   go_users: goUsersSchema,
 })

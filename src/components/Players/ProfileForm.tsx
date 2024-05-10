@@ -663,7 +663,7 @@ export function ProfileForm({
 
             <FormField
               control={profileForm.control}
-              name="socials_links.Discord"
+              name="socials_links.discord"
               render={({ field }) => {
                 return (
                   <FormItem className="col-span-6">
@@ -677,7 +677,8 @@ export function ProfileForm({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="joao.silva9999"
+                        type="url"
+                        placeholder="https://discordapp.com/users/joao.silva9999"
                         {...field}
                       />
                     </FormControl>
