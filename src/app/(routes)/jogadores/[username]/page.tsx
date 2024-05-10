@@ -117,7 +117,7 @@ export default async function PlayerPage({
   }
 
   return (
-    <article className="prose dark:prose-invert">
+    <article>
       <PlayerProfile player={player} />
 
       <Separator className="mt-8" />

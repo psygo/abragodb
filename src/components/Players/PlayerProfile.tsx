@@ -2,10 +2,13 @@ import Image from "next/image"
 
 import e, { type $infer } from "@@/dbschema/edgeql-js"
 
+import { localDateToDate } from "@utils"
+
 import { type Username } from "@types"
 
 import { type GoUsers, goStrength } from "@validation"
-import { localDateToDate } from "../../utils/datetime"
+
+import { Card, CardHeader, CardTitle } from "@shad"
 
 export function getPlayerQuery(username: Username) {
   return e.select(e.Player, (player) => ({
@@ -66,28 +69,38 @@ export function PlayerProfile({
     const ageDifMs = now.getTime() - d.getTime()
     const ageDate = new Date(ageDifMs)
     const age = Math.abs(ageDate.getUTCFullYear() - 1970)
-    return `${age} anos`
+    return age > 1 ? `${age} anos` : ""
   }
 
   return (
-    <section className="mt-1">
-      <div className="flex gap-2 items-center">
-        <PlayerAvatar
-          imageUrl={player.image_url}
-          alt={player.username}
-        />
-        <h2 className="mt-6 flex gap-2">
-          <span>{player.profile?.first_name}</span>
-          <span>{player.profile?.last_name}</span>
-          <span className="text-gray-600">
-            {getMaxStrength()}
-          </span>
-        </h2>
-      </div>
-      <p>{getAge()}</p>
+    <section>
+      <Card>
+        <CardHeader className="p-3">
+          <CardTitle className="flex gap-2 items-center">
+            <PlayerAvatar
+              imageUrl={player.image_url}
+              alt={player.username}
+            />
+            <div className="flex flex-col">
+              <h2 className="flex gap-2 text-2xl font-extrabold">
+                <span>{player.profile?.first_name}</span>
+                <span>{player.profile?.last_name}</span>
+                <span className="text-gray-600">
+                  {getMaxStrength()}
+                </span>
+              </h2>
+              <div className="flex gap-2">
+                <p className="text-sm text-gray-500">
+                  {getAge()}
+                </p>
+              </div>
+            </div>
+          </CardTitle>
+        </CardHeader>
+      </Card>
+
       <p>{player.profile?.description}</p>
       <p>{player.profile?.public_email}</p>
-      <p>{player.profile?.date_of_birth?.toString()}</p>
     </section>
   )
 }
