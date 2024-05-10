@@ -17,6 +17,7 @@ import { localDateToDate } from "@utils"
 import { type Username } from "@types"
 
 import {
+  brStatesToOptions,
   goStrength,
   type GoUsers,
   type SocialsLinks,
@@ -62,8 +63,10 @@ export function PlayerProfile({
       <h2 className="text-gray-400">Nenhuma Informacao</h2>
     )
 
+  const profile = player.profile
+
   function getMaxStrength() {
-    const goUsers = player?.profile?.go_users as GoUsers
+    const goUsers = profile?.go_users as GoUsers
     if (!goUsers) return ""
 
     const strengths = Object.values({ ...goUsers })
@@ -84,7 +87,7 @@ export function PlayerProfile({
   }
 
   function getAge() {
-    const dateOfBirth = player?.profile?.date_of_birth
+    const dateOfBirth = profile?.date_of_birth
     if (!dateOfBirth) return ""
     const d = localDateToDate(dateOfBirth)
 
@@ -106,13 +109,17 @@ export function PlayerProfile({
             />
 
             <div className="flex flex-col gap-[4px]">
-              <h2 className="flex gap-2 text-2xl font-extrabold">
-                <span>{player.profile?.first_name}</span>
-                <span>{player.profile?.last_name}</span>
-                <span className="text-gray-600">
+              <div className="flex gap-2 text-2xl font-extrabold items-center">
+                <h2>
+                  {profile?.first_name} {profile?.last_name}
+                </h2>
+                <h3 className="text-gray-600">
                   {getMaxStrength()}
-                </span>
-              </h2>
+                </h3>
+                <h4 className="ml-2 text-lg text-gray-400">
+                  @{player.username}
+                </h4>
+              </div>
 
               <div className="flex gap-2 items-center">
                 <FontAwesomeIcon
@@ -140,36 +147,78 @@ export function PlayerProfile({
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-5">
-          <Separator />
-
-          <div className="flex gap-1 items-center">
-            {player.profile?.languages?.map((l, i) => (
-              <Badge key={i}>{l}</Badge>
-            ))}
-            <p className="text-gray-400 text-sm">Idiomas</p>
+          <div className="flex gap-3">
+            <div className="flex flex-col gap-2">
+              <BadgeList
+                label="Idiomas"
+                badges={profile.languages}
+              />
+              <BadgeList
+                label="Estados Brasileiros de Origem"
+                badges={brStatesToOptions(
+                  profile.br_states_of_origin ?? [],
+                ).map((st) => st.label)}
+              />
+              <BadgeList
+                label="Países de Residência"
+                badges={profile.countries_of_residence}
+              />
+              <BadgeList
+                label="Estados Brasileiros de Residência"
+                badges={brStatesToOptions(
+                  profile.br_states_of_residence ?? [],
+                ).map((st) => st.label)}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <BadgeList
+                label="Nacionalidades"
+                badges={profile.nationalities}
+              />
+              <BadgeList
+                label="Cidades de Origem"
+                badges={profile.cities_of_origin}
+              />
+              <BadgeList
+                label="Cidades de Residência"
+                badges={profile.cities_of_residence}
+              />
+            </div>
           </div>
-          <div className="flex gap-1 items-center">
-            {player.profile?.nationalities?.map((n, i) => (
-              <Badge key={i}>{n}</Badge>
-            ))}
-            <p className="text-gray-400 text-sm">
-              Nacionalidades
-            </p>
-          </div>
 
-          <Separator />
-
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 pl-1">
             <p className="text-gray-500 text-sm">
               Descrição
             </p>
             <p className="text-[0.95rem]">
-              {player.profile?.description}
+              {profile?.description}
             </p>
           </div>
         </CardContent>
       </Card>
     </section>
+  )
+}
+
+type BadgeListProps = {
+  label: string
+  badges: string[] | undefined | null
+}
+
+function BadgeList({ label, badges }: BadgeListProps) {
+  if (!badges || badges.length === 0) return
+
+  return (
+    <div className="flex flex-col gap-1">
+      <p className="text-gray-400 text-xs ml-1">{label}</p>
+      <div className="flex gap-1 items-center">
+        {badges.map((n, i) => (
+          <Badge variant="outline" key={i}>
+            {n}
+          </Badge>
+        ))}
+      </div>
+    </div>
   )
 }
 

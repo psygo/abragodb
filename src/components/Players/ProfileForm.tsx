@@ -465,7 +465,7 @@ export function ProfileForm({
               }}
             />
             <FormField
-              name="cities_of_origin"
+              name="cities_of_residence"
               control={profileForm.control}
               render={({ field }) => {
                 return (
