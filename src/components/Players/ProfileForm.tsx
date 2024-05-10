@@ -96,7 +96,9 @@ export function ProfileForm({
 
   return (
     <section>
-      <h2 className="mt-6">Edite Seu Perfil</h2>
+      <h2 className="mt-6 text-2xl font-bold">
+        Edite Seu Perfil
+      </h2>
 
       <Form {...profileForm}>
         <form
@@ -493,6 +495,11 @@ export function ProfileForm({
               3. Usuários em Servidores de Go
             </legend>
 
+            <p className="ml-3 text-sm mb-2 text-gray-600">
+              A força que aparecerá ao lado do seu nome no
+              perfil será a primeira listada aqui.
+            </p>
+
             {Array.from(Array(totalUsers() + 1), (e, i) => {
               const key = `user-${i}`
               return (
@@ -625,7 +632,7 @@ export function ProfileForm({
                         setGoUsers(newGoUsers)
                       }}
                     >
-                      <Plus />
+                      <Plus className="h-[18px] w-[18px]" />
                     </Button>
                   ) : (
                     <Button
@@ -641,7 +648,7 @@ export function ProfileForm({
                         setGoUsers({ ...newGoUsers })
                       }}
                     >
-                      <Trash2 />
+                      <Trash2 className="h-[17px] w-[17px]" />
                     </Button>
                   )}
                 </div>

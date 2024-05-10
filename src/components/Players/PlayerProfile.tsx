@@ -1,6 +1,7 @@
-import Image from "next/image"
-
 import e, { type $infer } from "@@/dbschema/edgeql-js"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMars } from "@fortawesome/free-solid-svg-icons"
 
 import { localDateToDate } from "@utils"
 
@@ -8,7 +9,14 @@ import { type Username } from "@types"
 
 import { type GoUsers, goStrength } from "@validation"
 
-import { Card, CardHeader, CardTitle } from "@shad"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@shad"
+
+import { PlayerAvatar } from "./PlayerAvatar"
 
 export function getPlayerQuery(username: Username) {
   return e.select(e.Player, (player) => ({
@@ -55,7 +63,7 @@ export function PlayerProfile({
           server: u.server,
         }
       })
-      .reduce((p, v) => (p >= v ? p : v))
+      .first()
 
     return `${maxStrength.kyu_dan} ${maxStrength.server}`
   }
@@ -81,7 +89,7 @@ export function PlayerProfile({
               imageUrl={player.image_url}
               alt={player.username}
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-[6px]">
               <h2 className="flex gap-2 text-2xl font-extrabold">
                 <span>{player.profile?.first_name}</span>
                 <span>{player.profile?.last_name}</span>
@@ -89,47 +97,29 @@ export function PlayerProfile({
                   {getMaxStrength()}
                 </span>
               </h2>
-              <div className="flex gap-2">
-                <p className="text-sm text-gray-500">
+              <div className="flex gap-2 items-center">
+                <FontAwesomeIcon
+                  className="h-[15px] w-[15px] mb-[1px]"
+                  color="gray"
+                  icon={faMars}
+                />
+                <p className="text-[1rem] text-gray-500">
                   {getAge()}
                 </p>
+                <a
+                  href={`mailto:${player.profile?.public_email}`}
+                  className="text-[1rem] text-gray-500"
+                >
+                  {player.profile?.public_email}
+                </a>
               </div>
             </div>
           </CardTitle>
         </CardHeader>
+        <CardContent>
+          <p>{player.profile?.description}</p>
+        </CardContent>
       </Card>
-
-      <p>{player.profile?.description}</p>
-      <p>{player.profile?.public_email}</p>
     </section>
-  )
-}
-
-type PlayerAvatarProps = {
-  imageUrl: string | null | undefined
-  alt: string
-}
-
-export function PlayerAvatar({
-  imageUrl,
-  alt = "",
-}: PlayerAvatarProps) {
-  if (!imageUrl) return
-
-  const searchParams = new URLSearchParams()
-  searchParams.set("height", "100")
-  searchParams.set("width", "100")
-  searchParams.set("quality", "100")
-  searchParams.set("fit", "crop")
-  const imageSrc = `${imageUrl}?${searchParams.toString()}`
-
-  return (
-    <Image
-      className="my-4"
-      src={imageSrc}
-      width={50}
-      height={50}
-      alt={alt}
-    />
   )
 }
