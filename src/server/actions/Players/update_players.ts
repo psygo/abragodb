@@ -56,12 +56,16 @@ export async function updatePlayerProfile(
     const upsertQuery = e
       .insert(e.Profile, {
         ...newData,
+        updated_at: new Date(),
         player: playerQuery,
       })
       .unlessConflict((profile) => ({
         on: profile.player,
         else: e.update(profile, () => ({
-          set: newData,
+          set: {
+            ...newData,
+            updated_at: new Date(),
+          },
         })),
       }))
 

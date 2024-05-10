@@ -1,12 +1,16 @@
-import Image from "next/image"
+import { cn } from "@styles"
+
+import { Avatar, AvatarFallback, AvatarImage } from "@shad"
 
 type PlayerAvatarProps = {
   imageUrl: string | null | undefined
-  alt: string
+  alt?: string
+  className?: string
 }
 
 export function PlayerAvatar({
   imageUrl,
+  className = "",
   alt = "",
 }: PlayerAvatarProps) {
   if (!imageUrl) return
@@ -19,12 +23,9 @@ export function PlayerAvatar({
   const imageSrc = `${imageUrl}?${searchParams.toString()}`
 
   return (
-    <Image
-      className="my-4"
-      src={imageSrc}
-      width={50}
-      height={50}
-      alt={alt}
-    />
+    <Avatar className={cn(className)}>
+      <AvatarImage src={imageSrc} alt={alt} />
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
   )
 }

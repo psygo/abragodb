@@ -6,6 +6,8 @@ import { localDateToDate } from "@utils"
 
 import { type Username } from "@types"
 
+import { getPlayerQuery } from "@queries"
+
 import {
   brStatesToOptions,
   type ProfileFormValidation,
@@ -15,11 +17,7 @@ import {
 
 import { Separator } from "@shad"
 
-import {
-  PlayerProfile,
-  ProfileForm,
-  getPlayerQuery,
-} from "@components"
+import { PlayerProfile, ProfileForm } from "@components"
 
 type PlayerPageProps = {
   params: { username: Username }

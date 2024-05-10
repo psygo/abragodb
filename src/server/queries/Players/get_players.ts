@@ -6,11 +6,16 @@ export const selectPlayers = e.select(
     nanoid: true,
     username: true,
     email: true,
+    image_url: true,
     profile: {
       first_name: true,
       last_name: true,
     },
-    total_players: e.count(player),
+    total_players: e.count(e.Player),
+    order_by: {
+      expression: player.created_at,
+      direction: e.DESC,
+    },
   }),
 )
 

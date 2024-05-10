@@ -7,6 +7,8 @@ import { DbStatisticsCard, PlayersTable } from "@components"
 export default async function HomePage() {
   const players = await selectPlayers.run(edgeDbClient)
 
+  console.log("here", players)
+
   return (
     <section className="flex flex-col gap-2">
       <DbStatisticsCard

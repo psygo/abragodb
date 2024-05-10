@@ -30,6 +30,13 @@ module default {
       constraint exclusive;
     };
 
+    created_at: datetime {
+      default := (select datetime_current());
+    }
+    updated_at: datetime {
+      default := (select datetime_current());
+    }
+
     is_public: bool {
       default := false;
     }

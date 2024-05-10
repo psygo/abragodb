@@ -13,6 +13,8 @@ import {
   TableRow,
 } from "@shad"
 
+import { PlayerAvatar } from "./PlayerAvatar"
+
 type PlayersTableProps = {
   players: Players
 }
@@ -35,7 +37,11 @@ export function PlayersTable({
             {players.map((p, i) => {
               return (
                 <TableRow key={i}>
-                  <TableCell className="font-medium">
+                  <TableCell className="flex gap-2 items-center font-medium">
+                    <PlayerAvatar
+                      className="h-6 w-6"
+                      imageUrl={p.image_url}
+                    />
                     <Link
                       className="flex gap-1 text-orange-400"
                       href={`/jogadores/${p.username}`}
