@@ -51,7 +51,7 @@ export function PlayerProfile({
 
   const profile = player.profile
 
-  function getMaxStrength() {
+  function getStrength() {
     const goUsers = profile?.go_users as GoUsers
     if (!goUsers) return ""
 
@@ -100,7 +100,7 @@ export function PlayerProfile({
                   {profile?.first_name} {profile?.last_name}
                 </h2>
                 <h3 className="text-gray-600">
-                  {getMaxStrength()}
+                  {getStrength()}
                 </h3>
                 <h4 className="ml-2 text-lg text-gray-400">
                   @{player.username}

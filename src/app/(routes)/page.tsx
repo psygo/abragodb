@@ -9,7 +9,6 @@ export default async function HomePage() {
 
   return (
     <section className="flex flex-col gap-2">
-      <h2 className="ml-4 text-xl font-bold">Jogadores</h2>
       <PlayersTable players={players} />
     </section>
   )
