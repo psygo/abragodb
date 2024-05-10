@@ -9,6 +9,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
 
 import { cn } from "@styles"
+import "react-day-picker/dist/style.css"
+
 import { buttonVariants } from "./button"
 
 export type CalendarProps = React.ComponentProps<
@@ -21,8 +23,12 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const now = new Date()
   return (
     <DayPicker
+      captionLayout="dropdown"
+      fromYear={1900}
+      toYear={now.getFullYear()}
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       locale={ptBR}
@@ -32,7 +38,13 @@ function Calendar({
         month: "space-y-4",
         caption:
           "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
+        caption_label:
+          "text-sm font-medium flex items-center",
+        dropdown: "rdp-dropdown bg-card",
+        dropdown_icon: "ml-2",
+        dropdown_year: "rdp-dropdown_year ml-3",
+        button: "",
+        button_reset: "",
         nav: "space-x-1 flex items-center",
         nav_button: cn(
           buttonVariants({ variant: "outline" }),

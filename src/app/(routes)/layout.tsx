@@ -50,14 +50,16 @@ export default function RootLayout({
         <html lang="pt-BR">
           <body
             className={cn(
-              "min-h-screen bg-background font-sans antialiased light:bg-[#EBE4CD]",
+              "min-h-screen bg-background font-sans antialiased",
               inter.variable,
               theme,
             )}
           >
             <TopNav />
-            <main className="p-6 min-h-screen">
-              {children}
+            <main className="p-6 min-h-screen flex justify-center">
+              <div className="max-w-[750px]">
+                {children}
+              </div>
             </main>
             <Footer />
           </body>
