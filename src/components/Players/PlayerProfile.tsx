@@ -33,7 +33,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  Separator,
 } from "@shad"
 
 import { PlayerAvatar } from "./PlayerAvatar"
@@ -187,7 +186,7 @@ export function PlayerProfile({
           </div>
 
           <div className="flex flex-col gap-2 pl-1">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-400 text-xs">
               Descrição
             </p>
             <p className="text-[0.95rem]">
