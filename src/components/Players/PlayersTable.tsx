@@ -27,9 +27,8 @@ export function PlayersTable({
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px]">
-                Usuário
+                Nome
               </TableHead>
-              <TableHead>Email</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -38,13 +37,17 @@ export function PlayersTable({
                 <TableRow key={i}>
                   <TableCell className="font-medium">
                     <Link
-                      className="text-orange-400"
+                      className="flex gap-1 text-orange-400"
                       href={`/jogadores/${p.username}`}
                     >
-                      {p.username}
+                      <span>
+                        {p.profile?.first_name ?? "—"}
+                      </span>
+                      <span>
+                        {p.profile?.last_name ?? "—"}
+                      </span>
                     </Link>
                   </TableCell>
-                  <TableCell>{p.email}</TableCell>
                 </TableRow>
               )
             })}
