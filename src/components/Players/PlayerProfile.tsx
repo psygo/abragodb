@@ -23,10 +23,12 @@ import {
 } from "@validation"
 
 import {
+  Badge,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
+  Separator,
 } from "@shad"
 
 import { PlayerAvatar } from "./PlayerAvatar"
@@ -102,6 +104,7 @@ export function PlayerProfile({
               imageUrl={player.image_url}
               alt={player.username}
             />
+
             <div className="flex flex-col gap-[4px]">
               <h2 className="flex gap-2 text-2xl font-extrabold">
                 <span>{player.profile?.first_name}</span>
@@ -110,6 +113,7 @@ export function PlayerProfile({
                   {getMaxStrength()}
                 </span>
               </h2>
+
               <div className="flex gap-2 items-center">
                 <FontAwesomeIcon
                   className="h-[15px] w-[15px] mb-[1px]"
@@ -135,8 +139,34 @@ export function PlayerProfile({
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <p>{player.profile?.description}</p>
+        <CardContent className="flex flex-col gap-5">
+          <Separator />
+
+          <div className="flex gap-1 items-center">
+            {player.profile?.languages?.map((l, i) => (
+              <Badge key={i}>{l}</Badge>
+            ))}
+            <p className="text-gray-400 text-sm">Idiomas</p>
+          </div>
+          <div className="flex gap-1 items-center">
+            {player.profile?.nationalities?.map((n, i) => (
+              <Badge key={i}>{n}</Badge>
+            ))}
+            <p className="text-gray-400 text-sm">
+              Nacionalidades
+            </p>
+          </div>
+
+          <Separator />
+
+          <div className="flex flex-col gap-2">
+            <p className="text-gray-500 text-sm">
+              Descrição
+            </p>
+            <p className="text-[0.95rem]">
+              {player.profile?.description}
+            </p>
+          </div>
         </CardContent>
       </Card>
     </section>
