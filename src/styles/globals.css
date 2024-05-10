@@ -74,3 +74,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+ul {
+  margin-left: 12px;
+}
+
+li {
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+}
