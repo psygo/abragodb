@@ -9,7 +9,7 @@ import {
 import { headers } from "next/headers"
 import { NextResponse } from "next/server"
 
-import e from "@/../dbschema/edgeql-js"
+import e from "../../../../../dbschema/edgeql-js"
 
 import "@utils/array"
 
