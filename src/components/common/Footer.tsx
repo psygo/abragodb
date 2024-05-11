@@ -3,7 +3,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons"
 
 export function Footer() {
   return (
-    <footer className="bg-gray-200 flex justify-center items-center p-4">
+    <footer className="bg-gray-200 dark:bg-gray-900 flex justify-center items-center p-4">
       <a
         href="https://github.com/psygo/abragodb"
         target="_blank"

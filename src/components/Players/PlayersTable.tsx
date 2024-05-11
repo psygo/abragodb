@@ -11,19 +11,23 @@ type PlayersTableProps = {
 export function PlayersTable({
   players,
 }: PlayersTableProps) {
-  return players.map((p) => {
-    return (
-      <Link
-        key={p.username}
-        href={`/jogadores/${p.username}`}
-        className="hover:drop-shadow-lg"
-      >
-        <PlayerProfile
-          key={p.username}
-          player={p}
-          onlyHeader={true}
-        />
-      </Link>
-    )
-  })
+  return (
+    <div className="flex flex-col gap-2">
+      {players.map((p) => {
+        return (
+          <Link
+            key={p.username}
+            href={`/jogadores/${p.username}`}
+            className="hover:drop-shadow-lg"
+          >
+            <PlayerProfile
+              key={p.username}
+              player={p}
+              onlyHeader={true}
+            />
+          </Link>
+        )
+      })}
+    </div>
+  )
 }

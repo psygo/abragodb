@@ -141,6 +141,22 @@ export function PlayerProfile({
           </div>
         </CardTitle>
       </CardHeader>
+      {onlyHeader &&
+        (profile.br_states_of_residence ??
+          profile.cities_of_residence) && (
+          <CardContent className="flex gap-2 p-4 pt-0 pl-6">
+            <BadgeList
+              label="Estados Brasileiros de Residência"
+              badges={brStatesToOptions(
+                profile.br_states_of_residence ?? [],
+              ).map((st) => st.label)}
+            />
+            <BadgeList
+              label="Cidades de Residência"
+              badges={profile.cities_of_residence}
+            />
+          </CardContent>
+        )}
       {!onlyHeader && (
         <CardContent className="flex flex-col gap-5">
           <div className="flex gap-3">
