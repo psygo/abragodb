@@ -1,6 +1,6 @@
 import e, {
   type $infer,
-} from "../../../../dbschema/edgeql-js"
+} from "./../../../../dbschema/edgeql-js"
 
 import { type Username } from "@types"
 
