@@ -1,4 +1,6 @@
-import Link from "next/link"
+"use client"
+
+import { useRouter } from "next/navigation"
 
 import { type GetPlayers } from "@queries"
 
@@ -11,21 +13,25 @@ type PlayersTableProps = {
 export function PlayersTable({
   players,
 }: PlayersTableProps) {
+  const router = useRouter()
+
   return (
     <div className="flex flex-col gap-2">
       {players.map((p) => {
         return (
-          <Link
+          <div
             key={p.username}
-            href={`/jogadores/${p.username}`}
-            className="hover:drop-shadow-lg"
+            onClick={() =>
+              router.push(`/jogadores/${p.username}`)
+            }
+            className="hover:drop-shadow-lg hover:cursor-pointer"
           >
             <PlayerProfile
               key={p.username}
               player={p}
               onlyHeader={true}
             />
-          </Link>
+          </div>
         )
       })}
     </div>
