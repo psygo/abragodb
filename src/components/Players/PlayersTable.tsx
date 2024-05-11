@@ -6,6 +6,8 @@ import { type GetPlayers } from "@queries"
 
 import { PlayerProfile } from "./PlayerProfile"
 
+import { motion } from "framer-motion"
+
 type PlayersTableProps = {
   players: GetPlayers["players"]
 }
@@ -15,11 +17,36 @@ export function PlayersTable({
 }: PlayersTableProps) {
   const router = useRouter()
 
+  const container = {
+    visible: {
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.05,
+      },
+    },
+  }
+  const item = {
+    hidden: {
+      y: -10,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  }
+
   return (
-    <div className="flex flex-col gap-2">
+    <motion.ul
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="flex flex-col gap-2"
+    >
       {players.map((p) => {
         return (
-          <div
+          <motion.li
+            variants={item}
             key={p.username}
             onClick={() =>
               router.push(`/jogadores/${p.username}`)
@@ -31,9 +58,9 @@ export function PlayersTable({
               player={p}
               onlyHeader={true}
             />
-          </div>
+          </motion.li>
         )
       })}
-    </div>
+    </motion.ul>
   )
 }
