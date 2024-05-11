@@ -5,16 +5,14 @@ import { selectPlayers } from "@queries"
 import { DbStatisticsCard, PlayersTable } from "@components"
 
 export default async function HomePage() {
-  const players = await selectPlayers.run(edgeDbClient)
-
-  console.log("here", players)
+  const playersQuery = await selectPlayers.run(edgeDbClient)
 
   return (
     <section className="flex flex-col gap-2">
       <DbStatisticsCard
-        totalPlayers={players[0]?.total_players ?? 0}
+        totalPlayers={playersQuery.total_players ?? 0}
       />
-      <PlayersTable players={players} />
+      <PlayersTable players={playersQuery.players} />
     </section>
   )
 }

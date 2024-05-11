@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { type Players } from "@queries"
+import { type GetPlayers } from "@queries"
 
 import {
   Card,
@@ -16,7 +16,7 @@ import {
 import { PlayerAvatar } from "./PlayerAvatar"
 
 type PlayersTableProps = {
-  players: Players
+  players: GetPlayers["players"]
 }
 
 export function PlayersTable({
