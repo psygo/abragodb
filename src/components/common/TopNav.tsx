@@ -42,11 +42,13 @@ function LeftNav() {
 function RightNav() {
   return (
     <section className="flex items-center gap-1">
-      <PageNavLink
-        href="/estatisticas"
-        label="Estatísticas"
-      />
-      <PageNavLink href="/sobre" label="Sobre" />
+      <div className="mr-4">
+        <PageNavLink
+          href="/estatisticas"
+          label="Estatísticas"
+        />
+        <PageNavLink href="/sobre" label="Sobre" />
+      </div>
       <ThemeButton />
       <EditProfileButton />
       <ClerkSignIn />
@@ -61,7 +63,7 @@ type PageNavLinkProps = {
 
 function PageNavLink({ href, label }: PageNavLinkProps) {
   return (
-    <Button variant="ghost" asChild>
+    <Button variant="ghost" className="p-2" asChild>
       <Link href={href}>
         <h2 className="font-semibold tracking-tight text-lg">
           {label}
