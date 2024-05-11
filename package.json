@@ -22,7 +22,8 @@
     "build": "next build",
     "dev": "next dev --turbo",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "prebuild": "npx @edgedb/generate edgeql-js"
   },
   "dependencies": {
     "@clerk/localizations": "^2.3.0",

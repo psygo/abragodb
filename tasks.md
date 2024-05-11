@@ -1,7 +1,5 @@
 # Tasks
 
-1. [ ] Framer Motion for the Players' Table
-
 ## Code Improvements
 
 1. [ ] Break down the form (with React Hook Form Context)
@@ -12,10 +10,12 @@
 
 ## Second Version
 
-1. [ ] Table Pagination
-2. [ ] Player Base Statistics
-3. [ ] Players' Map (Brazil)
-4. [ ] Internationalization
+1. [ ] Toast for when the profile is updated
+2. [ ] Loading button for profile update
+3. [ ] Players' List Pagination
+4. [ ] Player Base Statistics
+5. [ ] Players' Map (Brazil)
+6. [ ] Internationalization
 
 ## Deployment
 

@@ -67,6 +67,9 @@
       "@queries": [
         "./src/server/queries/exports"
       ],
+      "@schema": [
+        "./dbschema/edgeql-js/index"
+      ],
       "@server/*": [
         "./src/server/*"
       ],

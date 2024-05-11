@@ -1,6 +1,6 @@
 "use server"
 
-import e from "@@/dbschema/edgeql-js"
+import e from "@schema"
 
 import { edgeDbClient } from "@db"
 
