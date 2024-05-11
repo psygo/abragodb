@@ -15,8 +15,6 @@ import {
   stringsToOptions,
 } from "@validation"
 
-import { Separator } from "@shad"
-
 import { PlayerProfile, ProfileForm } from "@components"
 
 type PlayerPageProps = {
@@ -118,10 +116,9 @@ export default async function PlayerPage({
     <article>
       <PlayerProfile player={player} />
 
-      <Separator className="mt-8" />
-
       <SignedIn>
         <ProfileForm
+          clerkId={player.clerkid}
           initialValues={getProfileFormInitialValues()}
         />
       </SignedIn>

@@ -1,5 +1,7 @@
 "use client"
 
+import { useUser as useClerkUser } from "@clerk/nextjs"
+
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 
@@ -25,6 +27,8 @@ import {
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+
+import { type ClerkId } from "@types"
 
 import { updatePlayerProfile } from "@actions"
 
@@ -65,12 +69,16 @@ import {
 import { cn } from "@styles"
 
 type ProfileFormProps = {
+  clerkId: ClerkId
   initialValues?: ProfileFormValidation
 }
 
 export function ProfileForm({
+  clerkId,
   initialValues,
 }: ProfileFormProps) {
+  const { isSignedIn, user } = useClerkUser()
+
   const profileForm = useForm<ProfileFormValidation>({
     resolver: zodResolver(profileFormValidationSchema),
     defaultValues: initialValues,
@@ -94,9 +102,15 @@ export function ProfileForm({
     return Object.keys(goUsers ?? {}).length
   }
 
+  function playerIsSignedInUser() {
+    return isSignedIn && user.id === clerkId
+  }
+
+  if (!playerIsSignedInUser()) return
+
   return (
     <section>
-      <h2 className="mt-6 text-2xl font-bold">
+      <h2 className="mt-6 ml-3 text-2xl font-bold">
         Edite Seu Perfil
       </h2>
 
