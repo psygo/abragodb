@@ -8,8 +8,8 @@ export default async function HomePage() {
   const playersQuery = await selectPlayers.run(edgeDbClient)
 
   return (
-    <section className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <PlayersTable players={playersQuery.players} />
-    </section>
+    </div>
   )
 }

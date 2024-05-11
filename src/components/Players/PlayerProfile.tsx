@@ -37,16 +37,18 @@ import { PlayerAvatar } from "./PlayerAvatar"
 
 type PlayerProfileProps = {
   player: GetPlayer
+  onlyHeader?: boolean
 }
 
 export function PlayerProfile({
   player,
+  onlyHeader = false,
 }: PlayerProfileProps) {
   if (!player) return
 
   if (!player.profile)
     return (
-      <h2 className="text-gray-400">Nenhuma Informacao</h2>
+      <h2 className="text-gray-400">Nenhuma Informação</h2>
     )
 
   const profile = player.profile
@@ -84,50 +86,62 @@ export function PlayerProfile({
     return age > 1 ? `${age} anos` : ""
   }
 
-  return (
-    <section>
-      <Card>
-        <CardHeader className="p-3">
-          <CardTitle className="flex gap-2 items-center">
-            <PlayerAvatar
-              imageUrl={player.image_url}
-              alt={player.username}
-            />
+  function showSubtitle() {
+    return (
+      profile.sex ??
+      profile.date_of_birth ??
+      profile.public_email ??
+      (profile.socials_links as SocialsLinks)
+    )
+  }
 
-            <div className="flex flex-col gap-[4px]">
-              <div className="flex gap-2 text-2xl font-extrabold items-center">
-                <h2>
-                  {profile?.first_name} {profile?.last_name}
-                </h2>
+  return (
+    <Card>
+      <CardHeader className="p-4 pr-5">
+        <CardTitle className="flex gap-2 items-center">
+          <PlayerAvatar
+            imageUrl={player.image_url}
+            alt={player.username}
+          />
+
+          <div className="flex flex-col gap-[4px]">
+            <div className="flex gap-2 text-2xl font-extrabold items-center">
+              <h2>
+                {profile?.first_name} {profile?.last_name}
+              </h2>
+              {getStrength() && (
                 <h3 className="text-gray-600">
                   {getStrength()}
                 </h3>
-                <h4 className="ml-2 text-lg text-gray-400">
-                  @{player.username}
-                </h4>
-              </div>
+              )}
+              <h4 className="text-lg text-gray-400">
+                @{player.username}
+              </h4>
+            </div>
 
+            {showSubtitle() && (
               <div className="flex gap-2 items-center">
                 <PlayerSex sex={profile.sex} />
                 <p className="text-[1rem] text-gray-500">
                   {getAge()}
                 </p>
                 <a
-                  href={`mailto:${player.profile?.public_email}`}
+                  href={`mailto:${profile.public_email}`}
                   className="text-[1rem] text-gray-500"
                 >
-                  {player.profile?.public_email}
+                  {profile.public_email}
                 </a>
                 <PlayerSocials
                   socialsLinks={
-                    player.profile
-                      ?.socials_links as SocialsLinks
+                    profile.socials_links as SocialsLinks
                   }
                 />
               </div>
-            </div>
-          </CardTitle>
-        </CardHeader>
+            )}
+          </div>
+        </CardTitle>
+      </CardHeader>
+      {!onlyHeader && (
         <CardContent className="flex flex-col gap-5">
           <div className="flex gap-3">
             <div className="flex flex-col gap-2">
@@ -168,17 +182,19 @@ export function PlayerProfile({
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 pl-1">
-            <p className="text-gray-400 text-xs">
-              Descrição
-            </p>
-            <p className="text-[0.95rem]">
-              {profile?.description}
-            </p>
-          </div>
+          {profile.description && (
+            <div className="flex flex-col gap-2 pl-1">
+              <p className="text-gray-400 text-xs">
+                Descrição
+              </p>
+              <p className="text-[0.95rem]">
+                {profile.description}
+              </p>
+            </div>
+          )}
         </CardContent>
-      </Card>
-    </section>
+      )}
+    </Card>
   )
 }
 

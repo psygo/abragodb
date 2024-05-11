@@ -25,7 +25,7 @@ export function PlayerAvatar({
   return (
     <Avatar className={cn(className)}>
       <AvatarImage src={imageSrc} alt={alt} />
-      <AvatarFallback>CN</AvatarFallback>
+      <AvatarFallback>?</AvatarFallback>
     </Avatar>
   )
 }

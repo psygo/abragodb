@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { type GetPlayers } from "@queries"
 
 import { PlayerProfile } from "./PlayerProfile"
@@ -10,6 +12,18 @@ export function PlayersTable({
   players,
 }: PlayersTableProps) {
   return players.map((p) => {
-    return <PlayerProfile key={p.clerkid} player={p} />
+    return (
+      <Link
+        key={p.username}
+        href={`/jogadores/${p.username}`}
+        className="hover:drop-shadow-lg"
+      >
+        <PlayerProfile
+          key={p.username}
+          player={p}
+          onlyHeader={true}
+        />
+      </Link>
+    )
   })
 }
