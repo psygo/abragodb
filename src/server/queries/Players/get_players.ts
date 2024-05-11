@@ -1,16 +1,14 @@
 import e, { type $infer } from "@@/dbschema/edgeql-js"
 
 export const selectPlayers = e.select({
-  total_players: e.count(e.Player),
   players: e.select(e.Player, (player) => ({
-    nanoid: true,
-    username: true,
-    email: true,
-    image_url: true,
+    ...e.Player["*"],
+    id: false,
     profile: {
-      first_name: true,
-      last_name: true,
+      ...e.Player.profile["*"],
+      id: false,
     },
+    filter: e.op(player.profile.is_public, "=", true),
     order_by: {
       expression: player.created_at,
       direction: e.DESC,

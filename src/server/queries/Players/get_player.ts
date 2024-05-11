@@ -5,6 +5,7 @@ import { type Username } from "@types"
 export function getPlayerQuery(username: Username) {
   return e.select(e.Player, (player) => ({
     ...e.Player["*"],
+    id: false,
     profile: {
       ...e.Player.profile["*"],
       id: false,

@@ -6,21 +6,23 @@ import {
 } from "@shad"
 
 type DbStatisticsCardProps = {
-  totalPlayers: number
+  label: string
+  stats: number
 }
 
 export function DbStatisticsCard({
-  totalPlayers,
+  label,
+  stats,
 }: DbStatisticsCardProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-md">
-          Total de Jogadores
+    <Card className="w-max">
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm text-gray-400">
+          {label}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <h4>{totalPlayers}</h4>
+      <CardContent className="p-4 pt-0 flex justify-end">
+        <h4 className="text-2xl font-semibold">{stats}</h4>
       </CardContent>
     </Card>
   )

@@ -1,7 +1,14 @@
 # Tasks
 
 1. [ ] Players' Table
-2. [ ] Form for editing your profile
+
+## Code Improvements
+
+1. [ ] Break down the form (with React Hook Form Context)
+
+## Errors
+
+1. [ ] Autofill in the form gives an error
 
 ## Second Version
 
