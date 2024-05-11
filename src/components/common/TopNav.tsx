@@ -112,10 +112,12 @@ function EditProfileButton() {
   return (
     <SignedIn>
       <Link
-        className="ml-2 mr-2 flex items-center"
+        className="flex items-center"
         href={`/jogadores/${user?.username}`}
       >
-        <Pencil className="h-4 w-4" />
+        <Button variant="ghost" className="p-3">
+          <Pencil style={{ width: 17, height: 17 }} />
+        </Button>
       </Link>
     </SignedIn>
   )
