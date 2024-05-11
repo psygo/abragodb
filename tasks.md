@@ -1,6 +1,6 @@
 # Tasks
 
-1. [ ] Players' Table
+1. [ ] Framer Motion for the Players' Table
 
 ## Code Improvements
 
@@ -19,6 +19,5 @@
 
 ## Deployment
 
-1. [ ] Add Clerk Auth
-2. [ ] Deploy Database
-3. [ ] Deploy to Vercel
+1. [ ] Deploy Database
+1. [ ] Deploy to Vercel
