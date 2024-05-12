@@ -130,8 +130,6 @@ export function PlayerProfile({
     )
   }
 
-  console.log("here", player.profile.border_color)
-
   return (
     <Card
       style={{
@@ -189,7 +187,7 @@ export function PlayerProfile({
       </CardHeader>
 
       {onlyHeader && (
-        <CardContent className="flex gap-2 p-4 pt-0 pl-6">
+        <CardContent className="flex gap-2 p-4 pt-0 px-6">
           {(profile.go_users as GoUsers) && (
             <div>
               <BadgeList
