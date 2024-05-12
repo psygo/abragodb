@@ -1,7 +1,5 @@
 # Tasks
 
-1. [ ] Color configs for the cards
-
 ## Code Improvements
 
 1. [ ] Break down the form (with React Hook Form Context)

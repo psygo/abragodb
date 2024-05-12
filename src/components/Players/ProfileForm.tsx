@@ -108,6 +108,11 @@ export function ProfileForm({
 
   if (!playerIsSignedInUser()) return
 
+  console.log(
+    "initial values form",
+    initialValues?.border_color,
+  )
+
   return (
     <section>
       <h2 className="mt-6 ml-3 text-2xl font-bold">

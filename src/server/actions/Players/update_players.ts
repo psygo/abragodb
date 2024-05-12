@@ -24,6 +24,7 @@ export async function updatePlayerProfile(
 
     const newData = {
       ...values,
+
       date_of_birth: dateToLocalDate(values.date_of_birth),
 
       languages: values.languages.map((v) => v.value),

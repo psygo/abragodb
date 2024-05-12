@@ -130,6 +130,8 @@ export function PlayerProfile({
     )
   }
 
+  console.log("here", player.profile.border_color)
+
   return (
     <Card
       style={{
