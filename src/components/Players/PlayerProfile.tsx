@@ -131,7 +131,11 @@ export function PlayerProfile({
   }
 
   return (
-    <Card>
+    <Card
+      style={{
+        borderColor: profile.border_color ?? "gray",
+      }}
+    >
       <CardHeader className="p-4 pr-5">
         <CardTitle className="flex gap-2 items-center">
           <PlayerAvatar

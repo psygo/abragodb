@@ -119,12 +119,31 @@ export function ProfileForm({
           onSubmit={profileForm.handleSubmit(onSubmit)}
           className="flex flex-col gap-6"
         >
-          <fieldset className="flex justify-end">
+          <fieldset className="flex justify-end items-center gap-3">
+            <FormField
+              control={profileForm.control}
+              name="border_color"
+              render={({ field }) => (
+                <FormItem className="w-[150px]">
+                  <FormLabel className="ml-[14px]">
+                    Borda
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="color"
+                      {...field}
+                      value={field?.value ?? "gray"}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={profileForm.control}
               name="is_public"
               render={({ field }) => (
-                <FormItem className="flex items-center gap-2 p-2">
+                <FormItem className="flex items-center gap-2 p-2 mt-5">
                   <FormLabel className="text-base">
                     Público?
                   </FormLabel>
@@ -143,6 +162,7 @@ export function ProfileForm({
             <legend className="ml-3 mb-2 text-lg font-bold col-span-2">
               1. Dados Pessoais
             </legend>
+
             <FormField
               control={profileForm.control}
               name="first_name"

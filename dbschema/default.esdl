@@ -40,6 +40,7 @@ module default {
     is_public: bool {
       default := false;
     }
+    border_color: str;
 
     first_name: str;
     last_name: str;

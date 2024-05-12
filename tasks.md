@@ -6,10 +6,6 @@
 
 1. [ ] Break down the form (with React Hook Form Context)
 
-## Errors
-
-1. [ ] Autofill in the form gives an error
-
 ## Second Version
 
 1. [ ] Toast for when the profile is updated
