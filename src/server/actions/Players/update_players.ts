@@ -1,10 +1,10 @@
 "use server"
 
+import { LocalDate } from "edgedb"
+
 import e from "./../../../../dbschema/edgeql-js"
 
 import { edgeDbClient } from "@db"
-
-import { dateToLocalDate } from "@utils"
 
 import { type Username } from "@types"
 
@@ -12,6 +12,14 @@ import {
   type BR_STATE,
   type ProfileFormValidation,
 } from "@validation"
+
+function dateToLocalDate(d: Date) {
+  return new LocalDate(
+    d.getFullYear(),
+    d.getMonth() + 1,
+    d.getDate(),
+  )
+}
 
 export async function updatePlayerProfile(
   username: Username,
