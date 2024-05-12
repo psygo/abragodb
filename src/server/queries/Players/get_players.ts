@@ -1,6 +1,4 @@
-import e, {
-  type $infer,
-} from "./../../../../dbschema/edgeql-js"
+import e, { type $infer } from "@schema"
 
 export const selectPlayers = e.select({
   players: e.select(e.Player, (player) => ({
