@@ -25,6 +25,8 @@ import {
   type SocialsLinks,
 } from "@validation"
 
+import { cn } from "@styles"
+
 import {
   Badge,
   Card,
@@ -53,14 +55,14 @@ export function PlayerProfile({
 
   const profile = player.profile
 
-  function getStrength() {
+  function getFirstStrength() {
     const goUsers = profile?.go_users as GoUsers
     if (!goUsers) return ""
 
     const strengths = Object.values({ ...goUsers })
     if (strengths.length === 0) return ""
 
-    const maxStrength = strengths
+    return strengths
       .map((u) => {
         return {
           ...goStrength.find(
@@ -70,8 +72,24 @@ export function PlayerProfile({
         }
       })
       .first()
+  }
 
-    return `${maxStrength.kyu_dan} ${maxStrength.server}`
+  function getStrengthColor() {
+    const firstStrength = getFirstStrength()
+    if (firstStrength === "") return "gray"
+
+    if (firstStrength.kyu_dan.includes("k"))
+      return "text-green-800"
+    else if (firstStrength.kyu_dan.includes("d"))
+      return "text-orange-800"
+    else return "gray"
+  }
+
+  function getStrength() {
+    const firstStrength = getFirstStrength()
+    if (firstStrength === "") return ""
+
+    return `${firstStrength.kyu_dan} ${firstStrength.server}`
   }
 
   function getAge() {
@@ -105,6 +123,13 @@ export function PlayerProfile({
     )
   }
 
+  function getGoUsersBadges() {
+    const goUsers = (profile.go_users as GoUsers)!
+    return Object.values(goUsers).map(
+      (gu) => `${gu.username} ${gu.strength} ${gu.server}`,
+    )
+  }
+
   return (
     <Card>
       <CardHeader className="p-4 pr-5">
@@ -120,7 +145,12 @@ export function PlayerProfile({
                 {profile?.first_name} {profile?.last_name}
               </h2>
               {getStrength() && (
-                <h3 className="text-gray-600">
+                <h3
+                  className={cn(
+                    "text-gray-600",
+                    getStrengthColor(),
+                  )}
+                >
                   {getStrength()}
                 </h3>
               )}
@@ -152,18 +182,30 @@ export function PlayerProfile({
         </CardTitle>
       </CardHeader>
 
-      {onlyHeader && showResidence() && (
+      {onlyHeader && (
         <CardContent className="flex gap-2 p-4 pt-0 pl-6">
-          <BadgeList
-            label="Estados Brasileiros de Residência"
-            badges={brStatesToOptions(
-              profile.br_states_of_residence ?? [],
-            ).map((st) => st.label)}
-          />
-          <BadgeList
-            label="Cidades de Residência"
-            badges={profile.cities_of_residence}
-          />
+          {(profile.go_users as GoUsers) && (
+            <div>
+              <BadgeList
+                label="Usuários em Servidores de Go"
+                badges={getGoUsersBadges()}
+              />
+            </div>
+          )}
+          {showResidence() && (
+            <>
+              <BadgeList
+                label="Estados Brasileiros de Residência"
+                badges={brStatesToOptions(
+                  profile.br_states_of_residence ?? [],
+                ).map((st) => st.label)}
+              />
+              <BadgeList
+                label="Cidades de Residência"
+                badges={profile.cities_of_residence}
+              />
+            </>
+          )}
         </CardContent>
       )}
 
@@ -207,6 +249,15 @@ export function PlayerProfile({
               />
             </div>
           </div>
+
+          {(profile.go_users as GoUsers) && (
+            <div>
+              <BadgeList
+                label="Usuários em Servidores de Go"
+                badges={getGoUsersBadges()}
+              />
+            </div>
+          )}
 
           {profile.description && (
             <div className="flex flex-col gap-2 pl-1">

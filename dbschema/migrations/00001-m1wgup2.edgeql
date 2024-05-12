@@ -1,4 +1,4 @@
-CREATE MIGRATION m1msnpeomp5exfnhoou4a6z7y3slnoeadrp3h74qa4vmuxsnyz7j3a
+CREATE MIGRATION m1wgup27usqbt5iuusd65ccfol3lkyujic7huqovhgd7pzctj7nacq
     ONTO initial
 {
   CREATE SCALAR TYPE default::BrState EXTENDING enum<AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO>;
@@ -8,6 +8,11 @@ CREATE MIGRATION m1msnpeomp5exfnhoou4a6z7y3slnoeadrp3h74qa4vmuxsnyz7j3a
       CREATE PROPERTY cities_of_origin: array<std::str>;
       CREATE PROPERTY cities_of_residence: array<std::str>;
       CREATE PROPERTY countries_of_residence: array<std::str>;
+      CREATE PROPERTY created_at: std::datetime {
+          SET default := (SELECT
+              std::datetime_current()
+          );
+      };
       CREATE PROPERTY date_of_birth: cal::local_date;
       CREATE PROPERTY description: std::str;
       CREATE PROPERTY first_name: std::str;
@@ -20,7 +25,13 @@ CREATE MIGRATION m1msnpeomp5exfnhoou4a6z7y3slnoeadrp3h74qa4vmuxsnyz7j3a
       CREATE PROPERTY last_name: std::str;
       CREATE PROPERTY nationalities: array<std::str>;
       CREATE PROPERTY public_email: std::str;
+      CREATE PROPERTY sex: std::str;
       CREATE PROPERTY socials_links: std::json;
+      CREATE PROPERTY updated_at: std::datetime {
+          SET default := (SELECT
+              std::datetime_current()
+          );
+      };
   };
   CREATE TYPE default::GoUser {
       CREATE PROPERTY strength: std::str;
@@ -38,6 +49,7 @@ CREATE MIGRATION m1msnpeomp5exfnhoou4a6z7y3slnoeadrp3h74qa4vmuxsnyz7j3a
       CREATE REQUIRED PROPERTY email: std::str {
           CREATE CONSTRAINT std::exclusive;
       };
+      CREATE PROPERTY image_url: std::str;
       CREATE REQUIRED PROPERTY nanoid: std::str {
           CREATE CONSTRAINT std::exclusive;
       };
