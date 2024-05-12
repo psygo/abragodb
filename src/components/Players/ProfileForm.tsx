@@ -155,7 +155,7 @@ export function ProfileForm({
                     <Input
                       placeholder="João"
                       {...field}
-                      value={field.value ?? ""}
+                      value={field?.value ?? ""}
                     />
                   </FormControl>
                   <FormMessage />
@@ -383,7 +383,7 @@ export function ProfileForm({
                         value={field.value}
                         onChange={field.onChange}
                         defaultOptions={BR_STATE_OPTIONS}
-                        placeholder="Selecione seu(s) estado(s)"
+                        placeholder="Alagoas..."
                         hidePlaceholderWhenSelected
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
@@ -412,7 +412,7 @@ export function ProfileForm({
                         onChange={field.onChange}
                         defaultOptions={[]}
                         creatable
-                        placeholder="Selecione sua(s) cidade(s)"
+                        placeholder="Belo Horizonte..."
                         hidePlaceholderWhenSelected
                       />
                     </FormControl>
@@ -429,14 +429,14 @@ export function ProfileForm({
                 return (
                   <FormItem className="col-span-6">
                     <FormLabel className="ml-3">
-                      Paíse(s) de Residência
+                      País(es) de Residência
                     </FormLabel>
                     <FormControl>
                       <MultipleSelector
                         value={field.value}
                         onChange={field.onChange}
                         defaultOptions={COUNTRY_OPTIONS}
-                        placeholder="Selecione seu(s) países de residência"
+                        placeholder="Selecione suas nações de residência"
                         hidePlaceholderWhenSelected
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
@@ -464,7 +464,7 @@ export function ProfileForm({
                         value={field.value}
                         onChange={field.onChange}
                         defaultOptions={BR_STATE_OPTIONS}
-                        placeholder="Selecione seu(s) estado(s)"
+                        placeholder="Alagoas..."
                         hidePlaceholderWhenSelected
                         emptyIndicator={
                           <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
@@ -493,7 +493,7 @@ export function ProfileForm({
                         onChange={field.onChange}
                         defaultOptions={[]}
                         creatable
-                        placeholder="Selecione sua(s) cidade(s)"
+                        placeholder="Belo Horizonte..."
                         hidePlaceholderWhenSelected
                       />
                     </FormControl>
