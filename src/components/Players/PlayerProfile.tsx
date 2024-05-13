@@ -62,6 +62,8 @@ export function PlayerProfile({
     const strengths = Object.values({ ...goUsers })
     if (strengths.length === 0) return ""
 
+    console.log(strengths)
+
     return strengths
       .map((u) => {
         return {
@@ -87,7 +89,12 @@ export function PlayerProfile({
 
   function getStrength() {
     const firstStrength = getFirstStrength()
-    if (firstStrength === "") return ""
+    if (
+      firstStrength === "" ||
+      !firstStrength?.kyu_dan ||
+      !firstStrength?.server
+    )
+      return ""
 
     return `${firstStrength.kyu_dan} ${firstStrength.server}`
   }
