@@ -1,19 +1,10 @@
 import { z } from "zod"
 
+import { optionSchema } from "@types"
+
 import { type Option } from "@shad"
 
-export const optionSchema = z.object({
-  label: z.string(),
-  value: z.string(),
-  disable: z.boolean().optional(),
-})
-
-export function stringsToOptions(
-  strings: string[] | null | undefined,
-): Option[] {
-  if (!strings) return []
-  return strings.map((s) => ({ label: s, value: s }))
-}
+//----------------------------------------------------------
 
 export const socialsLinksSchema = z
   .record(z.string(), z.string().optional())
@@ -22,6 +13,8 @@ export const socialsLinksSchema = z
 export type SocialsLinks = z.infer<
   typeof socialsLinksSchema
 >
+
+//----------------------------------------------------------
 
 export const goUsersSchema = z
   .record(
@@ -35,6 +28,8 @@ export const goUsersSchema = z
   .optional()
 
 export type GoUsers = z.infer<typeof goUsersSchema>
+
+//----------------------------------------------------------
 
 export const profileFormValidationSchema = z.object({
   border_color: z.string().optional().nullish(),
@@ -71,108 +66,7 @@ export type ProfileFormValidation = z.infer<
 >
 
 //----------------------------------------------------------
-// Languages
-
-export const LANGUAGE_OPTIONS: Option[] = stringsToOptions([
-  "Português",
-  "Inglês",
-  "Espanhol",
-  "Alemão",
-  "Coreano",
-  "Francês",
-  "Holandês",
-  "Indiano",
-  "Italiano",
-  "Japonês",
-  "Mandarim",
-  "Russo",
-  "Turco",
-  "Vietnamita",
-])
-
-//----------------------------------------------------------
 // Countries
-
-export const COUNTRY_OPTIONS: Option[] = stringsToOptions([
-  "🇧🇷 Brasil",
-  "Alemanha",
-  "🇦🇷 Argentina",
-  "Aruba",
-  "Austrália",
-  "Áustria",
-  "Azerbaijão",
-  "Bahamas",
-  "Bangladesh",
-  "Barbados",
-  "Bélgica",
-  "Belize",
-  "Bielorússia",
-  "Bolívia",
-  "Bulgária",
-  "Canadá",
-  "Chile",
-  "China",
-  "Colômbia",
-  "Coreia do Sul",
-  "Costa Rica",
-  "Croácia",
-  "Cuba",
-  "Dinamarca",
-  "El Salvador",
-  "Equador",
-  "Escócia",
-  "Eslováquia",
-  "Espanha",
-  "Finlândia",
-  "França",
-  "Grécia",
-  "Guadalupe",
-  "Guatemala",
-  "Guiana",
-  "Guiana Francesa",
-  "Haiti",
-  "Holanda",
-  "Honduras",
-  "Hungria",
-  "Índia",
-  "Indonésia",
-  "Inglaterra",
-  "Irlanda",
-  "Irlanda do Norte",
-  "Itália",
-  "Jamaica",
-  "Japão",
-  "Estados Unidos",
-  "Martinica",
-  "México",
-  "Nicarágua",
-  "Noruega",
-  "Nova Zelândia",
-  "Panamá",
-  "Paquistão",
-  "Paraguai",
-  "País de Gales",
-  "Peru",
-  "Porto Rico",
-  "Portugal",
-  "Polônia",
-  "Reino Unido",
-  "República Dominicana",
-  "República Tcheca",
-  "Romênia",
-  "Rússia",
-  "Sérvia",
-  "Suécia",
-  "Suíça",
-  "Suriname",
-  "Taiwan",
-  "Trinidade e Tobago",
-  "Turquia",
-  "Ucrânia",
-  "Uruaguai",
-  "Venezuela",
-  "Vietnã",
-])
 
 //----------------------------------------------------------
 // Brazilian States
