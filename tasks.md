@@ -1,5 +1,9 @@
 # Tasks
 
+1. [ ] Alpha Badge
+2. [ ] Fixed URL fields
+3. [ ] Discord link on about and footer
+
 ## Second Version
 
 1. [ ] Toast for when the profile is updated

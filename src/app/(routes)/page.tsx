@@ -1,8 +1,8 @@
 import { edgeDbClient } from "@db"
 
-import { selectPlayers } from "@queries"
+import { selectPlayersWithState } from "@queries"
 
-import { BrStateFilter, PlayersTable } from "@components"
+import { BrStateFilter, PlayersList } from "@components"
 
 type HomePageProps = {
   searchParams: Record<
@@ -14,13 +14,17 @@ type HomePageProps = {
 export default async function HomePage({
   searchParams,
 }: HomePageProps) {
-  console.log("search", searchParams)
-  const playersQuery = await selectPlayers.run(edgeDbClient)
+  const { estado } = searchParams
 
+  const playersQuery = await selectPlayersWithState(
+    estado as string,
+  ).run(edgeDbClient)
+
+  console.log("playersQuery", playersQuery.players.length)
   return (
     <div className="flex flex-col justify-end gap-2">
       <BrStateFilter />
-      <PlayersTable players={playersQuery.players} />
+      <PlayersList players={playersQuery.players} />
     </div>
   )
 }

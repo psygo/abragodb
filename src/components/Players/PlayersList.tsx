@@ -12,7 +12,7 @@ type PlayersTableProps = {
   players: GetPlayers["players"]
 }
 
-export function PlayersTable({
+export function PlayersList({
   players,
 }: PlayersTableProps) {
   const router = useRouter()

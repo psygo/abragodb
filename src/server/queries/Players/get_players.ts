@@ -1,19 +1,37 @@
 import e, { type $infer } from "@schema"
 
-export const selectPlayers = e.select({
-  players: e.select(e.Player, (player) => ({
-    ...e.Player["*"],
-    id: false,
-    profile: {
-      ...e.Player.profile["*"],
-      id: false,
-    },
-    filter: e.op(player.profile.is_public, "=", true),
-    order_by: {
-      expression: player.created_at,
-      direction: e.DESC,
-    },
-  })),
-})
+import { type BR_STATE } from "@types"
 
-export type GetPlayers = $infer<typeof selectPlayers>
+export function selectPlayersWithState(state?: string) {
+  const hasState = state && state.length === 2
+
+  return e.select({
+    players: e.select(e.Player, (player) => ({
+      ...e.Player["*"],
+      id: false,
+      profile: {
+        ...e.Player.profile["*"],
+        id: false,
+      },
+      filter: e.op(
+        e.op(player.profile.is_public, "=", true),
+        "and",
+        hasState
+          ? e.op(
+              e.array([e.BrState[state as BR_STATE]]),
+              "in",
+              player.profile.br_states_of_residence,
+            )
+          : e.op(true, "=", true),
+      ),
+      order_by: {
+        expression: player.created_at,
+        direction: e.DESC,
+      },
+    })),
+  })
+}
+
+export type GetPlayers = $infer<
+  ReturnType<typeof selectPlayersWithState>
+>

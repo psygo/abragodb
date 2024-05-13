@@ -29,7 +29,11 @@ export function BrStateFilter() {
         <SelectContent>
           {BR_STATE_OPTIONS.map((st, i) => {
             return (
-              <SelectItem key={i} value={st.value}>
+              <SelectItem
+                className="cursor-pointer"
+                key={i}
+                value={st.value}
+              >
                 {st.label}
               </SelectItem>
             )
