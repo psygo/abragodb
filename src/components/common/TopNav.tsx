@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect, useState } from "react"
+
 import Link from "next/link"
 
 import {
@@ -10,9 +12,16 @@ import {
   useUser as useClerkUser,
 } from "@clerk/nextjs"
 
-import { Moon, Pencil, Sun } from "lucide-react"
+import { Menu, Moon, Pencil, Sun } from "lucide-react"
 
-import { Button } from "@shad"
+import {
+  Button,
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger,
+} from "@shad"
 
 import { useTheme } from "@providers"
 
@@ -40,15 +49,41 @@ function LeftNav() {
 }
 
 function RightNav() {
+  const [width, setWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    window.onresize = () => setWidth(window.innerWidth)
+  }, [])
+
   return (
-    <section className="flex items-center gap-1">
-      <div className="mr-4">
-        <PageNavLink
-          href="/estatisticas"
-          label="Estatísticas"
-        />
-        <PageNavLink href="/sobre" label="Sobre" />
-      </div>
+    <section className="flex items-center md:gap-1">
+      {width > 500 ? (
+        <div className="mr-4">
+          <PageNavLink
+            href="/estatisticas"
+            label="Estatísticas"
+          />
+          <PageNavLink href="/sobre" label="Sobre" />
+        </div>
+      ) : (
+        <Menubar className="bg-transparent">
+          <MenubarMenu>
+            <MenubarTrigger>
+              <Menu />
+            </MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem>
+                <Link href="/estatisticas">
+                  Estatísticas
+                </Link>
+              </MenubarItem>
+              <MenubarItem>
+                <Link href="/sobre">Sobre</Link>
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      )}
       <ThemeButton />
       <EditProfileButton />
       <ClerkSignIn />
