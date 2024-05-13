@@ -18,6 +18,7 @@ import { localDateToDate } from "@utils"
 
 import {
   brStatesToOptions,
+  type Email,
   goStrength,
   type Username,
 } from "@types"
@@ -59,60 +60,6 @@ export function PlayerProfile({
 
   const profile = player.profile
 
-  function getFirstStrength() {
-    const goUsers = profile?.go_users as GoUsers
-    if (!goUsers) return ""
-
-    const strengths = Object.values({ ...goUsers })
-    if (strengths.length === 0) return ""
-
-    return strengths
-      .map((u) => {
-        return {
-          ...goStrength.find(
-            (gs) => gs.kyu_dan === u.strength,
-          )!,
-          server: u.server,
-        }
-      })
-      .first()
-  }
-
-  function getStrengthColor() {
-    const firstStrength = getFirstStrength()
-    if (firstStrength === "") return "gray"
-
-    if (firstStrength.kyu_dan.includes("k"))
-      return "text-green-800"
-    else if (firstStrength.kyu_dan.includes("d"))
-      return "text-orange-800"
-    else return "gray"
-  }
-
-  function getStrength() {
-    const firstStrength = getFirstStrength()
-    if (
-      firstStrength === "" ||
-      !firstStrength?.kyu_dan ||
-      !firstStrength?.server
-    )
-      return ""
-
-    return `${firstStrength.kyu_dan} ${firstStrength.server}`
-  }
-
-  function getAge() {
-    const dateOfBirth = profile?.date_of_birth
-    if (!dateOfBirth) return ""
-    const d = localDateToDate(dateOfBirth)
-
-    const now = new Date()
-    const ageDifMs = now.getTime() - d.getTime()
-    const ageDate = new Date(ageDifMs)
-    const age = Math.abs(ageDate.getUTCFullYear() - 1970)
-    return age > 1 ? `${age} anos` : ""
-  }
-
   function showSubtitle() {
     return (
       profile.sex ??
@@ -151,31 +98,21 @@ export function PlayerProfile({
                 firstName={profile.first_name}
                 lastName={profile.last_name}
               />
-              {getStrength() && (
-                <h3
-                  className={cn(
-                    "text-gray-600",
-                    getStrengthColor(),
-                  )}
-                >
-                  {getStrength()}
-                </h3>
-              )}
+              <PlayerChosenStrength
+                goUsers={profile.go_users as GoUsers}
+              />
               <PlayerUsername username={player.username} />
             </div>
 
             {showSubtitle() && (
               <div className="flex gap-2 items-center">
                 <PlayerSex sex={profile.sex} />
-                <p className="text-[1rem] text-gray-500">
-                  {getAge()}
-                </p>
-                <a
-                  href={`mailto:${profile.public_email}`}
-                  className="text-[1rem] text-gray-500"
-                >
-                  {profile.public_email}
-                </a>
+                <PlayerAge
+                  dateOfBirth={localDateToDate(
+                    profile.date_of_birth,
+                  )}
+                />
+                <PlayerEmail email={profile.public_email} />
                 <PlayerSocials
                   socialsLinks={
                     profile.socials_links as SocialsLinks
@@ -263,6 +200,39 @@ export function PlayerProfile({
   )
 }
 
+type PlayerAgeProps = {
+  dateOfBirth: Date
+}
+
+function PlayerAge({ dateOfBirth }: PlayerAgeProps) {
+  const now = new Date()
+  const ageDifMs = now.getTime() - dateOfBirth.getTime()
+  const ageDate = new Date(ageDifMs)
+  const age = Math.abs(ageDate.getUTCFullYear() - 1970)
+  const ageStr = age > 1 ? `${age} anos` : ""
+
+  return (
+    <p className="text-[1rem] text-gray-500">{ageStr}</p>
+  )
+}
+
+type PlayerEmailProps = {
+  email: Email | null | undefined
+}
+
+function PlayerEmail({ email }: PlayerEmailProps) {
+  if (!email || email === "") return
+
+  return (
+    <a
+      href={`mailto:${email}`}
+      className="text-[1rem] text-gray-500"
+    >
+      {email}
+    </a>
+  )
+}
+
 type PlayerUsernameProps = {
   username: Username
 }
@@ -286,6 +256,65 @@ function PlayerFullName({
     <h2>
       {firstName ?? ""} {lastName ?? ""}
     </h2>
+  )
+}
+
+type PlayerChosenStrengthProps = {
+  goUsers: GoUsers | null | undefined
+}
+
+function PlayerChosenStrength({
+  goUsers,
+}: PlayerChosenStrengthProps) {
+  function getFirstStrength() {
+    if (!goUsers) return ""
+
+    const strengths = Object.values({ ...goUsers })
+    if (strengths.length === 0) return ""
+
+    return strengths
+      .map((u) => {
+        return {
+          ...goStrength.find(
+            (gs) => gs.kyu_dan === u.strength,
+          )!,
+          server: u.server,
+        }
+      })
+      .first()
+  }
+
+  function getStrengthColor() {
+    const firstStrength = getFirstStrength()
+    if (firstStrength === "") return "gray"
+
+    if (firstStrength.kyu_dan.includes("k"))
+      return "text-green-800"
+    else if (firstStrength.kyu_dan.includes("d"))
+      return "text-orange-800"
+    else return "gray"
+  }
+
+  function getStrength() {
+    const firstStrength = getFirstStrength()
+    if (
+      firstStrength === "" ||
+      !firstStrength?.kyu_dan ||
+      !firstStrength?.server
+    )
+      return ""
+
+    return `${firstStrength.kyu_dan} ${firstStrength.server}`
+  }
+
+  return (
+    getStrength() && (
+      <h3
+        className={cn("text-gray-600", getStrengthColor())}
+      >
+        {getStrength()}
+      </h3>
+    )
   )
 }
 
@@ -322,6 +351,7 @@ function PlayerDescription({
   description,
 }: PlayerDescriptionProps) {
   if (!description || description === "") return
+
   return (
     <div className="flex flex-col gap-2 pl-1">
       <p className="text-gray-400 text-xs">Descrição</p>

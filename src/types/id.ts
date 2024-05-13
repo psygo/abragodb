@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid"
 
 export type Username = string
+export type Email = string
 export type NanoId = string
 export type ClerkId = string
 
