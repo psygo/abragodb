@@ -16,11 +16,11 @@ import {
 
 import { localDateToDate } from "@utils"
 
+import { brStatesToOptions, goStrength } from "@types"
+
 import { type GetPlayer } from "@queries"
 
 import {
-  brStatesToOptions,
-  goStrength,
   type GoUsers,
   type SocialsLinks,
 } from "@validation"

@@ -29,7 +29,10 @@ import { useForm, useFormContext } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import {
+  BR_STATE_OPTIONS,
   COUNTRY_OPTIONS,
+  goServers,
+  goStrength,
   LANGUAGE_OPTIONS,
   type ClerkId,
 } from "@types"
@@ -37,12 +40,9 @@ import {
 import { updatePlayerProfile } from "@actions"
 
 import {
-  BR_STATE_OPTIONS,
   type GoUsers,
   profileFormValidationSchema,
   type ProfileFormValidation,
-  goServers,
-  goStrength,
 } from "@validation"
 
 import {

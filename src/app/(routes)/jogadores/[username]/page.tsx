@@ -4,12 +4,15 @@ import { edgeDbClient } from "@db"
 
 import { localDateToDate } from "@utils"
 
-import { stringsToOptions, type Username } from "@types"
+import {
+  brStatesToOptions,
+  stringsToOptions,
+  type Username,
+} from "@types"
 
 import { getPlayerQuery } from "@queries"
 
 import {
-  brStatesToOptions,
   type ProfileFormValidation,
   profileFormValidationSchema,
 } from "@validation"
