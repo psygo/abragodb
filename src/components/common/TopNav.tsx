@@ -1,7 +1,5 @@
 "use client"
 
-import { useEffect, useState } from "react"
-
 import Link from "next/link"
 
 import {
@@ -49,45 +47,42 @@ function LeftNav() {
 }
 
 function RightNav() {
-  const [width, setWidth] = useState(window.innerWidth)
-
-  useEffect(() => {
-    window.onresize = () => setWidth(window.innerWidth)
-  }, [])
-
   return (
     <section className="flex items-center md:gap-1">
-      {width > 500 ? (
-        <div className="mr-4">
-          <PageNavLink
-            href="/estatisticas"
-            label="Estatísticas"
-          />
-          <PageNavLink href="/sobre" label="Sobre" />
-        </div>
-      ) : (
-        <Menubar className="bg-transparent px-0 w-max">
-          <MenubarMenu>
-            <MenubarTrigger>
-              <Menu />
-            </MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem>
-                <Link href="/estatisticas">
-                  Estatísticas
-                </Link>
-              </MenubarItem>
-              <MenubarItem>
-                <Link href="/sobre">Sobre</Link>
-              </MenubarItem>
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
-      )}
+      <PageNavs />
       <ThemeButton />
       <EditProfileButton />
       <ClerkSignIn />
     </section>
+  )
+}
+
+function PageNavs() {
+  return (
+    <>
+      <div className="mr-4 hidden md:block">
+        <PageNavLink
+          href="/estatisticas"
+          label="Estatísticas"
+        />
+        <PageNavLink href="/sobre" label="Sobre" />
+      </div>
+      <Menubar className="bg-transparent px-0 w-max md:hidden">
+        <MenubarMenu>
+          <MenubarTrigger>
+            <Menu />
+          </MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>
+              <Link href="/estatisticas">Estatísticas</Link>
+            </MenubarItem>
+            <MenubarItem>
+              <Link href="/sobre">Sobre</Link>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+    </>
   )
 }
 
