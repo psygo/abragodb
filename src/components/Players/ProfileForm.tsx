@@ -420,7 +420,7 @@ function LanguagesAndRegionSection() {
         control={profileForm.control}
         render={({ field }) => {
           return (
-            <FormItem className="col-span-3">
+            <FormItem className="col-span-6 md:col-span-3">
               <FormLabel className="ml-3">
                 Estado(s) Brasileiro(s) de Origem
               </FormLabel>
@@ -448,7 +448,7 @@ function LanguagesAndRegionSection() {
         control={profileForm.control}
         render={({ field }) => {
           return (
-            <FormItem className="col-span-3">
+            <FormItem className="col-span-6 md:col-span-3">
               <FormLabel className="ml-3">
                 Cidade(s) de Origem
               </FormLabel>
@@ -501,7 +501,7 @@ function LanguagesAndRegionSection() {
         control={profileForm.control}
         render={({ field }) => {
           return (
-            <FormItem className="col-span-3">
+            <FormItem className="col-span-6 md:col-span-3">
               <FormLabel className="ml-3">
                 Estado(s) Brasileiro(s) de Residência
               </FormLabel>
@@ -529,7 +529,7 @@ function LanguagesAndRegionSection() {
         control={profileForm.control}
         render={({ field }) => {
           return (
-            <FormItem className="col-span-3">
+            <FormItem className="col-span-6 md:col-span-3">
               <FormLabel className="ml-3">
                 Cidade(s) de Residência
               </FormLabel>
