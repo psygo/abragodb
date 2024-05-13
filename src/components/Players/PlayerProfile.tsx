@@ -133,7 +133,8 @@ export function PlayerProfile({
   function getGoUsersBadges() {
     const goUsers = (profile.go_users as GoUsers)!
     return Object.values(goUsers).map(
-      (gu) => `${gu.username} ${gu.strength} ${gu.server}`,
+      (gu) =>
+        `${gu?.username ?? ""} ${gu?.strength ?? ""} ${gu?.server ?? ""}`,
     )
   }
 
