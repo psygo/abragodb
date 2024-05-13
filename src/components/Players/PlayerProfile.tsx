@@ -14,6 +14,7 @@ import {
   faVenus,
 } from "@fortawesome/free-solid-svg-icons"
 
+import "@utils/array"
 import { localDateToDate } from "@utils"
 
 import {
@@ -41,6 +42,7 @@ import {
 
 import { BadgeList } from "./BadgeList"
 import { PlayerAvatar } from "./PlayerAvatar"
+import { only } from "node:test"
 
 type PlayerProfileProps = {
   player: GetPlayer
@@ -86,14 +88,15 @@ export function PlayerProfile({
       }}
     >
       <CardHeader className="p-4 pr-5">
-        <CardTitle className="flex gap-2 items-center">
+        <CardTitle className="flex gap-2 md:gap-4 items-center">
           <PlayerAvatar
             imageUrl={player.image_url}
             alt={player.username}
+            className="h-10 md:h-14 w-10 md:w-14"
           />
 
-          <div className="flex flex-col gap-[4px]">
-            <div className="flex gap-2 text-2xl font-extrabold items-center">
+          <div className="flex flex-col gap-1 md:gap-[8px]">
+            <div className="flex gap-1 md:gap-2 text-2xl font-extrabold md:items-center">
               <PlayerFullName
                 firstName={profile.first_name}
                 lastName={profile.last_name}
@@ -101,50 +104,45 @@ export function PlayerProfile({
               <PlayerChosenStrength
                 goUsers={profile.go_users as GoUsers}
               />
-              <PlayerUsername username={player.username} />
+              {!onlyHeader && (
+                <PlayerUsername
+                  username={player.username}
+                />
+              )}
             </div>
 
             {showSubtitle() && (
               <div className="flex gap-2 items-center">
-                <PlayerSex sex={profile.sex} />
+                {!onlyHeader && (
+                  <PlayerSex sex={profile.sex} />
+                )}
                 <PlayerAge
                   dateOfBirth={localDateToDate(
                     profile.date_of_birth,
                   )}
                 />
-                <PlayerEmail email={profile.public_email} />
-                <PlayerSocials
-                  socialsLinks={
-                    profile.socials_links as SocialsLinks
-                  }
-                />
+                {!onlyHeader && (
+                  <>
+                    <PlayerEmail
+                      email={profile.public_email}
+                    />
+                    <PlayerSocials
+                      socialsLinks={
+                        profile.socials_links as SocialsLinks
+                      }
+                    />
+                  </>
+                )}
+                {onlyHeader && (
+                  <BadgeList
+                    badges={profile.cities_of_residence}
+                  />
+                )}
               </div>
             )}
           </div>
         </CardTitle>
       </CardHeader>
-
-      {onlyHeader && (
-        <CardContent className="flex gap-2 p-4 pt-0 px-6">
-          <GoUsersList
-            goUsers={profile.go_users as GoUsers}
-          />
-          {showResidence() && (
-            <>
-              <BadgeList
-                label="Estados Brasileiros de Residência"
-                badges={brStatesToOptions(
-                  profile.br_states_of_residence ?? [],
-                ).map((st) => st.label)}
-              />
-              <BadgeList
-                label="Cidades de Residência"
-                badges={profile.cities_of_residence}
-              />
-            </>
-          )}
-        </CardContent>
-      )}
 
       {!onlyHeader && (
         <CardContent className="flex flex-col gap-5">
@@ -226,7 +224,7 @@ function PlayerEmail({ email }: PlayerEmailProps) {
   return (
     <a
       href={`mailto:${email}`}
-      className="text-[1rem] text-gray-500"
+      className="text-[1rem] text-gray-500 hidden md:block"
     >
       {email}
     </a>
@@ -239,7 +237,9 @@ type PlayerUsernameProps = {
 
 function PlayerUsername({ username }: PlayerUsernameProps) {
   return (
-    <h4 className="text-lg text-gray-400">@{username}</h4>
+    <h4 className="text-lg text-gray-400 hidden md:block">
+      @{username}
+    </h4>
   )
 }
 
@@ -253,7 +253,7 @@ function PlayerFullName({
   lastName,
 }: FullNameProps) {
   return (
-    <h2>
+    <h2 className="text-lg md:text-2xl">
       {firstName ?? ""} {lastName ?? ""}
     </h2>
   )
@@ -310,7 +310,10 @@ function PlayerChosenStrength({
   return (
     getStrength() && (
       <h3
-        className={cn("text-gray-600", getStrengthColor())}
+        className={cn(
+          "text-gray-600 text-lg md:text-2xl",
+          getStrengthColor(),
+        )}
       >
         {getStrength()}
       </h3>

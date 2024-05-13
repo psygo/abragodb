@@ -1,7 +1,7 @@
 import { Badge } from "@shad"
 
 export type BadgeListProps = {
-  label: string
+  label?: string
   badges: string[] | undefined | null
 }
 
@@ -13,7 +13,11 @@ export function BadgeList({
 
   return (
     <div className="flex flex-col gap-1">
-      <p className="text-gray-400 text-xs ml-1">{label}</p>
+      {label && (
+        <p className="text-gray-400 text-xs ml-1">
+          {label}
+        </p>
+      )}
       <div className="flex gap-1 items-center">
         {badges.map((n, i) => (
           <Badge variant="outline" key={i}>

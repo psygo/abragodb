@@ -57,9 +57,7 @@ export default function RootLayout({
           >
             <TopNav />
             <main className="p-6 min-h-screen flex justify-center">
-              <div className="max-w-[750px]">
-                {children}
-              </div>
+              <div>{children}</div>
             </main>
             <Footer />
           </body>
