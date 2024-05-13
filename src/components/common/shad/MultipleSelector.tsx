@@ -1,17 +1,17 @@
-/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style */
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/consistent-indexed-object-style */
 "use client"
 
 import * as React from "react"
 import { forwardRef, useEffect } from "react"
+
 import {
   Command as CommandPrimitive,
   useCommandState,
 } from "cmdk"
+
 import { X } from "lucide-react"
 
 import { cn } from "@styles"
+
 import { Badge } from "./badge"
 import {
   Command,
@@ -29,9 +29,8 @@ export interface Option {
   /** Group the options by providing key. */
   [key: string]: string | boolean | undefined
 }
-interface GroupOption {
-  [key: string]: Option[]
-}
+
+type GroupOption = Record<string, Option[]>
 
 interface MultipleSelectorProps {
   value?: Option[]
@@ -101,7 +100,7 @@ export function useDebounce<T>(
   useEffect(() => {
     const timer = setTimeout(
       () => setDebouncedValue(value),
-      delay || 500,
+      delay ?? 500,
     )
 
     return () => {
@@ -233,7 +232,7 @@ export const MultipleSelector = React.forwardRef<
 
     const [selected, setSelected] = React.useState<
       Option[]
-    >(value || [])
+    >(value ?? [])
     const [options, setOptions] =
       React.useState<GroupOption>(
         transToGroupOption(arrayDefaultOptions, groupBy),
@@ -241,14 +240,14 @@ export const MultipleSelector = React.forwardRef<
     const [inputValue, setInputValue] = React.useState("")
     const debouncedSearchTerm = useDebounce(
       inputValue,
-      delay || 500,
+      delay ?? 500,
     )
 
     React.useImperativeHandle(
       ref,
       () => ({
         selectedValue: [...selected],
-        input: inputRef.current as HTMLInputElement,
+        input: inputRef.current!,
       }),
       [selected],
     )
@@ -315,7 +314,7 @@ export const MultipleSelector = React.forwardRef<
       const doSearch = async () => {
         setIsLoading(true)
         const res = await onSearch?.(debouncedSearchTerm)
-        setOptions(transToGroupOption(res || [], groupBy))
+        setOptions(transToGroupOption(res ?? [], groupBy))
         setIsLoading(false)
       }
 
@@ -478,7 +477,7 @@ export const MultipleSelector = React.forwardRef<
                   <button
                     className={cn(
                       "ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                      (disabled || option.fixed) &&
+                      (disabled ?? option.fixed) &&
                         "hidden",
                     )}
                     onKeyDown={(e) => {

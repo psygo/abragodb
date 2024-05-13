@@ -28,13 +28,13 @@ import {
 import { cn } from "@styles"
 
 import {
-  Badge,
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@shad"
 
+import { BadgeList } from "./BadgeList"
 import { PlayerAvatar } from "./PlayerAvatar"
 
 type PlayerProfileProps = {
@@ -269,19 +269,28 @@ export function PlayerProfile({
             </div>
           )}
 
-          {profile.description && (
-            <div className="flex flex-col gap-2 pl-1">
-              <p className="text-gray-400 text-xs">
-                Descrição
-              </p>
-              <p className="text-[0.95rem]">
-                {profile.description}
-              </p>
-            </div>
-          )}
+          <PlayerDescription
+            description={profile.description}
+          />
         </CardContent>
       )}
     </Card>
+  )
+}
+
+type PlayerDescriptionProps = {
+  description: string | null | undefined
+}
+
+function PlayerDescription({
+  description,
+}: PlayerDescriptionProps) {
+  if (!description || description === "") return
+  return (
+    <div className="flex flex-col gap-2 pl-1">
+      <p className="text-gray-400 text-xs">Descrição</p>
+      <p className="text-[0.95rem]">{description}</p>
+    </div>
   )
 }
 
@@ -316,28 +325,6 @@ function PlayerSex({ sex }: PlayerSexProps) {
         icon={faGenderless}
       />
     )
-}
-
-type BadgeListProps = {
-  label: string
-  badges: string[] | undefined | null
-}
-
-function BadgeList({ label, badges }: BadgeListProps) {
-  if (!badges || badges.length === 0) return
-
-  return (
-    <div className="flex flex-col gap-1">
-      <p className="text-gray-400 text-xs ml-1">{label}</p>
-      <div className="flex gap-1 items-center">
-        {badges.map((n, i) => (
-          <Badge variant="outline" key={i}>
-            {n}
-          </Badge>
-        ))}
-      </div>
-    </div>
-  )
 }
 
 type PlayerSocialsProps = {
