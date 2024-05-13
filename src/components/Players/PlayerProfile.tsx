@@ -42,7 +42,6 @@ import {
 
 import { BadgeList } from "./BadgeList"
 import { PlayerAvatar } from "./PlayerAvatar"
-import { only } from "node:test"
 
 type PlayerProfileProps = {
   player: GetPlayer
@@ -68,16 +67,6 @@ export function PlayerProfile({
       profile.date_of_birth ??
       profile.public_email ??
       (profile.socials_links as SocialsLinks)
-    )
-  }
-
-  function showResidence() {
-    return (
-      onlyHeader &&
-      profile.br_states_of_residence &&
-      profile.br_states_of_residence.length > 0 &&
-      profile.cities_of_residence &&
-      profile.cities_of_residence.length > 0
     )
   }
 
@@ -122,22 +111,20 @@ export function PlayerProfile({
                   )}
                 />
                 {!onlyHeader && (
-                  <>
-                    <PlayerEmail
-                      email={profile.public_email}
-                    />
-                    <PlayerSocials
-                      socialsLinks={
-                        profile.socials_links as SocialsLinks
-                      }
-                    />
-                  </>
+                  <PlayerEmail
+                    email={profile.public_email}
+                  />
                 )}
                 {onlyHeader && (
                   <BadgeList
                     badges={profile.cities_of_residence}
                   />
                 )}
+                <PlayerSocials
+                  socialsLinks={
+                    profile.socials_links as SocialsLinks
+                  }
+                />
               </div>
             )}
           </div>
@@ -210,7 +197,9 @@ function PlayerAge({ dateOfBirth }: PlayerAgeProps) {
   const ageStr = age > 1 ? `${age} anos` : ""
 
   return (
-    <p className="text-[1rem] text-gray-500">{ageStr}</p>
+    <p className="text-[1rem] text-gray-500 hidden sm:block">
+      {ageStr}
+    </p>
   )
 }
 
