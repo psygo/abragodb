@@ -1,9 +1,5 @@
 # Tasks
 
-## Code Improvements
-
-1. [ ] Break down the form (with React Hook Form Context)
-
 ## Second Version
 
 1. [ ] Toast for when the profile is updated
