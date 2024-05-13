@@ -16,7 +16,11 @@ import {
 
 import { localDateToDate } from "@utils"
 
-import { brStatesToOptions, goStrength } from "@types"
+import {
+  brStatesToOptions,
+  goStrength,
+  type Username,
+} from "@types"
 
 import { type GetPlayer } from "@queries"
 
@@ -128,14 +132,6 @@ export function PlayerProfile({
     )
   }
 
-  function getGoUsersBadges() {
-    const goUsers = (profile.go_users as GoUsers)!
-    return Object.values(goUsers).map(
-      (gu) =>
-        `${gu?.username ?? ""} ${gu?.strength ?? ""} ${gu?.server ?? ""}`,
-    )
-  }
-
   return (
     <Card
       style={{
@@ -151,9 +147,10 @@ export function PlayerProfile({
 
           <div className="flex flex-col gap-[4px]">
             <div className="flex gap-2 text-2xl font-extrabold items-center">
-              <h2>
-                {profile?.first_name} {profile?.last_name}
-              </h2>
+              <PlayerFullName
+                firstName={profile.first_name}
+                lastName={profile.last_name}
+              />
               {getStrength() && (
                 <h3
                   className={cn(
@@ -164,9 +161,7 @@ export function PlayerProfile({
                   {getStrength()}
                 </h3>
               )}
-              <h4 className="text-lg text-gray-400">
-                @{player.username}
-              </h4>
+              <PlayerUsername username={player.username} />
             </div>
 
             {showSubtitle() && (
@@ -194,14 +189,9 @@ export function PlayerProfile({
 
       {onlyHeader && (
         <CardContent className="flex gap-2 p-4 pt-0 px-6">
-          {(profile.go_users as GoUsers) && (
-            <div>
-              <BadgeList
-                label="Usuários em Servidores de Go"
-                badges={getGoUsersBadges()}
-              />
-            </div>
-          )}
+          <GoUsersList
+            goUsers={profile.go_users as GoUsers}
+          />
           {showResidence() && (
             <>
               <BadgeList
@@ -260,14 +250,9 @@ export function PlayerProfile({
             </div>
           </div>
 
-          {(profile.go_users as GoUsers) && (
-            <div>
-              <BadgeList
-                label="Usuários em Servidores de Go"
-                badges={getGoUsersBadges()}
-              />
-            </div>
-          )}
+          <GoUsersList
+            goUsers={profile.go_users as GoUsers}
+          />
 
           <PlayerDescription
             description={profile.description}
@@ -275,6 +260,57 @@ export function PlayerProfile({
         </CardContent>
       )}
     </Card>
+  )
+}
+
+type PlayerUsernameProps = {
+  username: Username
+}
+
+function PlayerUsername({ username }: PlayerUsernameProps) {
+  return (
+    <h4 className="text-lg text-gray-400">@{username}</h4>
+  )
+}
+
+type FullNameProps = {
+  firstName: string | null | undefined
+  lastName: string | null | undefined
+}
+
+function PlayerFullName({
+  firstName,
+  lastName,
+}: FullNameProps) {
+  return (
+    <h2>
+      {firstName ?? ""} {lastName ?? ""}
+    </h2>
+  )
+}
+
+type GoUsersListProps = {
+  goUsers: GoUsers | null | undefined
+}
+
+function GoUsersList({ goUsers }: GoUsersListProps) {
+  if (!goUsers) return
+
+  function getGoUsersBadges() {
+    const gu = goUsers!
+    return Object.values(gu).map(
+      (g) =>
+        `${g?.username ?? ""} ${g?.strength ?? ""} ${g?.server ?? ""}`,
+    )
+  }
+
+  return (
+    <div>
+      <BadgeList
+        label="Usuários em Servidores"
+        badges={getGoUsersBadges()}
+      />
+    </div>
   )
 }
 
