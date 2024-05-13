@@ -77,14 +77,14 @@ export function PlayerProfile({
       }}
     >
       <CardHeader className="p-4 pr-5">
-        <CardTitle className="flex gap-2 md:gap-4 items-center">
+        <CardTitle className="flex gap-2 md:gap-3 items-center">
           <PlayerAvatar
             imageUrl={player.image_url}
             alt={player.username}
-            className="h-10 md:h-14 w-10 md:w-14"
+            className="h-12 md:h-14 w-12 md:w-14"
           />
 
-          <div className="flex flex-col gap-1 md:gap-[8px]">
+          <div className="flex flex-col md:gap-1">
             <div className="flex gap-1 md:gap-2 text-2xl font-extrabold md:items-center">
               <PlayerFullName
                 firstName={profile.first_name}

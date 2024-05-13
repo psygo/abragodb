@@ -5,6 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-200 dark:bg-gray-900 flex justify-center items-center p-4">
       <a
+        className="h-6 w-6"
         href="https://github.com/psygo/abragodb"
         target="_blank"
         rel="noopener noreferrer"

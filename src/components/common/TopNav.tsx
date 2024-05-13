@@ -66,7 +66,7 @@ function RightNav() {
           <PageNavLink href="/sobre" label="Sobre" />
         </div>
       ) : (
-        <Menubar className="bg-transparent">
+        <Menubar className="bg-transparent px-0 w-max">
           <MenubarMenu>
             <MenubarTrigger>
               <Menu />
