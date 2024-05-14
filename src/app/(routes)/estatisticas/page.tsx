@@ -20,8 +20,6 @@ export default async function StatisticsPage({
     estado as string,
   ).run(edgeDbClient)
 
-  console.log("stats", statsQuery)
-
   return (
     <>
       <DbStatisticsCard
