@@ -25,6 +25,7 @@ export function BrStateFilter({
     <div className="w-full flex gap-3 justify-end items-center">
       <Select
         onValueChange={(v) => {
+          console.log("here", v)
           const searchParams = new URLSearchParams()
           searchParams.set("estado", v)
           router.push(`/?${searchParams.toString()}`)
@@ -35,6 +36,13 @@ export function BrStateFilter({
           <SelectValue placeholder="Selecione um estado" />
         </SelectTrigger>
         <SelectContent>
+          <SelectItem
+            key={100}
+            className="cursor-pointer"
+            value=" "
+          >
+            Todos
+          </SelectItem>
           {BR_STATE_OPTIONS.map((st, i) => {
             return (
               <SelectItem

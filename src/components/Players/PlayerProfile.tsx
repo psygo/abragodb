@@ -242,7 +242,7 @@ function PlayerFullName({
   lastName,
 }: FullNameProps) {
   return (
-    <h2 className="text-lg md:text-2xl">
+    <h2 className="text-lg md:text-xl">
       {firstName ?? ""} {lastName ?? ""}
     </h2>
   )
@@ -300,7 +300,7 @@ function PlayerChosenStrength({
     getStrength() && (
       <h3
         className={cn(
-          "text-gray-600 text-lg md:text-2xl",
+          "text-gray-600 text-lg md:text-xl",
           getStrengthColor(),
         )}
       >
