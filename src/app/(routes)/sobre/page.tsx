@@ -18,7 +18,12 @@ export default function AboutPage() {
           <a href="https://github.com/psygo/abragodb">
             github.com/psygo/abragodb
           </a>
-          .
+          . O canal{" "}
+          <a href="https://discord.gg/7u6MVMFEfv">
+            #abrago-db no Discord
+          </a>{" "}
+          também está aberto para quem quiser participar na
+          construção do site.
         </p>
 
         <p>
