@@ -1,5 +1,7 @@
 import { edgeDbClient } from "@db"
 
+import { type BR_STATE } from "@types"
+
 import { selectPlayersWithState } from "@queries"
 
 import { BrStateFilter, PlayersList } from "@components"
@@ -20,10 +22,9 @@ export default async function HomePage({
     estado as string,
   ).run(edgeDbClient)
 
-  console.log("playersQuery", playersQuery.players.length)
   return (
     <div className="flex flex-col justify-end gap-2">
-      <BrStateFilter />
+      <BrStateFilter initialValue={estado as BR_STATE} />
       <PlayersList players={playersQuery.players} />
     </div>
   )

@@ -1,5 +1,7 @@
 "use client"
 
+import { useRouter } from "next/navigation"
+
 import {
   Select,
   SelectContent,
@@ -8,10 +10,15 @@ import {
   SelectValue,
 } from "@shad"
 
-import { BR_STATE_OPTIONS } from "@types"
-import { useRouter } from "next/navigation"
+import { type BR_STATE, BR_STATE_OPTIONS } from "@types"
 
-export function BrStateFilter() {
+type BrStateFilterProps = {
+  initialValue?: BR_STATE | "" | null | undefined
+}
+
+export function BrStateFilter({
+  initialValue = "",
+}: BrStateFilterProps) {
   const router = useRouter()
 
   return (
@@ -22,6 +29,7 @@ export function BrStateFilter() {
           searchParams.set("estado", v)
           router.push(`/?${searchParams.toString()}`)
         }}
+        value={initialValue ?? ""}
       >
         <SelectTrigger className="w-[200px]">
           <SelectValue placeholder="Selecione um estado" />
