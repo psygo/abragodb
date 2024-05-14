@@ -1,8 +1,7 @@
 # Tasks
 
-1. [ ] Alpha Badge
-2. [ ] Fixed URL fields
-3. [ ] Discord link on about and footer
+1. [ ] Fixed URL fields
+1. [ ] Discord link on about and footer
 
 ## Second Version
 

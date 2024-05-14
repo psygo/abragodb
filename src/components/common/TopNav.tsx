@@ -13,6 +13,7 @@ import {
 import { Menu, Moon, Pencil, Sun } from "lucide-react"
 
 import {
+  Badge,
   Button,
   Menubar,
   MenubarContent,
@@ -37,8 +38,15 @@ function LeftNav() {
     <section>
       <Button variant="ghost" asChild>
         <Link href="/">
-          <h1 className="font-extrabold tracking-tight text-xl">
+          <h1 className="flex items-center gap-1 font-extrabold tracking-tight text-xl">
             ABRAGO DB
+            <Badge
+              variant="outline"
+              className="text-xs border-red-600 text-red-600 px-[4px] py-[0px]"
+              style={{ fontSize: "0.6rem" }}
+            >
+              alpha
+            </Badge>
           </h1>
         </Link>
       </Button>
