@@ -10,14 +10,17 @@ import {
   SelectValue,
 } from "@shad"
 
-import { type BR_STATE, BR_STATE_OPTIONS } from "@types"
+import {
+  BR_STATE_OPTIONS,
+  type BR_STATE_OR_ALL,
+} from "@types"
 
 type BrStateFilterProps = {
-  initialValue?: BR_STATE | "" | null | undefined
+  initialValue?: BR_STATE_OR_ALL | null | undefined
 }
 
 export function BrStateFilter({
-  initialValue = "",
+  initialValue = " ",
 }: BrStateFilterProps) {
   const router = useRouter()
 
@@ -30,17 +33,13 @@ export function BrStateFilter({
           searchParams.set("estado", v)
           router.push(`/?${searchParams.toString()}`)
         }}
-        value={initialValue ?? ""}
+        value={initialValue ?? " "}
       >
         <SelectTrigger className="w-[200px]">
           <SelectValue placeholder="Selecione um estado" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem
-            key={100}
-            className="cursor-pointer"
-            value=" "
-          >
+          <SelectItem className="cursor-pointer" value=" ">
             Todos
           </SelectItem>
           {BR_STATE_OPTIONS.map((st, i) => {

@@ -38,6 +38,8 @@ export const BR_STATE_OPTIONS: Option[] = [
   { value: "TO", label: "Tocantins" },
 ]
 
+export type BR_STATE_OR_ALL = BR_STATE | " "
+
 export type BR_STATE =
   | "AC"
   | "AL"
