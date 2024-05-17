@@ -1,12 +1,31 @@
 "use client"
 
+import { motion } from "framer-motion"
+
 import { useRouter } from "next/navigation"
 
 import { type GetPlayers } from "@queries"
 
-import { PlayerProfile } from "./PlayerProfile"
+import { PlayerProfileListCard } from "./PlayerProfileListCard"
 
-import { motion } from "framer-motion"
+const container = {
+  visible: {
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.05,
+    },
+  },
+}
+const item = {
+  hidden: {
+    y: -10,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+}
 
 type PlayersTableProps = {
   players: GetPlayers["players"]
@@ -16,25 +35,6 @@ export function PlayersList({
   players,
 }: PlayersTableProps) {
   const router = useRouter()
-
-  const container = {
-    visible: {
-      transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.05,
-      },
-    },
-  }
-  const item = {
-    hidden: {
-      y: -10,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
-  }
 
   return (
     <motion.ul
@@ -53,10 +53,9 @@ export function PlayersList({
             }
             className="hover:drop-shadow-lg hover:cursor-pointer"
           >
-            <PlayerProfile
+            <PlayerProfileListCard
               key={p.username}
               player={p}
-              onlyHeader={true}
             />
           </motion.li>
         )

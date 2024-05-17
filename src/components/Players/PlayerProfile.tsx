@@ -33,15 +33,13 @@ import {
   PlayerDescription,
 } from "./PlayerCardData/exports"
 
-type PlayerProfileProps = {
+type PlayerProfileCardProps = {
   player: GetPlayer
-  onlyHeader?: boolean
 }
 
-export function PlayerProfile({
+export function PlayerProfileCard({
   player,
-  onlyHeader = false,
-}: PlayerProfileProps) {
+}: PlayerProfileCardProps) {
   if (!player) return
 
   if (!player.profile)
@@ -83,33 +81,21 @@ export function PlayerProfile({
               <PlayerChosenStrength
                 goUsers={profile.go_users as GoUsers}
               />
-              {!onlyHeader && (
-                <PlayerUsername
-                  username={player.username}
-                />
-              )}
+              <PlayerUsername username={player.username} />
             </div>
 
             {showSubtitle() && (
               <div className="flex gap-2 items-center">
-                {!onlyHeader && (
-                  <PlayerSex sex={profile.sex} />
-                )}
+                <PlayerSex sex={profile.sex} />
                 <PlayerAge
                   dateOfBirth={localDateToDate(
                     profile.date_of_birth,
                   )}
                 />
-                {!onlyHeader && (
-                  <PlayerEmail
-                    email={profile.public_email}
-                  />
-                )}
-                {onlyHeader && (
-                  <BadgeList
-                    badges={profile.cities_of_residence}
-                  />
-                )}
+                <PlayerEmail email={profile.public_email} />
+                <BadgeList
+                  badges={profile.cities_of_residence}
+                />
                 <PlayerSocials
                   socialsLinks={
                     profile.socials_links as SocialsLinks
@@ -121,56 +107,54 @@ export function PlayerProfile({
         </CardTitle>
       </CardHeader>
 
-      {!onlyHeader && (
-        <CardContent className="flex flex-col gap-5">
-          <div className="flex gap-3">
-            <div className="flex flex-col gap-2">
-              <BadgeList
-                label="Idiomas"
-                badges={profile.languages}
-              />
-              <BadgeList
-                label="Estados Brasileiros de Origem"
-                badges={brStatesToOptions(
-                  profile.br_states_of_origin ?? [],
-                ).map((st) => st.label)}
-              />
-              <BadgeList
-                label="Países de Residência"
-                badges={profile.countries_of_residence}
-              />
-              <BadgeList
-                label="Estados Brasileiros de Residência"
-                badges={brStatesToOptions(
-                  profile.br_states_of_residence ?? [],
-                ).map((st) => st.label)}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <BadgeList
-                label="Nacionalidades"
-                badges={profile.nationalities}
-              />
-              <BadgeList
-                label="Cidades de Origem"
-                badges={profile.cities_of_origin}
-              />
-              <BadgeList
-                label="Cidades de Residência"
-                badges={profile.cities_of_residence}
-              />
-            </div>
+      <CardContent className="flex flex-col gap-5">
+        <div className="flex gap-3">
+          <div className="flex flex-col gap-2">
+            <BadgeList
+              label="Idiomas"
+              badges={profile.languages}
+            />
+            <BadgeList
+              label="Estados Brasileiros de Origem"
+              badges={brStatesToOptions(
+                profile.br_states_of_origin ?? [],
+              ).map((st) => st.label)}
+            />
+            <BadgeList
+              label="Países de Residência"
+              badges={profile.countries_of_residence}
+            />
+            <BadgeList
+              label="Estados Brasileiros de Residência"
+              badges={brStatesToOptions(
+                profile.br_states_of_residence ?? [],
+              ).map((st) => st.label)}
+            />
           </div>
+          <div className="flex flex-col gap-2">
+            <BadgeList
+              label="Nacionalidades"
+              badges={profile.nationalities}
+            />
+            <BadgeList
+              label="Cidades de Origem"
+              badges={profile.cities_of_origin}
+            />
+            <BadgeList
+              label="Cidades de Residência"
+              badges={profile.cities_of_residence}
+            />
+          </div>
+        </div>
 
-          <PlayerGoUsersList
-            goUsers={profile.go_users as GoUsers}
-          />
+        <PlayerGoUsersList
+          goUsers={profile.go_users as GoUsers}
+        />
 
-          <PlayerDescription
-            description={profile.description}
-          />
-        </CardContent>
-      )}
+        <PlayerDescription
+          description={profile.description}
+        />
+      </CardContent>
     </Card>
   )
 }

@@ -17,7 +17,7 @@ import {
   profileFormValidationSchema,
 } from "@validation"
 
-import { PlayerProfile, ProfileForm } from "@components"
+import { PlayerProfileCard, ProfileForm } from "@components"
 
 type PlayerPageProps = {
   params: { username: Username }
@@ -116,7 +116,7 @@ export default async function PlayerPage({
 
   return (
     <article>
-      <PlayerProfile player={player} />
+      <PlayerProfileCard player={player} />
 
       <SignedIn>
         <ProfileForm

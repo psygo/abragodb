@@ -1,11 +1,10 @@
 # Tasks
 
-1. [ ] Separate the list from the profile cards
-2. [ ] Different colors for SDKs and DDKs
-3. [ ] The filter button is still pass through (at least on smartphones)
-4. [ ] Doesn't look that good on a smartphone still
-5. [ ] Fixed URL fields
-6. [ ] Discord link on about and footer
+1. [ ] Different colors for SDKs and DDKs
+2. [ ] The filter button is still pass through (at least on smartphones)
+3. [ ] Doesn't look that good on a smartphone still
+4. [ ] Fixed URL fields
+5. [ ] Discord link on about and footer
 
 ## Second Version
 
