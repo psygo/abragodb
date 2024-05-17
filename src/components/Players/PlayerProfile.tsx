@@ -1,28 +1,7 @@
-import { Link } from "lucide-react"
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-  faDiscord,
-  faFacebook,
-  faInstagram,
-  faTwitch,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons"
-import {
-  faGenderless,
-  faMars,
-  faVenus,
-} from "@fortawesome/free-solid-svg-icons"
-
 import "@utils/array"
 import { localDateToDate } from "@utils"
 
-import {
-  brStatesToOptions,
-  type Email,
-  goStrength,
-  type Username,
-} from "@types"
+import { brStatesToOptions } from "@types"
 
 import { type GetPlayer } from "@queries"
 
@@ -31,8 +10,6 @@ import {
   type SocialsLinks,
 } from "@validation"
 
-import { cn } from "@styles"
-
 import {
   Card,
   CardContent,
@@ -40,8 +17,21 @@ import {
   CardTitle,
 } from "@shad"
 
-import { BadgeList } from "./BadgeList"
+import { BadgeList } from "../common/exports"
+
 import { PlayerAvatar } from "./PlayerAvatar"
+
+import {
+  PlayerGoUsersList,
+  PlayerAge,
+  PlayerChosenStrength,
+  PlayerEmail,
+  PlayerFullName,
+  PlayerSex,
+  PlayerSocials,
+  PlayerUsername,
+  PlayerDescription,
+} from "./PlayerCardData/exports"
 
 type PlayerProfileProps = {
   player: GetPlayer
@@ -172,7 +162,7 @@ export function PlayerProfile({
             </div>
           </div>
 
-          <GoUsersList
+          <PlayerGoUsersList
             goUsers={profile.go_users as GoUsers}
           />
 
@@ -182,282 +172,5 @@ export function PlayerProfile({
         </CardContent>
       )}
     </Card>
-  )
-}
-
-type PlayerAgeProps = {
-  dateOfBirth: Date
-}
-
-function PlayerAge({ dateOfBirth }: PlayerAgeProps) {
-  const now = new Date()
-  const ageDifMs = now.getTime() - dateOfBirth.getTime()
-  const ageDate = new Date(ageDifMs)
-  const age = Math.abs(ageDate.getUTCFullYear() - 1970)
-  const ageStr = age > 1 ? `${age} anos` : ""
-
-  return (
-    <p className="text-[1rem] text-gray-500 hidden sm:block">
-      {ageStr}
-    </p>
-  )
-}
-
-type PlayerEmailProps = {
-  email: Email | null | undefined
-}
-
-function PlayerEmail({ email }: PlayerEmailProps) {
-  if (!email || email === "") return
-
-  return (
-    <a
-      href={`mailto:${email}`}
-      className="text-[1rem] text-gray-500 hidden md:block"
-    >
-      {email}
-    </a>
-  )
-}
-
-type PlayerUsernameProps = {
-  username: Username
-}
-
-function PlayerUsername({ username }: PlayerUsernameProps) {
-  return (
-    <h4 className="text-lg text-gray-400 hidden md:block">
-      @{username}
-    </h4>
-  )
-}
-
-type FullNameProps = {
-  firstName: string | null | undefined
-  lastName: string | null | undefined
-}
-
-function PlayerFullName({
-  firstName,
-  lastName,
-}: FullNameProps) {
-  return (
-    <h2 className="text-lg md:text-xl">
-      {firstName ?? ""} {lastName ?? ""}
-    </h2>
-  )
-}
-
-type PlayerChosenStrengthProps = {
-  goUsers: GoUsers | null | undefined
-}
-
-function PlayerChosenStrength({
-  goUsers,
-}: PlayerChosenStrengthProps) {
-  function getFirstStrength() {
-    if (!goUsers) return ""
-
-    const strengths = Object.values({ ...goUsers })
-    if (strengths.length === 0) return ""
-
-    return strengths
-      .map((u) => {
-        return {
-          ...goStrength.find(
-            (gs) => gs.kyu_dan === u.strength,
-          )!,
-          server: u.server,
-        }
-      })
-      .first()
-  }
-
-  function getStrengthColor() {
-    const firstStrength = getFirstStrength()
-    if (firstStrength === "") return "gray"
-
-    if (firstStrength.kyu_dan.includes("k"))
-      return "text-green-800"
-    else if (firstStrength.kyu_dan.includes("d"))
-      return "text-orange-800"
-    else return "gray"
-  }
-
-  function getStrength() {
-    const firstStrength = getFirstStrength()
-    if (
-      firstStrength === "" ||
-      !firstStrength?.kyu_dan ||
-      !firstStrength?.server
-    )
-      return ""
-
-    return `${firstStrength.kyu_dan} ${firstStrength.server}`
-  }
-
-  return (
-    getStrength() && (
-      <h3
-        className={cn(
-          "text-gray-600 text-lg md:text-xl",
-          getStrengthColor(),
-        )}
-      >
-        {getStrength()}
-      </h3>
-    )
-  )
-}
-
-type GoUsersListProps = {
-  goUsers: GoUsers | null | undefined
-}
-
-function GoUsersList({ goUsers }: GoUsersListProps) {
-  if (!goUsers) return
-
-  function getGoUsersBadges() {
-    const gu = goUsers!
-    return Object.values(gu).map(
-      (g) =>
-        `${g?.username ?? ""} ${g?.strength ?? ""} ${g?.server ?? ""}`,
-    )
-  }
-
-  return (
-    <div>
-      <BadgeList
-        label="Usuários em Servidores"
-        badges={getGoUsersBadges()}
-      />
-    </div>
-  )
-}
-
-type PlayerDescriptionProps = {
-  description: string | null | undefined
-}
-
-function PlayerDescription({
-  description,
-}: PlayerDescriptionProps) {
-  if (!description || description === "") return
-
-  return (
-    <div className="flex flex-col gap-2 pl-1">
-      <p className="text-gray-400 text-xs">Descrição</p>
-      <p className="text-[0.95rem]">{description}</p>
-    </div>
-  )
-}
-
-type PlayerSexProps = {
-  sex: string | null | undefined
-}
-
-function PlayerSex({ sex }: PlayerSexProps) {
-  if (!sex || sex === "") return
-
-  if (sex === "Masculino")
-    return (
-      <FontAwesomeIcon
-        className="h-[15px] w-[15px] mb-[1px]"
-        color="gray"
-        icon={faMars}
-      />
-    )
-  else if (sex === "Feminino")
-    return (
-      <FontAwesomeIcon
-        className="h-[15px] w-[15px] mb-[1px]"
-        color="gray"
-        icon={faVenus}
-      />
-    )
-  else if (sex === "Outro")
-    return (
-      <FontAwesomeIcon
-        className="h-[15px] w-[15px] mb-[1px]"
-        color="gray"
-        icon={faGenderless}
-      />
-    )
-}
-
-type PlayerSocialsProps = {
-  socialsLinks: SocialsLinks
-}
-
-function PlayerSocials({
-  socialsLinks,
-}: PlayerSocialsProps) {
-  if (!socialsLinks) return
-
-  const {
-    discord,
-    facebook,
-    instagram,
-    twitch,
-    youtube,
-    personal,
-  } = socialsLinks
-
-  return (
-    <div className="ml-1 pb-1 flex gap-2 items-center">
-      {discord && (
-        <a href={discord}>
-          <FontAwesomeIcon
-            className="h-[18px] w-[18px]"
-            color="gray"
-            icon={faDiscord}
-          />
-        </a>
-      )}
-      {facebook && (
-        <a href={facebook}>
-          <FontAwesomeIcon
-            className="h-[16px] w-[16px] pb-[1px]"
-            color="gray"
-            icon={faFacebook}
-          />
-        </a>
-      )}
-      {instagram && (
-        <a href={instagram}>
-          <FontAwesomeIcon
-            className="h-[17.5px] w-[17.5px]"
-            color="gray"
-            icon={faInstagram}
-          />
-        </a>
-      )}
-      {twitch && (
-        <a href={twitch}>
-          <FontAwesomeIcon
-            className="h-[16.5px] w-[16.5px]"
-            color="gray"
-            icon={faTwitch}
-          />
-        </a>
-      )}
-      {youtube && (
-        <a href={youtube}>
-          <FontAwesomeIcon
-            className="h-[17.5px] w-[17.5px]"
-            color="gray"
-            icon={faYoutube}
-          />
-        </a>
-      )}
-      {personal && (
-        <a href={personal}>
-          <Link
-            className="h-[14.5px] w-[14.5px] mt-1"
-            color="gray"
-          />
-        </a>
-      )}
-    </div>
   )
 }

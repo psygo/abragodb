@@ -4,6 +4,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+/**
+ * From [this CodeSandbox by @jilherme](https://codesandbox.io/p/sandbox/brazil-state-map-improved-g4txd4?file=%2Fsrc%2FMapChart.js%3A13%2C1-159%2C1)
+ */
+
 "use client"
 
 import {
