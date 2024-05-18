@@ -68,7 +68,7 @@ function RightNav() {
 function PageNavs() {
   return (
     <>
-      <div className="mr-4 hidden md:block">
+      <div className="mr-4 hidden md:flex gap-2">
         <PageNavLink
           href="/estatisticas"
           label="Estatísticas"
