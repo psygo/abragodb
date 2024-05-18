@@ -38,7 +38,14 @@ export function BrStateFilter({
         <SelectTrigger className="w-[200px]">
           <SelectValue placeholder="Selecione um estado" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent
+          ref={(ref) => {
+            if (!ref) return
+            ref.ontouchstart = (e) => {
+              e.preventDefault()
+            }
+          }}
+        >
           <SelectItem className="cursor-pointer" value=" ">
             Todos
           </SelectItem>

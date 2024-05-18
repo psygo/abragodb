@@ -1,10 +1,9 @@
 # Tasks
 
 1. [ ] Different colors for SDKs and DDKs
-2. [ ] The filter button is still pass through (at least on smartphones)
-3. [ ] Doesn't look that good on a smartphone still
-4. [ ] Fixed URL fields
-5. [ ] Discord link on about and footer
+2. [ ] Doesn't look that good on a smartphone still
+3. [ ] Fixed URL fields
+4. [ ] Suspended Status
 
 ## Second Version
 
