@@ -2,7 +2,11 @@ import { edgeDbClient } from "@db"
 
 import { selectStatistics } from "@queries"
 
-import { BrazilMap, DbStatisticsCard } from "@components"
+import {
+  BrazilMap,
+  BrazilMapCard,
+  DbStatisticCard,
+} from "@components"
 
 import {
   Card,
@@ -24,27 +28,18 @@ export default async function StatisticsPage() {
   console.log(totalPlayersPerState)
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex justify-between">
-        <DbStatisticsCard
+    <div className="grid grid-cols-2 gap-x-2 gap-y-2">
+      {/* <div className="flex justify-between"> */}
+        <DbStatisticCard
           label="Total de Jogadores"
           stats={statsQuery.total_players}
         />
-        <DbStatisticsCard
+        <DbStatisticCard
           label="Total de Jogadores Públicos"
           stats={statsQuery.total_players_public}
         />
-      </div>
-      <Card className="max-w-[700px] bg-gray-100 dark:bg-gray-800">
-        <CardHeader className="p-4">
-          <CardTitle className="text-sm text-gray-400">
-            População de Jogadores por Estado
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-4 pt-0 flex justify-end">
-          <BrazilMap />
-        </CardContent>
-      </Card>
+      {/* </div> */}
+      <BrazilMapCard className="col-span-2" />
     </div>
   )
 }

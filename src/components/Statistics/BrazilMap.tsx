@@ -1,23 +1,67 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 "use client"
 
+import { type CSSProperties } from "react"
+
+import { geoCentroid } from "d3-geo"
+
 import {
   ComposableMap,
   Geographies,
+  type GeographiesProps,
   Geography,
   Marker,
   Annotation,
 } from "react-simple-maps"
 
-import { geoCentroid } from "d3-geo"
-
 import brTopoJson from "@@/public/br-topo.json"
 
-const statesWithAnnotations = {
+import { cn } from "@styles"
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@shad"
+
+type BrazilMapCardProps = {
+  className?: string
+}
+
+export function BrazilMapCard({
+  className = "",
+}: BrazilMapCardProps) {
+  return (
+    <Card
+      className={cn(
+        "max-w-[700px] bg-gray-100 dark:bg-gray-800",
+        className,
+      )}
+    >
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm text-gray-400">
+          População de Jogadores por Estado
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 pt-0 flex justify-end">
+        <BrazilMap />
+      </CardContent>
+    </Card>
+  )
+}
+
+type AnnotationData = {
+  annotation: { x: number; y: number }
+  tag: { fontSize: number; x: number; y: number }
+}
+
+const statesWithAnnotations: Record<
+  string,
+  AnnotationData
+> = {
   BR_DF: {
     annotation: { x: -10, y: -15 },
     tag: { fontSize: 14, x: -8, y: -8 },
@@ -52,7 +96,7 @@ const statesWithAnnotations = {
   },
 }
 
-const geographyStyle = {
+const geographyStyle: CSSProperties = {
   fill: "#ECEFF1",
   backgroundColor: "yellow",
   stroke: "#2b2b2b",
@@ -84,9 +128,9 @@ export function BrazilMap() {
 }
 
 function renderGeograph(
-  dataSource: any,
-  countryId: any,
-  countryColor: any,
+  dataSource: GeographiesProps["geography"],
+  countryId: string,
+  countryColor: string,
 ) {
   return (
     <Geographies geography={dataSource}>
@@ -118,14 +162,13 @@ function renderGeograph(
           })}
 
           {geographies.map((geo) => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument
             const centroid = geoCentroid(geo)
             const geoId = geo.properties.id
             const stateKey = `${countryId}_${geoId}`
             const annotationOffset =
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
               statesWithAnnotations[stateKey]
-            const tagPosition = annotationOffset?.tag || {
+            const tagPosition = annotationOffset?.tag ?? {
               x: 2,
               y: 0,
               fontSize: 15,

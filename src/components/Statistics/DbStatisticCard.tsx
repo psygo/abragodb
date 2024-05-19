@@ -10,14 +10,14 @@ type DbStatisticsCardProps = {
   stats: number
 }
 
-export function DbStatisticsCard({
+export function DbStatisticCard({
   label,
   stats,
 }: DbStatisticsCardProps) {
   return (
-    <Card className="w-[150px] bg-gray-100 dark:bg-gray-800">
+    <Card className="bg-gray-100 dark:bg-gray-800">
       <CardHeader className="p-4">
-        <CardTitle className="text-sm text-gray-400">
+        <CardTitle className="text-sm text-gray-400 text-right">
           {label}
         </CardTitle>
       </CardHeader>
