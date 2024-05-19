@@ -2,7 +2,7 @@ import { edgeDbClient } from "@db"
 
 import { selectStatistics } from "@queries"
 
-import { BrazilMapCard, DbStatisticCard } from "@components"
+import { StatsPageContent } from "@components"
 
 export default async function StatisticsPage() {
   const statsQuery =
@@ -16,19 +16,10 @@ export default async function StatisticsPage() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-x-2 gap-y-2">
-      <DbStatisticCard
-        label="Total de Jogadores"
-        stats={statsQuery.total_players}
-      />
-      <DbStatisticCard
-        label="Total de Jogadores Públicos"
-        stats={statsQuery.total_players_public}
-      />
-      <BrazilMapCard
-        className="col-span-2"
-        totalPlayersPerState={totalPlayersPerState}
-      />
-    </div>
+    <StatsPageContent
+      totalPlayers={statsQuery.total_players}
+      totalPlayersPublic={statsQuery.total_players_public}
+      totalPlayersPerState={totalPlayersPerState}
+    />
   )
 }

@@ -8,7 +8,7 @@ import { type GetPlayers } from "@queries"
 
 import { PlayerProfileListCard } from "./PlayerProfileListCard"
 
-const container = {
+export const container = {
   visible: {
     transition: {
       delayChildren: 0.2,
@@ -16,7 +16,7 @@ const container = {
     },
   },
 }
-const item = {
+export const item = {
   hidden: {
     y: -10,
     opacity: 0,
