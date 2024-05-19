@@ -41,7 +41,7 @@ export function PlayersList({
       variants={container}
       initial="hidden"
       animate="visible"
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-2 m-0"
     >
       {players.map((p) => {
         return (

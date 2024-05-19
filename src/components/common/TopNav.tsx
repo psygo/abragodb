@@ -60,7 +60,7 @@ function RightNav() {
 
   return (
     <section>
-      <Menubar className="bg-transparent px-0 mr-3 w-max md:hidden">
+      <Menubar className="bg-transparent px-0 w-max md:hidden">
         <MenubarMenu>
           <MenubarTrigger className="cursor-pointer">
             <Menu />

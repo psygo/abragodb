@@ -45,11 +45,7 @@ export function PlayerProfileListCard({
   }
 
   return (
-    <Card
-      style={{
-        borderColor: profile.border_color ?? "gray",
-      }}
-    >
+    <Card className="bg-gray-50 dark:bg-gray-900 border-gray-300 dark:border-gray-500">
       <CardHeader className="p-4 pr-5">
         <CardTitle className="flex gap-2 md:gap-3 items-center">
           <PlayerAvatar
@@ -59,7 +55,7 @@ export function PlayerProfileListCard({
           />
 
           <div className="flex flex-col md:gap-1">
-            <div className="flex gap-1 md:gap-2 text-2xl font-extrabold md:items-center">
+            <div className="flex flex-wrap gap-1 md:gap-2 text-2xl font-extrabold md:items-center">
               <PlayerFullName
                 firstName={profile.first_name}
                 lastName={profile.last_name}

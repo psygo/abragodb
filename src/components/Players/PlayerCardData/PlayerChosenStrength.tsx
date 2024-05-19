@@ -36,9 +36,9 @@ export function PlayerChosenStrength({
     if (firstStrength === "") return "gray"
 
     if (firstStrength.kyu_dan.includes("k"))
-      return "text-green-800"
+      return "text-green-800 dark:text-green-600"
     else if (firstStrength.kyu_dan.includes("d"))
-      return "text-orange-800"
+      return "text-orange-800 dark:text-orange-600"
     else return "gray"
   }
 
@@ -58,7 +58,7 @@ export function PlayerChosenStrength({
     getStrength() && (
       <h3
         className={cn(
-          "text-gray-600 text-lg md:text-xl",
+          "text-gray-600 text-lg md:text-lg",
           getStrengthColor(),
         )}
       >
