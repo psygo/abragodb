@@ -51,7 +51,7 @@ export function BrazilMapCard({
           População de Jogadores por Estado
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-4 pt-0 flex justify-end">
+      <CardContent className="p-4 pt-0 flex justify-center">
         <BrazilMap
           totalPlayersPerState={totalPlayersPerState}
         />
@@ -128,7 +128,6 @@ export function BrazilMap({
 
   return (
     <ComposableMap
-      className="w-[60vw]"
       projection="geoMercator"
       projectionConfig={{
         scale: 720,
