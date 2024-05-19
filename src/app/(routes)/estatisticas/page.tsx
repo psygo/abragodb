@@ -8,13 +8,12 @@ export default async function StatisticsPage() {
   const statsQuery =
     await selectStatistics.run(edgeDbClient)
 
-  const totalPlayersPerState =
-    statsQuery.players_per_state.map((st) => ({
-      state: st.key.br_state,
-      total: st.elements.length,
-    }))
-
-  console.log(totalPlayersPerState)
+  const totalPlayersPerState: Record<string, number> = {}
+  for (const tp of statsQuery.players_per_state) {
+    if (!tp.key.br_state || tp.key.br_state === "") continue
+    totalPlayersPerState[tp.key.br_state] =
+      tp.elements.length
+  }
 
   return (
     <div className="grid grid-cols-2 gap-x-2 gap-y-2">
@@ -26,7 +25,10 @@ export default async function StatisticsPage() {
         label="Total de Jogadores Públicos"
         stats={statsQuery.total_players_public}
       />
-      <BrazilMapCard className="col-span-2" />
+      <BrazilMapCard
+        className="col-span-2"
+        totalPlayersPerState={totalPlayersPerState}
+      />
     </div>
   )
 }

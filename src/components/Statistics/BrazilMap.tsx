@@ -26,12 +26,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@shad"
+import { useRouter } from "next/navigation"
+
+export type TotalPerState = Record<string, number>
 
 type BrazilMapCardProps = {
+  totalPlayersPerState: TotalPerState
   className?: string
 }
 
 export function BrazilMapCard({
+  totalPlayersPerState,
   className = "",
 }: BrazilMapCardProps) {
   return (
@@ -47,7 +52,9 @@ export function BrazilMapCard({
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4 pt-0 flex justify-end">
-        <BrazilMap />
+        <BrazilMap
+          totalPlayersPerState={totalPlayersPerState}
+        />
       </CardContent>
     </Card>
   )
@@ -106,28 +113,41 @@ const geographyStyle: CSSProperties = {
   transition: "all .2s",
 }
 
+type BrazilMapProps = Pick<
+  BrazilMapCardProps,
+  "totalPlayersPerState"
+>
+
 /**
- * From [this CodeSandbox by @jilherme](https://codesandbox.io/p/sandbox/brazil-state-map-improved-g4txd4?file=%2Fsrc%2FMapChart.js%3A13%2C1-159%2C1)
+ * From [this CodeSandbox by @jilherme](https://codesandbox.io/p/sandbox/brazil-state-map-improved-g4txd4?file=%2Fsrc%2FMapChart.js%3A13%2C1-159%2C1).
  */
-export function BrazilMap() {
+export function BrazilMap({
+  totalPlayersPerState,
+}: BrazilMapProps) {
   return (
     <div className="w-[60vw]">
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          scale: 700,
+          scale: 750,
           center: [-54, -15],
         }}
         width={600}
         height={600}
       >
-        {renderGeograph(brTopoJson, "BR", "green")}
+        {renderGeograph(
+          totalPlayersPerState,
+          brTopoJson,
+          "BR",
+          "green",
+        )}
       </ComposableMap>
     </div>
   )
 }
 
 function renderGeograph(
+  totalPlayersPerState: TotalPerState,
   dataSource: GeographiesProps["geography"],
   countryId: string,
   countryColor: string,
@@ -194,7 +214,7 @@ function renderGeograph(
                       fill="orange"
                       alignmentBaseline="middle"
                     >
-                      {geoId}
+                      {`${geoId} (${totalPlayersPerState[geoId] ?? 0})`}
                     </text>
                   </Annotation>
                 ) : (
@@ -202,11 +222,13 @@ function renderGeograph(
                     <text
                       x={tagPosition.x}
                       y={tagPosition.y}
+                      dx={5}
+                      dy={5}
                       fontSize={tagPosition.fontSize}
                       fill="orange"
                       textAnchor="middle"
                     >
-                      {geoId}
+                      {`${geoId} (${totalPlayersPerState[geoId] ?? 0})`}
                     </text>
                   </Marker>
                 )}
