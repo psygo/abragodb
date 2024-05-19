@@ -8,7 +8,7 @@ import {
 } from "./BrazilMap"
 import { DbStatisticCard } from "./DbStatisticCard"
 
-import { container, item } from "../exports"
+import { container, item } from "../Players/exports"
 
 type StatsPageContentProps = {
   totalPlayers: number

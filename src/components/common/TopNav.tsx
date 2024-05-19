@@ -60,7 +60,7 @@ function RightNav() {
 
   return (
     <section>
-      <Menubar className="bg-transparent px-0 w-max md:hidden">
+      <Menubar className="bg-transparent px-0 mr-3 w-max md:hidden">
         <MenubarMenu>
           <MenubarTrigger className="cursor-pointer">
             <Menu />
@@ -89,7 +89,7 @@ function RightNav() {
                 className="w-max h-max"
                 onClick={async () => await cycleTheme()}
               >
-                <Sun className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Sun className="h-6 w-6 mr-1 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute mr-2 h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <p className="sr-only">Toggle theme</p>
               </Button>
