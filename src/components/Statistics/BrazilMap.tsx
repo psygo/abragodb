@@ -1,12 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-/**
- * From [this CodeSandbox by @jilherme](https://codesandbox.io/p/sandbox/brazil-state-map-improved-g4txd4?file=%2Fsrc%2FMapChart.js%3A13%2C1-159%2C1)
- */
 
 "use client"
 
@@ -60,13 +55,16 @@ const statesWithAnnotations = {
 const geographyStyle = {
   fill: "#ECEFF1",
   backgroundColor: "yellow",
-  stroke: "#F1F1F1",
+  stroke: "#2b2b2b",
   strokeWidth: 2,
   outline: "none",
   cursor: "pointer",
   transition: "all .2s",
 }
 
+/**
+ * From [this CodeSandbox by @jilherme](https://codesandbox.io/p/sandbox/brazil-state-map-improved-g4txd4?file=%2Fsrc%2FMapChart.js%3A13%2C1-159%2C1)
+ */
 export function BrazilMap() {
   return (
     <div className="w-[60vw]">
@@ -79,16 +77,16 @@ export function BrazilMap() {
         width={600}
         height={600}
       >
-        {renderGeograph(brTopoJson, "BR", "#E4E4E4")}
+        {renderGeograph(brTopoJson, "BR", "green")}
       </ComposableMap>
     </div>
   )
 }
 
 function renderGeograph(
-  dataSource,
-  countryId,
-  countryColor,
+  dataSource: any,
+  countryId: any,
+  countryColor: any,
 ) {
   return (
     <Geographies geography={dataSource}>
@@ -108,7 +106,7 @@ function renderGeograph(
                   },
                   hover: {
                     ...geographyStyle,
-                    fill: "purple",
+                    fill: "blue",
                   },
                   pressed: {
                     ...geographyStyle,
@@ -122,12 +120,15 @@ function renderGeograph(
           {geographies.map((geo) => {
             const centroid = geoCentroid(geo)
             const geoId = geo.properties.id
+            const stateKey = `${countryId}_${geoId}`
             const annotationOffset =
-              statesWithAnnotations[`${countryId}_${geoId}`]
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              statesWithAnnotations[stateKey]
             const tagPosition = annotationOffset?.tag || {
               x: 2,
               y: 0,
-              fontSize: 12,
+              fontSize: 15,
             }
             return (
               <g
@@ -147,6 +148,7 @@ function renderGeograph(
                       x={tagPosition.x}
                       y={tagPosition.y}
                       fontSize={tagPosition.fontSize}
+                      fill="orange"
                       alignmentBaseline="middle"
                     >
                       {geoId}
@@ -158,6 +160,7 @@ function renderGeograph(
                       x={tagPosition.x}
                       y={tagPosition.y}
                       fontSize={tagPosition.fontSize}
+                      fill="orange"
                       textAnchor="middle"
                     >
                       {geoId}

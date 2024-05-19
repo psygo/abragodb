@@ -1,32 +1,25 @@
 import e from "@schema"
 
-import { type BR_STATE } from "@types"
-
-export function selectStatistics(state?: string) {
-  const hasState = state && state.length === 2
-
+export function selectStatistics() {
   return e.select({
     total_players: e.count(e.Player),
-    // total_players_in_state: e.select(
-    //   e.Player,
-    //   (player) => ({
-    //     // group: {
-    //     //   by: {
-    //     //     br_state: player.profile.br_states_of_residence,
-    //     //   },
-    //     //   then: {
-    //     //     count: e.count(player)
-    //     //   }
-    //     // },
-    //     total: e.count(player),
-    //     filter: hasState
-    //       ? e.op(
-    //           e.array([e.BrState[state as BR_STATE]]),
-    //           "in",
-    //           player.profile.br_states_of_residence,
-    //         )
-    //       : e.op(true, "=", true),
-    //   }),
-    // ),
+    total_players_public: e.count(
+      e.select(e.Player, (player) => {
+        return {
+          filter: e.op(player.profile.is_public, "=", true),
+        }
+      }),
+    ),
+    players_per_state: e.group(e.Player, (player) => {
+      const first_br_state =
+        player.profile.br_states_of_residence.slice(0, 1) ??
+        ""
+
+      return {
+        by: e.group.set({
+          br_state: first_br_state,
+        }),
+      }
+    }),
   })
 }

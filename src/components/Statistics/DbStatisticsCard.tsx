@@ -15,7 +15,7 @@ export function DbStatisticsCard({
   stats,
 }: DbStatisticsCardProps) {
   return (
-    <Card className="w-max">
+    <Card className="w-[150px] bg-gray-100 dark:bg-gray-800">
       <CardHeader className="p-4">
         <CardTitle className="text-sm text-gray-400">
           {label}

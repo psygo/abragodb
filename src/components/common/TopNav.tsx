@@ -45,7 +45,7 @@ function LeftNav() {
               className="text-xs border-red-600 text-red-600 px-[4px] py-[0px]"
               style={{ fontSize: "0.6rem" }}
             >
-              alpha
+              alfa
             </Badge>
           </h1>
         </Link>
