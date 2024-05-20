@@ -9,8 +9,6 @@ export function PlayerAge({ dateOfBirth }: PlayerAgeProps) {
   const ageStr = age > 1 ? `${age} anos` : ""
 
   return (
-    <p className="text-[1rem] text-gray-500 hidden sm:block">
-      {ageStr}
-    </p>
+    <p className="text-[1rem] text-gray-500">{ageStr}</p>
   )
 }

@@ -12,7 +12,7 @@ export function PlayerEmail({ email }: PlayerEmailProps) {
   return (
     <a
       href={`mailto:${email}`}
-      className="text-[1rem] text-gray-500 hidden md:block"
+      className="text-[0.9rem] text-gray-500"
     >
       {email}
     </a>

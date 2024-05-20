@@ -49,15 +49,6 @@ export function PlayerProfileCard({
 
   const profile = player.profile
 
-  function showSubtitle() {
-    return (
-      profile.sex ??
-      profile.date_of_birth ??
-      profile.public_email ??
-      (profile.socials_links as SocialsLinks)
-    )
-  }
-
   return (
     <Card
       style={{
@@ -72,8 +63,8 @@ export function PlayerProfileCard({
             className="h-12 md:h-14 w-12 md:w-14"
           />
 
-          <div className="flex flex-col md:gap-1">
-            <div className="flex gap-1 md:gap-2 text-2xl font-extrabold md:items-center">
+          <div className="flex flex-col gap-1">
+            <div className="flex flex-wrap gap-1 md:gap-2 text-2xl font-extrabold md:items-center">
               <PlayerFullName
                 firstName={profile.first_name}
                 lastName={profile.last_name}
@@ -84,67 +75,62 @@ export function PlayerProfileCard({
               <PlayerUsername username={player.username} />
             </div>
 
-            {showSubtitle() && (
-              <div className="flex gap-2 items-center">
-                <PlayerSex sex={profile.sex} />
-                <PlayerAge
-                  dateOfBirth={localDateToDate(
-                    profile.date_of_birth,
-                  )}
-                />
-                <PlayerEmail email={profile.public_email} />
-                <BadgeList
-                  badges={profile.cities_of_residence}
-                />
-                <PlayerSocials
-                  socialsLinks={
-                    profile.socials_links as SocialsLinks
-                  }
-                />
-              </div>
-            )}
+            <div className="flex flex-wrap gap-2 items-center">
+              <PlayerSex sex={profile.sex} />
+              <PlayerAge
+                dateOfBirth={localDateToDate(
+                  profile.date_of_birth,
+                )}
+              />
+              <PlayerEmail email={profile.public_email} />
+              <BadgeList
+                badges={profile.cities_of_residence}
+              />
+              <PlayerSocials
+                socialsLinks={
+                  profile.socials_links as SocialsLinks
+                }
+              />
+            </div>
           </div>
         </CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-5">
-        <div className="flex gap-3">
-          <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 gap-y-2 w-max">
             <BadgeList
               label="Idiomas"
               badges={profile.languages}
+              className="md:col-span-3"
             />
-            <BadgeList
-              label="Estados Brasileiros de Origem"
-              badges={brStatesToOptions(
-                profile.br_states_of_origin ?? [],
-              ).map((st) => st.label)}
-            />
-            <BadgeList
-              label="Países de Residência"
-              badges={profile.countries_of_residence}
-            />
-            <BadgeList
-              label="Estados Brasileiros de Residência"
-              badges={brStatesToOptions(
-                profile.br_states_of_residence ?? [],
-              ).map((st) => st.label)}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <BadgeList
-              label="Nacionalidades"
-              badges={profile.nationalities}
-            />
-            <BadgeList
-              label="Cidades de Origem"
-              badges={profile.cities_of_origin}
-            />
-            <BadgeList
-              label="Cidades de Residência"
-              badges={profile.cities_of_residence}
-            />
-          </div>
+          <BadgeList
+            label="Nacionalidades"
+            badges={profile.nationalities}
+          />
+          <BadgeList
+            label="Estados Brasileiros de Origem"
+            badges={brStatesToOptions(
+              profile.br_states_of_origin ?? [],
+            ).map((st) => st.label)}
+          />
+          <BadgeList
+            label="Cidades de Origem"
+            badges={profile.cities_of_origin}
+          />
+          <BadgeList
+            label="Países de Residência"
+            badges={profile.countries_of_residence}
+          />
+          <BadgeList
+            label="Estados Brasileiros de Residência"
+            badges={brStatesToOptions(
+              profile.br_states_of_residence ?? [],
+            ).map((st) => st.label)}
+          />
+          <BadgeList
+            label="Cidades de Residência"
+            badges={profile.cities_of_residence}
+          />
         </div>
 
         <PlayerGoUsersList

@@ -8,8 +8,6 @@ export function PlayerUsername({
   username,
 }: PlayerUsernameProps) {
   return (
-    <h4 className="text-lg text-gray-400 hidden md:block">
-      @{username}
-    </h4>
+    <h4 className="text-lg text-gray-400">@{username}</h4>
   )
 }
