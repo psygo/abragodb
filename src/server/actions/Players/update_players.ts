@@ -4,12 +4,9 @@ import e from "@schema"
 
 import { edgeDbClient } from "@db"
 
-import { type Username } from "@types"
+import { type BR_STATE, type Username } from "@types"
 
-import {
-  type BR_STATE,
-  type ProfileFormValidation,
-} from "@validation"
+import { type ProfileFormValidation } from "@validation"
 
 import { dateToLocalDate } from "../../utils/exports"
 

@@ -1,16 +1,83 @@
-export const goServers = [
-  "OGS",
-  "KGS",
-  "Fox Weiqi",
-  "Tygem",
-  "WBaduk",
-  "Pandanet",
-  "Fly or Die",
-]
+import { z } from "zod"
+
+import "@utils/array"
+
+export enum Go_Servers {
+  OGS = "OGS",
+  KGS = "KGS",
+  Fox = "Fox Weiqi",
+  Tygem = "Tygem",
+  WBaduk = "WBaduk",
+  Pandanet = "Pandanet",
+  FlyOrDie = "Fly or Die",
+}
+
+export function stringToGoServer(s: string) {
+  return Object.values(Go_Servers).find(
+    (t) => t.toString() === s,
+  )!
+}
 
 export type GoStrength = {
   kyu_dan: string
   elo: number
+}
+
+export const goUsersSchema = z
+  .record(
+    z.string(),
+    z.object({
+      server: z.nativeEnum(Go_Servers).optional(),
+      username: z.string().optional(),
+      strength: z.string().optional(),
+    }),
+  )
+  .optional()
+
+export type GoUsers = z.infer<typeof goUsersSchema>
+
+export function getFirstStrength(
+  goUsers: GoUsers | null | undefined,
+) {
+  if (!goUsers) return
+
+  const strengths = Object.values({ ...goUsers })
+  if (strengths.length === 0) return
+
+  return strengths
+    .map((u) => {
+      return {
+        ...goStrength.find(
+          (gs) => gs.kyu_dan === u.strength,
+        )!,
+        server: u.server,
+      }
+    })
+    .first()
+}
+
+export function normalizeElo(
+  server: Go_Servers | null | undefined,
+  elo: number | null | undefined,
+) {
+  if (!server || !elo) return null
+
+  switch (server) {
+    case Go_Servers.OGS:
+      return elo + 100
+    case Go_Servers.Fox:
+      return elo + 300
+    case Go_Servers.Tygem:
+      return elo - 300
+    case Go_Servers.WBaduk:
+      return elo - 300
+    case Go_Servers.Pandanet:
+      return elo - 200
+    case Go_Servers.FlyOrDie:
+      return elo - 400
+    default:
+      return elo
+  }
 }
 
 export const goStrength: GoStrength[] = [

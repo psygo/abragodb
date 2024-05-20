@@ -1,6 +1,6 @@
 import "@utils/array"
 
-import { getFirstStrength, type GoUsers } from "@validation"
+import { getFirstStrength, type GoUsers } from "@types"
 
 import { cn } from "@styles"
 

@@ -1,9 +1,10 @@
 # Tasks
 
+1. [ ] Ordering by Declared Strength
 1. [ ] Fixed URL fields
-2. [ ] Toast for when the profile is updated
-3. [ ] Loading button for profile update
-4. [ ] Suspended Status
+1. [ ] Toast for when the profile is updated
+1. [ ] Loading button for profile update
+1. [ ] Suspended Status
 
 ## Second Version
 

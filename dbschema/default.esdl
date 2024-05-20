@@ -63,6 +63,7 @@ module default {
     socials_links: json;
     
     go_users: json;
+    declared_elo: int16;
 
     is_teacher: bool;
   }

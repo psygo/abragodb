@@ -1,8 +1,6 @@
 import { z } from "zod"
 
-import { goStrength } from "@types"
-
-import { optionSchema } from "@types"
+import { goUsersSchema, optionSchema } from "@types"
 
 //----------------------------------------------------------
 
@@ -13,41 +11,6 @@ export const socialsLinksSchema = z
 export type SocialsLinks = z.infer<
   typeof socialsLinksSchema
 >
-
-//----------------------------------------------------------
-
-export const goUsersSchema = z
-  .record(
-    z.string(),
-    z.object({
-      server: z.string().optional(),
-      username: z.string().optional(),
-      strength: z.string().optional(),
-    }),
-  )
-  .optional()
-
-export type GoUsers = z.infer<typeof goUsersSchema>
-
-export function getFirstStrength(
-  goUsers: GoUsers | null | undefined,
-) {
-  if (!goUsers) return
-
-  const strengths = Object.values({ ...goUsers })
-  if (strengths.length === 0) return
-
-  return strengths
-    .map((u) => {
-      return {
-        ...goStrength.find(
-          (gs) => gs.kyu_dan === u.strength,
-        )!,
-        server: u.server,
-      }
-    })
-    .first()
-}
 
 //----------------------------------------------------------
 
@@ -79,6 +42,7 @@ export const profileFormValidationSchema = z.object({
   socials_links: socialsLinksSchema,
 
   go_users: goUsersSchema,
+  declared_elo: z.number().int().optional().nullish(),
 })
 
 export type ProfileFormValidation = z.infer<

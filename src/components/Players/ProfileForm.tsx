@@ -31,16 +31,19 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   BR_STATE_OPTIONS,
   COUNTRY_OPTIONS,
-  goServers,
+  getFirstStrength,
+  Go_Servers,
   goStrength,
+  type GoUsers,
   LANGUAGE_OPTIONS,
   type ClerkId,
+  stringToGoServer,
+  normalizeElo,
 } from "@types"
 
 import { updatePlayerProfile } from "@actions"
 
 import {
-  type GoUsers,
   profileFormValidationSchema,
   type ProfileFormValidation,
 } from "@validation"
@@ -92,7 +95,16 @@ export function ProfileForm({
   const username = params.username as string
 
   async function onSubmit(values: ProfileFormValidation) {
-    await updatePlayerProfile(username, values)
+    const firstStrength = getFirstStrength(values.go_users)
+    const declaredElo = normalizeElo(
+      firstStrength?.server,
+      firstStrength?.elo,
+    )
+
+    await updatePlayerProfile(username, {
+      ...values,
+      declared_elo: declaredElo,
+    })
     router.refresh()
   }
 
@@ -604,7 +616,7 @@ function GoUsersSection({
                       }
                       newGoUsers[key] = {
                         ...currentUsers?.[key],
-                        server: v,
+                        server: stringToGoServer(v),
                       }
                       profileForm.setValue(
                         "go_users",
@@ -617,11 +629,13 @@ function GoUsersSection({
                       <SelectValue placeholder="Escolha um servidor" />
                     </SelectTrigger>
                     <SelectContent>
-                      {goServers.map((gs, i) => (
-                        <SelectItem key={i} value={gs}>
-                          {gs}
-                        </SelectItem>
-                      ))}
+                      {Object.values(Go_Servers).map(
+                        (gs, i) => (
+                          <SelectItem key={i} value={gs}>
+                            {gs}
+                          </SelectItem>
+                        ),
+                      )}
                     </SelectContent>
                   </Select>
                 </FormControl>
