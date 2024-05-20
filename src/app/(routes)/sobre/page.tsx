@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../../../components/common/shad/accordion"
+} from "@shad"
 
 export default function AboutPage() {
   return (
@@ -45,6 +45,7 @@ export default function AboutPage() {
           <li>Torneios</li>
         </ul>
       </section>
+
       <section>
         <h2>Perguntas Frequentes</h2>
 

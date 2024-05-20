@@ -1,8 +1,7 @@
 # Tasks
 
-1. [ ] Different colors for SDKs and DDKs
-2. [ ] Fixed URL fields
-3. [ ] Suspended Status
+1. [ ] Fixed URL fields
+2. [ ] Suspended Status
 
 ## Second Version
 

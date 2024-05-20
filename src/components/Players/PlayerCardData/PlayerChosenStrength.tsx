@@ -15,7 +15,9 @@ export function PlayerChosenStrength({
     const firstStrength = getFirstStrength(goUsers)
     if (!firstStrength) return "gray"
 
-    if (firstStrength.kyu_dan.includes("k"))
+    if (firstStrength.kyu_dan.length === 3)
+      return "text-blue-800 dark:text-blue-500"
+    else if (firstStrength.kyu_dan.includes("k"))
       return "text-green-800 dark:text-green-600"
     else if (firstStrength.kyu_dan.includes("d"))
       return "text-orange-800 dark:text-orange-600"
