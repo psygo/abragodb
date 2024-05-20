@@ -1,14 +1,11 @@
 import "@utils/array"
 import { localDateToDate } from "@utils"
 
-import { brStatesToOptions } from "@types"
+import { brStatesToOptions, type GoUsers } from "@types"
 
 import { type GetPlayer } from "@queries"
 
-import {
-  type GoUsers,
-  type SocialsLinks,
-} from "@validation"
+import { type SocialsLinks } from "@validation"
 
 import {
   Card,
@@ -31,6 +28,7 @@ import {
   PlayerSocials,
   PlayerUsername,
   PlayerDescription,
+  PlayerDeclaredElo,
 } from "./PlayerCardData/exports"
 
 type PlayerProfileCardProps = {
@@ -72,6 +70,9 @@ export function PlayerProfileCard({
               />
               <PlayerChosenStrength
                 goUsers={profile.go_users as GoUsers}
+              />
+              <PlayerDeclaredElo
+                elo={profile.declared_elo}
               />
               <PlayerUsername username={player.username} />
             </div>

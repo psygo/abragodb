@@ -3,10 +3,9 @@ import { localDateToDate } from "@utils"
 
 import { type GetPlayer } from "@queries"
 
-import {
-  type GoUsers,
-  type SocialsLinks,
-} from "@validation"
+import { type GoUsers } from "@types"
+
+import { type SocialsLinks } from "@validation"
 
 import { Card, CardHeader, CardTitle } from "@shad"
 
@@ -17,6 +16,7 @@ import { PlayerAvatar } from "./PlayerAvatar"
 import {
   PlayerAge,
   PlayerChosenStrength,
+  PlayerDeclaredElo,
   PlayerFullName,
   PlayerSocials,
 } from "./PlayerCardData/exports"
@@ -43,13 +43,16 @@ export function PlayerProfileListCard({
           />
 
           <div className="flex flex-col gap-2">
-            <div className="flex flex-wrap gap-x-2 md:gap-2 text-2xl font-extrabold md:items-center">
+            <div className="flex flex-wrap gap-x-2 md:gap-2 text-2xl font-extrabold items-center">
               <PlayerFullName
                 firstName={profile.first_name}
                 lastName={profile.last_name}
               />
               <PlayerChosenStrength
                 goUsers={profile.go_users as GoUsers}
+              />
+              <PlayerDeclaredElo
+                elo={profile.declared_elo}
               />
             </div>
 

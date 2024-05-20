@@ -36,7 +36,7 @@ export function PlayerChosenStrength({
     getStrength() && (
       <h3
         className={cn(
-          "text-gray-600 text-lg md:text-lg",
+          "text-gray-600 text-lg",
           getStrengthColor(),
         )}
       >
@@ -44,4 +44,15 @@ export function PlayerChosenStrength({
       </h3>
     )
   )
+}
+
+type PlayerDeclaredEloProps = {
+  elo: number | undefined | null
+}
+export function PlayerDeclaredElo({
+  elo,
+}: PlayerDeclaredEloProps) {
+  if (!elo) return
+
+  return <h3 className="text-sm text-gray-400">({elo})</h3>
 }

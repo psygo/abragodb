@@ -47,7 +47,7 @@ export function BrStateFilter({
           }}
         >
           <SelectItem className="cursor-pointer" value=" ">
-            Todos
+            Todos os estados
           </SelectItem>
           {BR_STATE_OPTIONS.map((st, i) => {
             return (

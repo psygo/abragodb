@@ -25,7 +25,7 @@ export function selectPlayersWithState(state?: string) {
           : e.op(true, "=", true),
       ),
       order_by: {
-        expression: player.created_at,
+        expression: player.profile.declared_elo,
         direction: e.DESC,
       },
     }
