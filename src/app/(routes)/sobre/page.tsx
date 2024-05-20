@@ -1,6 +1,13 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../../components/common/shad/accordion"
+
 export default function AboutPage() {
   return (
-    <article className="prose dark:prose-invert">
+    <article className="prose dark:prose-invert px-2">
       <section>
         <h2 className="mt-6">Sobre o Projeto</h2>
 
@@ -37,6 +44,44 @@ export default function AboutPage() {
           <li>Partidas</li>
           <li>Torneios</li>
         </ul>
+      </section>
+      <section>
+        <h2>Perguntas Frequentes</h2>
+
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="text-left text-lg">
+              <ol className="py-0 my-0">
+                <li>
+                  O mapa do Brasil com o número de jogadores
+                  por estado conta até mesmo quem lista mais
+                  de um estado de residência?
+                </li>
+              </ol>
+            </AccordionTrigger>
+            <AccordionContent className="text-md pl-[9px]">
+              No momento, não exatamente. Os números totais
+              mostrados naquele mapa são baseados no{" "}
+              <em>primeiro</em> estado listado como
+              residência.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger className="text-left text-lg">
+              <ol start={2} className="py-0 my-0">
+                <li>
+                  O ordenamento de força é feito com qual
+                  força declarada?
+                </li>
+              </ol>
+            </AccordionTrigger>
+            <AccordionContent className="text-md pl-[9px]">
+              Com a mesma força que foi escolhida pelo
+              jogador em seu perfil, isto é, a primeira
+              listada.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </section>
     </article>
   )
