@@ -25,7 +25,7 @@ export default async function HomePage({
   return (
     <div className="flex flex-col justify-end gap-2">
       <BrStateFilter initialValue={estado as BR_STATE} />
-      <PlayersList players={playersQuery.players} />
+      <PlayersList players={playersQuery} />
     </div>
   )
 }

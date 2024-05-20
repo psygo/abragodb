@@ -5,8 +5,8 @@ import { type BR_STATE } from "@types"
 export function selectPlayersWithState(state?: string) {
   const hasState = state && state.length === 2
 
-  return e.select({
-    players: e.select(e.Player, (player) => ({
+  return e.select(e.Player, (player) => {
+    return {
       ...e.Player["*"],
       id: false,
       profile: {
@@ -28,7 +28,7 @@ export function selectPlayersWithState(state?: string) {
         expression: player.created_at,
         direction: e.DESC,
       },
-    })),
+    }
   })
 }
 

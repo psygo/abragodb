@@ -1,5 +1,7 @@
 import { z } from "zod"
 
+import { goStrength } from "@types"
+
 import { optionSchema } from "@types"
 
 //----------------------------------------------------------
@@ -26,6 +28,26 @@ export const goUsersSchema = z
   .optional()
 
 export type GoUsers = z.infer<typeof goUsersSchema>
+
+export function getFirstStrength(
+  goUsers: GoUsers | null | undefined,
+) {
+  if (!goUsers) return
+
+  const strengths = Object.values({ ...goUsers })
+  if (strengths.length === 0) return
+
+  return strengths
+    .map((u) => {
+      return {
+        ...goStrength.find(
+          (gs) => gs.kyu_dan === u.strength,
+        )!,
+        server: u.server,
+      }
+    })
+    .first()
+}
 
 //----------------------------------------------------------
 
