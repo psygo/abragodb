@@ -1,6 +1,6 @@
 # Tasks
 
-1. [ ] Ordering by Declared Strength
+1. [ ] Links Page DB
 1. [ ] Fixed URL fields
 1. [ ] Toast for when the profile is updated
 1. [ ] Loading button for profile update

@@ -2,8 +2,13 @@ import e, { type $infer } from "@schema"
 
 import { type BR_STATE } from "@types"
 
-export function selectPlayersWithState(state?: string) {
-  const hasState = state && state.length === 2
+import { type PlayersOrderBy } from "@components"
+
+export function selectPlayersWithState(
+  state?: BR_STATE,
+  orderBy?: PlayersOrderBy,
+) {
+  console.log("orderBy", orderBy)
 
   return e.select(e.Player, (player) => {
     return {
@@ -16,16 +21,19 @@ export function selectPlayersWithState(state?: string) {
       filter: e.op(
         e.op(player.profile.is_public, "=", true),
         "and",
-        hasState
+        state
           ? e.op(
-              e.array([e.BrState[state as BR_STATE]]),
+              e.array([e.BrState[state]]),
               "in",
               player.profile.br_states_of_residence,
             )
           : e.op(true, "=", true),
       ),
       order_by: {
-        expression: player.profile.declared_elo,
+        expression:
+          orderBy === "criacao"
+            ? player.created_at
+            : player.profile.declared_elo,
         direction: e.DESC,
       },
     }

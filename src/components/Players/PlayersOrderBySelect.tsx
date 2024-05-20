@@ -10,18 +10,15 @@ import {
   SelectValue,
 } from "@shad"
 
-import {
-  BR_STATE_OPTIONS,
-  type BR_STATE_OR_ALL,
-} from "@types"
+export type PlayersOrderBy = "criacao" | "elo_declarado"
 
-type BrStateFilterProps = {
-  initialValue?: BR_STATE_OR_ALL | null | undefined
+type PlayersOrderBySelectProps = {
+  initialValue: PlayersOrderBy
 }
 
-export function BrStateFilter({
-  initialValue = " ",
-}: BrStateFilterProps) {
+export function PlayersOrderBySelect({
+  initialValue = "elo_declarado",
+}: PlayersOrderBySelectProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -32,13 +29,13 @@ export function BrStateFilter({
           const newSearchParams = new URLSearchParams(
             searchParams,
           )
-          newSearchParams.set("estado", v)
+          newSearchParams.set("ordenar", v)
           router.push(`/?${newSearchParams.toString()}`)
         }}
         value={initialValue ?? " "}
       >
         <SelectTrigger className="w-[200px]">
-          <SelectValue placeholder="Selecione um estado" />
+          <SelectValue placeholder="Selecione um ordenamento" />
         </SelectTrigger>
         <SelectContent
           ref={(ref) => {
@@ -48,20 +45,18 @@ export function BrStateFilter({
             }
           }}
         >
-          <SelectItem className="cursor-pointer" value=" ">
-            Todos os estados
+          <SelectItem
+            className="cursor-pointer"
+            value="elo_declarado"
+          >
+            Nível Declarado
           </SelectItem>
-          {BR_STATE_OPTIONS.map((st, i) => {
-            return (
-              <SelectItem
-                className="cursor-pointer"
-                key={i}
-                value={st.value}
-              >
-                {st.label}
-              </SelectItem>
-            )
-          })}
+          <SelectItem
+            className="cursor-pointer"
+            value="criacao"
+          >
+            Data de Criação
+          </SelectItem>
         </SelectContent>
       </Select>
     </div>
