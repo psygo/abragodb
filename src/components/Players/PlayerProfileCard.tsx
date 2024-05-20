@@ -51,6 +51,7 @@ export function PlayerProfileCard({
 
   return (
     <Card
+      className="bg-gray-50"
       style={{
         borderColor: profile.border_color ?? "gray",
       }}
@@ -98,11 +99,11 @@ export function PlayerProfileCard({
 
       <CardContent className="flex flex-col gap-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-2 gap-y-2 w-max">
-            <BadgeList
-              label="Idiomas"
-              badges={profile.languages}
-              className="md:col-span-3"
-            />
+          <BadgeList
+            label="Idiomas"
+            badges={profile.languages}
+            className="md:col-span-3"
+          />
           <BadgeList
             label="Nacionalidades"
             badges={profile.nationalities}

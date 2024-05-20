@@ -10,6 +10,8 @@ import {
 
 import { Card, CardHeader, CardTitle } from "@shad"
 
+import { BadgeList } from "../common/exports"
+
 import { PlayerAvatar } from "./PlayerAvatar"
 
 import {
@@ -26,36 +28,22 @@ type PlayerProfileListCardProps = {
 export function PlayerProfileListCard({
   player,
 }: PlayerProfileListCardProps) {
-  if (!player) return
-
-  if (!player.profile)
-    return (
-      <h2 className="text-gray-400">Nenhuma Informação</h2>
-    )
+  if (!player?.profile) return
 
   const profile = player.profile
-
-  function showSubtitle() {
-    return (
-      profile.sex ??
-      profile.date_of_birth ??
-      profile.public_email ??
-      (profile.socials_links as SocialsLinks)
-    )
-  }
 
   return (
     <Card className="bg-gray-50 dark:bg-gray-900 border-gray-300 dark:border-gray-500">
       <CardHeader className="p-4 pr-5">
-        <CardTitle className="flex gap-2 md:gap-3 items-center">
+        <CardTitle className="flex gap-3 md:gap-3 items-center">
           <PlayerAvatar
             imageUrl={player.image_url}
             alt={player.username}
             className="h-12 md:h-14 w-12 md:w-14"
           />
 
-          <div className="flex flex-col md:gap-1">
-            <div className="flex flex-wrap gap-1 md:gap-2 text-2xl font-extrabold md:items-center">
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap gap-x-2 md:gap-2 text-2xl font-extrabold md:items-center">
               <PlayerFullName
                 firstName={profile.first_name}
                 lastName={profile.last_name}
@@ -65,20 +53,21 @@ export function PlayerProfileListCard({
               />
             </div>
 
-            {showSubtitle() && (
-              <div className="flex gap-2 items-center">
-                <PlayerAge
-                  dateOfBirth={localDateToDate(
-                    profile.date_of_birth,
-                  )}
-                />
-                <PlayerSocials
-                  socialsLinks={
-                    profile.socials_links as SocialsLinks
-                  }
-                />
-              </div>
-            )}
+            <div className="flex flex-wrap gap-2 items-center">
+              <BadgeList
+                badges={profile.cities_of_residence}
+              />
+              <PlayerAge
+                dateOfBirth={localDateToDate(
+                  profile.date_of_birth,
+                )}
+              />
+              <PlayerSocials
+                socialsLinks={
+                  profile.socials_links as SocialsLinks
+                }
+              />
+            </div>
           </div>
         </CardTitle>
       </CardHeader>
