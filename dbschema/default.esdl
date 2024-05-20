@@ -38,7 +38,7 @@ module default {
     }
 
     is_public: bool {
-      default := false;
+      default := true;
     }
     border_color: str;
 

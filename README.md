@@ -33,7 +33,7 @@ CLERK_WEBHOOKS_USER_EVENTS=
 To create migrations:
 
 ```sh
-edgedb create migration
+edgedb migration create
 edgedb migrate
 ```
 

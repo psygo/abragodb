@@ -28,13 +28,20 @@ export const item = {
 }
 
 type PlayersTableProps = {
-  players: GetPlayers["players"]
+  players: GetPlayers
 }
 
 export function PlayersList({
   players,
 }: PlayersTableProps) {
   const router = useRouter()
+
+  if (players.length === 0)
+    return (
+      <h2 className="mt-4 text-gray-500">
+        Nenhum jogador encontrado
+      </h2>
+    )
 
   return (
     <motion.ul
