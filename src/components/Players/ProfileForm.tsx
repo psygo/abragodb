@@ -581,150 +581,160 @@ function GoUsersSection({
         será a primeira listada aqui.
       </p>
 
-      {Array.from(Array(totalGoUsers() + 1), (e, i) => {
-        const key = `user-${i}`
-        return (
-          <div
-            key={i}
-            className="grid grid-cols-12 gap-x-2 gap-y-3 items-end"
-          >
-            <FormItem className="col-span-4 w-full">
-              <FormLabel className="ml-3">
-                Servidor
-              </FormLabel>
-              <FormControl>
-                <Select
-                  value={goUsers?.[key]?.server}
-                  onValueChange={(v) => {
-                    const currentUsers =
-                      profileForm.getValues("go_users")
-                    const newGoUsers = {
-                      ...currentUsers,
-                    }
-                    newGoUsers[key] = {
-                      ...currentUsers?.[key],
-                      server: v,
-                    }
-                    profileForm.setValue(
-                      "go_users",
-                      newGoUsers,
-                    )
-                    setGoUsers(newGoUsers)
-                  }}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Escolha um servidor" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {goServers.map((gs, i) => (
-                      <SelectItem key={i} value={gs}>
-                        {gs}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            <FormItem className="col-span-3">
-              <FormLabel className="ml-3">
-                Usuário
-              </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="joao"
-                  value={goUsers?.[key]?.username ?? ""}
-                  onChange={(e) => {
-                    const currentUsers =
-                      profileForm.getValues("go_users")
-                    const newGoUsers = {
-                      ...currentUsers,
-                    }
-                    newGoUsers[key] = {
-                      ...currentUsers?.[key],
-                      username: e.target.value,
-                    }
-                    profileForm.setValue(
-                      "go_users",
-                      newGoUsers,
-                    )
-                    setGoUsers(newGoUsers)
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            <FormItem className="col-span-4 w-full">
-              <FormLabel className="ml-3">Força</FormLabel>
-              <FormControl>
-                <Select
-                  value={goUsers?.[key]?.strength}
-                  onValueChange={(v) => {
-                    const currentUsers =
-                      profileForm.getValues("go_users")
-                    const newGoUsers = {
-                      ...currentUsers,
-                    }
-                    newGoUsers[key] = {
-                      ...currentUsers?.[key],
-                      strength: v,
-                    }
-                    profileForm.setValue(
-                      "go_users",
-                      newGoUsers,
-                    )
-                    setGoUsers(newGoUsers)
-                  }}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione sua força" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {goStrength.map((gs, i) => (
-                      <SelectItem
-                        key={i}
-                        value={gs.kyu_dan}
-                      >
-                        {gs.kyu_dan}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-            {i === totalGoUsers() ? (
-              <Button
-                type="button"
-                className="col-span-1"
-                onClick={() => {
-                  const newGoUsers = { ...goUsers }
-                  newGoUsers[`user-${i + 1}`] = {}
-                  setGoUsers(newGoUsers)
-                }}
-              >
-                <Plus className="h-[18px] w-[18px]" />
-              </Button>
-            ) : (
-              <Button
-                type="button"
-                className="col-span-1"
-                onClick={() => {
-                  const newGoUsers = { ...goUsers }
-                  delete newGoUsers[key]
-                  profileForm.setValue(
-                    "go_users",
-                    newGoUsers,
-                  )
-                  setGoUsers({ ...newGoUsers })
-                }}
-              >
-                <Trash2 className="h-[17px] w-[17px]" />
-              </Button>
-            )}
-          </div>
-        )
-      })}
+      <div className="flex flex-col gap-6 md:gap-4">
+        {Array.from(Array(totalGoUsers() + 1), (e, i) => {
+          const key = `user-${i}`
+          return (
+            <div
+              key={i}
+              className="grid grid-cols-12 gap-x-2 gap-y-1 items-end"
+            >
+              <FormItem className="col-span-6 md:col-span-4 w-full">
+                <FormLabel className="ml-3">
+                  Servidor
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    value={goUsers?.[key]?.server}
+                    onValueChange={(v) => {
+                      const currentUsers =
+                        profileForm.getValues("go_users")
+                      const newGoUsers = {
+                        ...currentUsers,
+                      }
+                      newGoUsers[key] = {
+                        ...currentUsers?.[key],
+                        server: v,
+                      }
+                      profileForm.setValue(
+                        "go_users",
+                        newGoUsers,
+                      )
+                      setGoUsers(newGoUsers)
+                    }}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Escolha um servidor" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {goServers.map((gs, i) => (
+                        <SelectItem key={i} value={gs}>
+                          {gs}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+              <FormItem className="col-span-6 md:col-span-3">
+                <FormLabel className="ml-3">
+                  Usuário
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="joao"
+                    value={goUsers?.[key]?.username ?? ""}
+                    onChange={(e) => {
+                      const currentUsers =
+                        profileForm.getValues("go_users")
+                      const newGoUsers = {
+                        ...currentUsers,
+                      }
+                      newGoUsers[key] = {
+                        ...currentUsers?.[key],
+                        username: e.target.value,
+                      }
+                      profileForm.setValue(
+                        "go_users",
+                        newGoUsers,
+                      )
+                      setGoUsers(newGoUsers)
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+              <FormItem className="col-span-6 md:col-span-4 w-full">
+                <FormLabel className="ml-3">
+                  Força
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    value={goUsers?.[key]?.strength}
+                    onValueChange={(v) => {
+                      const currentUsers =
+                        profileForm.getValues("go_users")
+                      const newGoUsers = {
+                        ...currentUsers,
+                      }
+                      newGoUsers[key] = {
+                        ...currentUsers?.[key],
+                        strength: v,
+                      }
+                      profileForm.setValue(
+                        "go_users",
+                        newGoUsers,
+                      )
+                      setGoUsers(newGoUsers)
+                    }}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione sua força" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {goStrength.map((gs, i) => (
+                        <SelectItem
+                          key={i}
+                          value={gs.kyu_dan}
+                        >
+                          {gs.kyu_dan}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+
+              <div className="col-span-1 w-full">
+                {i === totalGoUsers() ? (
+                  <Button
+                    type="button"
+                    className="p-0 w-[50px]"
+                    size="icon"
+                    onClick={() => {
+                      const newGoUsers = { ...goUsers }
+                      newGoUsers[`user-${i + 1}`] = {}
+                      setGoUsers(newGoUsers)
+                    }}
+                  >
+                    <Plus
+                      style={{ height: 18, width: 18 }}
+                    />
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    className="p-0 w-[50px]"
+                    onClick={() => {
+                      const newGoUsers = { ...goUsers }
+                      delete newGoUsers[key]
+                      profileForm.setValue(
+                        "go_users",
+                        newGoUsers,
+                      )
+                      setGoUsers({ ...newGoUsers })
+                    }}
+                  >
+                    <Trash2 className="h-[17px] w-[17px]" />
+                  </Button>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </fieldset>
   )
 }
