@@ -76,6 +76,14 @@ function RightNav() {
             </MenubarItem>
             <MenubarItem className="justify-end">
               <Link
+                href="/estatisticas"
+                className="text-[1.15rem]"
+              >
+                Outros Recursos
+              </Link>
+            </MenubarItem>
+            <MenubarItem className="justify-end">
+              <Link
                 href="/sobre"
                 className="text-[1.15rem]"
               >
@@ -137,6 +145,10 @@ function PageNavs() {
       <PageNavLink
         href="/estatisticas"
         label="Estatísticas"
+      />
+      <PageNavLink
+        href="/outros-recursos"
+        label="Outros Recursos"
       />
       <PageNavLink href="/sobre" label="Sobre" />
     </div>

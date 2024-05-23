@@ -1,10 +1,11 @@
 # Tasks
 
+1. [ ] Suspended Status
 1. [ ] Links Page DB
-2. [ ] Fixed URL fields
-3. [ ] Toast for when the profile is updated
-4. [ ] Loading button for profile update
-5. [ ] Suspended Status
+1. [ ] Framer Motion on the profile card
+1. [ ] Fixed URL fields
+1. [ ] Toast for when the profile is updated
+1. [ ] Loading button for profile update
 
 ## Second Version
 

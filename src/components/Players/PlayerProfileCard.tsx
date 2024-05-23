@@ -49,7 +49,7 @@ export function PlayerProfileCard({
 
   return (
     <Card
-      className="bg-gray-50"
+      className="bg-gray-50 dark:bg-gray-900"
       style={{
         borderColor: profile.border_color ?? "gray",
       }}
