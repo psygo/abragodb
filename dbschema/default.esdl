@@ -27,6 +27,9 @@ module default {
       default := (select datetime_current());
     }
     index on (.updated_at);
+    
+    account_status: str;
+    index on (.account_status);
 
     profile := .<player[is Profile];
   }

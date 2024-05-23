@@ -8,8 +8,6 @@ export function selectPlayersWithState(
   state?: BR_STATE,
   orderBy?: PlayersOrderBy,
 ) {
-  console.log("orderBy", orderBy)
-
   return e.select(e.Player, (player) => {
     return {
       ...e.Player["*"],
@@ -19,7 +17,12 @@ export function selectPlayersWithState(
         id: false,
       },
       filter: e.op(
-        e.op(player.profile.is_public, "=", true),
+        e.op(
+          e.op(player.profile.is_public, "=", true),
+          "and",
+          // e.op(player.profile.is_public, "=", true),
+          e.op(player.account_status, "!=", "suspended"),
+        ),
         "and",
         state
           ? e.op(

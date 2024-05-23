@@ -10,6 +10,15 @@ export default function OutrosRecursosPage() {
         português.
       </p>
 
+      <blockquote className="font-normal">
+        Caso você possua sugestões de mais recursos, é só
+        registrá-la{" "}
+        <a href="https://github.com/psygo/abragodb/issues/new">
+          aqui
+        </a>
+        .
+      </blockquote>
+
       <h3>1. Enciclopédias</h3>
 
       <ul>
