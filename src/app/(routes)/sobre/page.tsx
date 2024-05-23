@@ -8,9 +8,10 @@ export default function AboutPage() {
 
         <p>
           O ABRAGO DB é um banco de dados interativo para
-          jogadores brasileiros. Como uma segunda etapa do
-          projeto, há intenções de se adicionar partidas e
-          rankings.
+          jogadores brasileiros, sendo um de seus principais
+          objetivos a localização de jogadores brasileiros.
+          Como uma segunda etapa do projeto, há intenções de
+          se adicionar partidas e rankings.
         </p>
 
         <p>

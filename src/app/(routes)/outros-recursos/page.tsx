@@ -24,7 +24,7 @@ export default function OutrosRecursosPage() {
           <a href="https://senseis.xmp.net/">
             Sensei&apos;s Library
           </a>
-          : apesar de que não está em português, é a
+          : apesar de que não está em português, é
           basicamente a verdadeira Wikipéidia do Go.
         </li>
       </ul>
@@ -60,7 +60,7 @@ export default function OutrosRecursosPage() {
           comunidade bastante amigável e ativa.
         </li>
         <li>
-          <a href="">
+          <a href="https://discord.gg/TuJFdBn2FF">
             Servidor de Discord{" "}
             <em>Go com Philippe Fanaro</em>
           </a>
@@ -70,11 +70,74 @@ export default function OutrosRecursosPage() {
         </li>
       </ul>
 
-      <h3>4. YouTube e Twitch</h3>
+      <h3>4. Twitch</h3>
 
-      <h3>5. Sites</h3>
+      <ul>
+        <li>
+          <a href="https://www.twitch.tv/brasilnihonkiin">
+            @BrasilNihonKiin
+          </a>{" "}
+          (Brasil Nihon Kiin)
+        </li>
+        <li>
+          <a href="https://www.twitch.tv/fanaro009">
+            @Fanaro009
+          </a>{" "}
+          (Philippe Fanaro)
+        </li>
+      </ul>
 
-      <h3>6. Produtos</h3>
+      <h3>5. YouTube</h3>
+
+      <ul>
+        <li>
+          <a href="https://www.youtube.com/@Fanaro">
+            @Fanaro
+          </a>{" "}
+          (Philippe Fanaro)
+        </li>
+      </ul>
+
+      <h3>6. Sites</h3>
+
+      <ul>
+        <li>
+          <a href="https://nihonkiin.com.br/">
+            Brasil Nihon Kiin
+          </a>
+        </li>
+        <li>
+          <a href="https://fanaro.io">fanaro.io</a>: blog de
+          Philippe Fanaro.
+        </li>
+      </ul>
+
+      <h3>7. Produtos</h3>
+
+      <ul>
+        <li>
+          <a href="https://nihonkiin.com.br/">
+            Loja da Brasil Nihon Kiin
+          </a>
+          : a Associação Japonesa de Go vende equipamentos,
+          livros e outros itens diversos de Go. A loja deles
+          na verdade é somente física pelo momento, mas eles
+          oferecem entrega, é só entrar em contato.
+        </li>
+        <li>
+          <a href="https://produto.mercadolivre.com.br/MLB-2116082750-como-jogar-go-uma-introduco-concisa-_JM">
+            Como Jogar Go: Uma Introdução Concisa
+          </a>
+          : um livro introdutório de Go, traduzido e editado
+          por Philippe Fanaro. O livro foi todo desenvolvido
+          em código aberto, e o PDF é gratuito, e pode ser
+          obtido{" "}
+          <a href="https://github.com/psygo/traducao_como_jogar_go">
+            aqui
+          </a>
+          .
+        </li>
+      </ul>
     </article>
   )
 }
