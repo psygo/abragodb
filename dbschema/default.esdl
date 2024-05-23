@@ -3,24 +3,30 @@ module default {
     required clerkid: str {
       constraint exclusive;
     }
+    index on (.clerkid);
     required nanoid: str {
       constraint exclusive;
     }
+    index on (.nanoid);
 
     required username: str {
       constraint exclusive;
     }
+    index on (.username);
     required email: str {
       constraint exclusive;
     }
+    index on (.email);
     image_url: str;
 
     created_at: datetime {
       default := (select datetime_current());
     }
+    index on (.created_at);
     updated_at: datetime {
       default := (select datetime_current());
     }
+    index on (.updated_at);
 
     profile := .<player[is Profile];
   }
@@ -40,6 +46,7 @@ module default {
     is_public: bool {
       default := true;
     }
+    index on (.is_public);
     border_color: str;
 
     first_name: str;
@@ -58,12 +65,15 @@ module default {
 
     countries_of_residence: array<str>;
     br_states_of_residence: array<BrState>;
+    index on (.br_states_of_residence);
     cities_of_residence: array<str>;
+    index on (.cities_of_residence);
 
     socials_links: json;
     
     go_users: json;
     declared_elo: int16;
+    index on (.declared_elo);
 
     is_teacher: bool;
   }

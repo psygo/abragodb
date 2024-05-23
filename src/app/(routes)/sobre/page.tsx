@@ -33,8 +33,7 @@ export default function AboutPage() {
         </p>
 
         <ul>
-          <li>Estatísticas da População de Jogadores</li>
-          <li>Mapa Interativo com os Jogadores</li>
+          <li>Histograma da População de Jogadores</li>
           <li>Internacionalização</li>
           <li>Partidas</li>
           <li>Torneios</li>
