@@ -20,8 +20,7 @@ export function selectPlayersWithState(
         e.op(
           e.op(player.profile.is_public, "=", true),
           "and",
-          e.op(player.profile.is_public, "=", true),
-          // e.op(player.account_status, "!=", "suspended"),
+          e.op(player.account_status, "?!=", "suspended"),
         ),
         "and",
         state
