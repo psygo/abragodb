@@ -1,10 +1,11 @@
 # Tasks
 
-1. [ ] Links Page DB
-1. [ ] Fixed URL fields
-1. [ ] Toast for when the profile is updated
-1. [ ] Loading button for profile update
-1. [ ] Suspended Status
+1. [ ] Add indexes
+2. [ ] Links Page DB
+3. [ ] Fixed URL fields
+4. [ ] Toast for when the profile is updated
+5. [ ] Loading button for profile update
+6. [ ] Suspended Status
 
 ## Second Version
 
