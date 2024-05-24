@@ -73,9 +73,6 @@ export default function OutrosRecursosPage() {
             Servidor de Discord{" "}
             <em>Go com Philippe Fanaro</em>
           </a>
-          : administrado pelo presidente da Brasil Nihon
-          Kiin, Felipe Herman van Riemsdijk, possui uma
-          comunidade bastante amigável e ativa.
         </li>
       </ul>
 
