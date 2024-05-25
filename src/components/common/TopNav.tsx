@@ -76,7 +76,7 @@ function RightNav() {
             </MenubarItem>
             <MenubarItem className="justify-end">
               <Link
-                href="/estatisticas"
+                href="/outros-recursos"
                 className="text-[1.15rem]"
               >
                 Outros Recursos
